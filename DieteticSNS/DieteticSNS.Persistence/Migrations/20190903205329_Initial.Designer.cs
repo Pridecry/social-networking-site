@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DieteticSNS.Persistence.Migrations
 {
     [DbContext(typeof(DieteticSNSDbContext))]
-    [Migration("20190903123539_Initial")]
+    [Migration("20190903205329_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content");
 
@@ -35,7 +36,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -48,8 +49,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Country", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -60,9 +62,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Following", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
-                    b.Property<Guid>("FollowerId");
+                    b.Property<int>("FollowerId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -77,8 +79,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Ingredient", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Carbohydrate");
 
@@ -95,8 +98,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Like", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -105,7 +109,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -118,8 +122,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Post", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -129,7 +134,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -140,8 +145,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Recipe", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -149,7 +155,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -160,9 +166,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.RecipeIngredient", b =>
                 {
-                    b.Property<Guid>("RecipeId");
+                    b.Property<int>("RecipeId");
 
-                    b.Property<Guid>("IngredientId");
+                    b.Property<int>("IngredientId");
 
                     b.Property<decimal>("Quantity");
 
@@ -177,10 +183,11 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Report", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("AccuserId");
+                    b.Property<int>("AccuserId");
 
                     b.Property<string>("Content");
 
@@ -202,8 +209,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Stars", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Amount");
 
@@ -214,7 +222,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -227,8 +235,9 @@ namespace DieteticSNS.Persistence.Migrations
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount");
 
@@ -237,8 +246,6 @@ namespace DieteticSNS.Persistence.Migrations
                     b.Property<string>("ConcurrencyStamp");
 
                     b.Property<int>("CountryId");
-
-                    b.Property<Guid?>("CountryId1");
 
                     b.Property<string>("Email");
 
@@ -274,7 +281,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId1");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Users");
                 });
@@ -283,7 +290,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Comment");
 
-                    b.Property<Guid>("PostId");
+                    b.Property<int>("PostId");
 
                     b.HasIndex("PostId");
 
@@ -294,7 +301,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Comment");
 
-                    b.Property<Guid>("RecipeId");
+                    b.Property<int>("RecipeId");
 
                     b.HasIndex("RecipeId");
 
@@ -305,7 +312,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Like");
 
-                    b.Property<Guid>("CommentId");
+                    b.Property<int>("CommentId");
 
                     b.HasIndex("CommentId");
 
@@ -316,7 +323,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Like");
 
-                    b.Property<Guid>("PostId");
+                    b.Property<int>("PostId");
 
                     b.HasIndex("PostId");
 
@@ -327,7 +334,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Report");
 
-                    b.Property<Guid>("CommentId");
+                    b.Property<int>("CommentId");
 
                     b.HasIndex("CommentId");
 
@@ -338,7 +345,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Report");
 
-                    b.Property<Guid>("PostId");
+                    b.Property<int>("PostId");
 
                     b.HasIndex("PostId");
 
@@ -349,7 +356,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Report");
 
-                    b.Property<Guid>("RecipeId");
+                    b.Property<int>("RecipeId");
 
                     b.HasIndex("RecipeId");
 
@@ -360,7 +367,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasBaseType("DieteticSNS.Domain.Entities.Stars");
 
-                    b.Property<Guid>("RecipeId");
+                    b.Property<int>("RecipeId");
 
                     b.HasIndex("RecipeId");
 
@@ -445,7 +452,8 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasOne("DieteticSNS.Domain.Entities.Country", "Country")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId1");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.PostComment", b =>

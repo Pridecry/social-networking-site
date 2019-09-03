@@ -4,7 +4,7 @@ using DieteticSNS.Domain.Entities.Base;
 
 namespace DieteticSNS.Domain.Entities
 {
-    public class Ingredient : BaseEntity<Guid>
+    public class Ingredient : BaseEntity<int>
     {
         public string Name { get; set; }
         public decimal Protein { get; set; }

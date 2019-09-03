@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DieteticSNS.Persistence.Migrations
@@ -11,7 +12,8 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -23,7 +25,8 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Ingredients",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Protein = table.Column<decimal>(nullable: false),
                     Carbohydrate = table.Column<decimal>(nullable: false),
@@ -38,7 +41,8 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
                     NormalizedUserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -58,26 +62,25 @@ namespace DieteticSNS.Persistence.Migrations
                     BirthDate = table.Column<DateTime>(nullable: false),
                     ProfilePicURL = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false),
-                    CountryId1 = table.Column<Guid>(nullable: true)
+                    CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Countries_CountryId1",
-                        column: x => x.CountryId1,
+                        name: "FK_Users_Countries_CountryId",
+                        column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Followings",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(nullable: false),
-                    FollowerId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    FollowerId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
@@ -102,10 +105,11 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageURL = table.Column<string>(nullable: true)
                 },
@@ -124,10 +128,11 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Recipes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -145,14 +150,15 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
-                    PostId = table.Column<Guid>(nullable: true),
-                    RecipeId = table.Column<Guid>(nullable: true)
+                    PostId = table.Column<int>(nullable: true),
+                    RecipeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -181,8 +187,8 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "RecipeIngredients",
                 columns: table => new
                 {
-                    RecipeId = table.Column<Guid>(nullable: false),
-                    IngredientId = table.Column<Guid>(nullable: false),
+                    RecipeId = table.Column<int>(nullable: false),
+                    IngredientId = table.Column<int>(nullable: false),
                     Quantity = table.Column<decimal>(nullable: false),
                     Unit = table.Column<int>(nullable: false)
                 },
@@ -207,13 +213,14 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Stars",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Amount = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
-                    RecipeId = table.Column<Guid>(nullable: true)
+                    RecipeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -236,13 +243,14 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Likes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
-                    CommentId = table.Column<Guid>(nullable: true),
-                    PostId = table.Column<Guid>(nullable: true)
+                    CommentId = table.Column<int>(nullable: true),
+                    PostId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -271,15 +279,16 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Reports",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    AccuserId = table.Column<Guid>(nullable: false),
+                    AccuserId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
-                    CommentId = table.Column<Guid>(nullable: true),
-                    PostId = table.Column<Guid>(nullable: true),
-                    RecipeId = table.Column<Guid>(nullable: true)
+                    CommentId = table.Column<int>(nullable: true),
+                    PostId = table.Column<int>(nullable: true),
+                    RecipeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -391,9 +400,9 @@ namespace DieteticSNS.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_CountryId1",
+                name: "IX_Users_CountryId",
                 table: "Users",
-                column: "CountryId1");
+                column: "CountryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -4,7 +4,7 @@ using DieteticSNS.Domain.Entities.Base;
 
 namespace DieteticSNS.Domain.Entities
 {
-    public class Country : BaseEntity<Guid>
+    public class Country : BaseEntity<int>
     {
         public string Name { get; set; }
 

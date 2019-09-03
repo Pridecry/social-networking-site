@@ -4,7 +4,7 @@ namespace DieteticSNS.Domain.Entities
 {
     public class PostLike : Like
     {
-        public Guid PostId { get; set; }
+        public int PostId { get; set; }
         public virtual Post Post { get; set; }
     }
 }

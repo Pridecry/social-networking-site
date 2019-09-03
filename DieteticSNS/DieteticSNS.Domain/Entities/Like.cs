@@ -5,7 +5,7 @@ namespace DieteticSNS.Domain.Entities
 {
     public class Like : BaseTimeStampEntity
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 }

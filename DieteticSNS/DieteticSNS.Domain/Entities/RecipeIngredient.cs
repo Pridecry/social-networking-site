@@ -5,10 +5,10 @@ namespace DieteticSNS.Domain.Entities
 {
     public class RecipeIngredient
     {
-        public Guid RecipeId { get; set; }
+        public int RecipeId { get; set; }
         public virtual Recipe Recipe { get; set; }
 
-        public Guid IngredientId { get; set; }
+        public int IngredientId { get; set; }
         public virtual Ingredient Ingredient { get; set; }
 
         public decimal Quantity { get; set; }
