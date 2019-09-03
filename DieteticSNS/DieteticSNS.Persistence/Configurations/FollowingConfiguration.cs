@@ -12,7 +12,7 @@ namespace DieteticSNS.Persistence.Configurations
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Followers)
                 .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Follower)
                 .WithMany(x => x.Followings)
                 .HasForeignKey(x => x.FollowerId)

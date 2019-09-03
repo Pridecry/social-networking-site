@@ -8,14 +8,9 @@ namespace DieteticSNS.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<PostLike> builder)
         {
-            builder.HasKey(x => new { x.PostId, x.LikeId });
             builder.HasOne(x => x.Post)
                 .WithMany(x => x.PostLikes)
-                .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.Like)
-                .WithMany(x => x.PostLikes)
-                .HasForeignKey(x => x.LikeId);
         }
     }
 }

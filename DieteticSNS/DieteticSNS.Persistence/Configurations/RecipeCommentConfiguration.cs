@@ -8,14 +8,9 @@ namespace DieteticSNS.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<RecipeComment> builder)
         {
-            builder.HasKey(x => new { x.RecipeId, x.CommentId });
             builder.HasOne(x => x.Recipe)
                 .WithMany(x => x.RecipeComments)
-                .HasForeignKey(x => x.RecipeId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.Comment)
-                .WithMany(x => x.RecipeComments)
-                .HasForeignKey(x => x.CommentId);
         }
     }
 }
