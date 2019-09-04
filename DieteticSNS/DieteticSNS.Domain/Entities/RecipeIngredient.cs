@@ -11,7 +11,7 @@ namespace DieteticSNS.Domain.Entities
         public int IngredientId { get; set; }
         public virtual Ingredient Ingredient { get; set; }
 
-        public decimal Quantity { get; set; }
-        public UnitOfMass Unit { get; set; }
+        public int Quantity { get; set; }
+        public Unit Unit { get; set; }
     }
 }

@@ -4,9 +4,11 @@ using System.Text;
 
 namespace DieteticSNS.Domain.Enumerations
 {
-    public enum UnitOfMass
+    public enum Unit
     {
         Gram,
-        Kilogram
+        Kilogram,
+        Milliliter,
+        Liter
     }
 }
