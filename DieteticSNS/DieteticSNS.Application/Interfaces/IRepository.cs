@@ -13,8 +13,8 @@ namespace DieteticSNS.Application.Interfaces
         Task AddAsync(T item);
         void Update(T item);
         void Delete(T item);
-        Task SaveAsync(CancellationToken cancellationToken = default);
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression);
-        Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+        Task SaveChangesAsync();
+        void DetachAll();
     }
 }

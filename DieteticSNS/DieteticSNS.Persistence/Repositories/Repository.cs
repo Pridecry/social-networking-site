@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -17,14 +16,9 @@ namespace DieteticSNS.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(T item)
+        public async Task<T> GetByIdAsync(int id)
         {
-            await _context.Set<T>().AddAsync(item);
-        }
-
-        public void Delete(T item)
-        {
-            _context.Set<T>().Remove(item);
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public async Task<List<T>> GetAllAsync()
@@ -32,9 +26,9 @@ namespace DieteticSNS.Persistence.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task AddAsync(T item)
         {
-            return await _context.Set<T>().FindAsync(id);
+            await _context.Set<T>().AddAsync(item);
         }
 
         public void Update(T item)
@@ -42,9 +36,9 @@ namespace DieteticSNS.Persistence.Repositories
             _context.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task SaveAsync(CancellationToken cancellationToken = default)
+        public void Delete(T item)
         {
-            await _context.SaveChangesAsync(cancellationToken);
+            _context.Set<T>().Remove(item);
         }
 
         public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
@@ -52,9 +46,14 @@ namespace DieteticSNS.Persistence.Repositories
             return await _context.Set<T>().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+        public async Task SaveChangesAsync()
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(predicate, cancellationToken);
+            await _context.SaveChangesAsync();
         }
+
+        public void DetachAll()
+        {
+            _context.DetachAll();
+        }   
     }
 }
