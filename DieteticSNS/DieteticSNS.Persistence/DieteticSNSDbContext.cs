@@ -1,5 +1,10 @@
-﻿using DieteticSNS.Application.Interfaces;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using DieteticSNS.Application.Interfaces;
 using DieteticSNS.Domain.Entities;
+using DieteticSNS.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Persistence
@@ -34,6 +39,106 @@ namespace DieteticSNS.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DieteticSNSDbContext).Assembly);
+        }
+
+        public override int SaveChanges()
+        {
+            AddTimestamps();
+
+            return base.SaveChanges();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return SaveChangesAsync(new CancellationToken());
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            AddTimestamps();
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void AddTimestamps()
+        {
+            var entries = ChangeTracker.Entries().Where(x => x.State == EntityState.Modified);
+
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is BaseTimeStampEntity baseTimeStamp)
+                {
+                    var now = DateTime.UtcNow;
+
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            //baseTimeStamp.Id = Guid.NewGuid();    ///Check if its correct?
+                            baseTimeStamp.CreatedAt = now;
+                            baseTimeStamp.UpdatedAt = now;
+                            break;
+
+                        case EntityState.Modified:
+                            baseTimeStamp.UpdatedAt = now;
+                            break;
+
+                        case EntityState.Detached:
+                            break;
+
+                        case EntityState.Unchanged:
+                            break;
+
+                        case EntityState.Deleted:
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else if (entry.Entity is TimeStampEntity timeStamp)
+                {
+                    var now = DateTime.UtcNow;
+
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            timeStamp.CreatedAt = now;
+                            timeStamp.UpdatedAt = now;
+                            break;
+
+                        case EntityState.Modified:
+                            timeStamp.UpdatedAt = now;
+                            break;
+
+                        case EntityState.Detached:
+                            break;
+
+                        case EntityState.Unchanged:
+                            break;
+
+                        case EntityState.Deleted:
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Detaches all of the objects that have been added to the ChangeTracker.
+        /// </summary>
+        public void DetachAll()
+        {
+            foreach (var dbEntityEntry in ChangeTracker.Entries().ToArray())
+            {
+                if (dbEntityEntry.Entity != null)
+                {
+                    dbEntityEntry.State = EntityState.Detached;
+                }
+            }
         }
     }
 }

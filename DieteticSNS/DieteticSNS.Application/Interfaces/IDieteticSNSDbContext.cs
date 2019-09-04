@@ -28,7 +28,11 @@ namespace DieteticSNS.Application.Interfaces
         DbSet<Stars> Stars { get; set; }
         DbSet<User> Users { get; set; }
 
+        /// Todo
+        Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        void DetachAll();
+
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
     }

@@ -10,10 +10,10 @@ namespace DieteticSNS.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public string ProfilePicURL { get; set; }
         public Gender Gender { get; set; }
+        public string ProfilePicURL { get; set; }
 
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         public virtual Country Country { get; set; }
 
         public virtual ICollection<Following> Followings { get; set; } = new HashSet<Following>();

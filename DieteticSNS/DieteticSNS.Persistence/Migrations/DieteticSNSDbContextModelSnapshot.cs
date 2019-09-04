@@ -243,7 +243,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<string>("ConcurrencyStamp");
 
-                    b.Property<int>("CountryId");
+                    b.Property<int?>("CountryId");
 
                     b.Property<string>("Email");
 
@@ -450,8 +450,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasOne("DieteticSNS.Domain.Entities.Country", "Country")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.PostComment", b =>
@@ -475,7 +474,7 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.Comment", "Comment")
                         .WithMany("CommentLikes")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.PostLike", b =>
