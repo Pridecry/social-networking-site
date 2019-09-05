@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Persistence.Infrastructure;
+﻿using DieteticSNS.Persistence.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Persistence
 {
-    class DieteticSNSDbContextFactory : DesignTimeDbContextFactoryBase<DieteticSNSDbContext>
+    public class DieteticSNSDbContextFactory : DesignTimeDbContextFactoryBase<DieteticSNSDbContext>
     {
         protected override DieteticSNSDbContext CreateNewInstance(DbContextOptions<DieteticSNSDbContext> options)
         {

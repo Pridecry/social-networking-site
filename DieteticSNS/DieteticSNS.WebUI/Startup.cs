@@ -1,4 +1,5 @@
-﻿using DieteticSNS.Persistence;
+﻿using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +18,9 @@ namespace DieteticSNS.WebUI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DieteticSNSDbContext>(options =>
+            services.AddDbContext<IDieteticSNSDbContext, DieteticSNSDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DieteticSNSDatabase")));
         }
 
@@ -33,9 +32,11 @@ namespace DieteticSNS.WebUI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
             });
         }
     }

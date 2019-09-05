@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Northwind.Persistence.Infrastructure
+namespace DieteticSNS.Persistence.Infrastructure
 {
     public abstract class DesignTimeDbContextFactoryBase<TContext> :
         IDesignTimeDbContextFactory<TContext> where TContext : DbContext
@@ -15,6 +15,7 @@ namespace Northwind.Persistence.Infrastructure
         public TContext CreateDbContext(string[] args)
         {
             var basePath = Directory.GetCurrentDirectory() + string.Format("{0}..{0}DieteticSNS", Path.DirectorySeparatorChar);
+
             return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
         }
 
