@@ -1,5 +1,7 @@
 ﻿using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +22,8 @@ namespace DieteticSNS.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(CreateIngredientCommand).GetType().Assembly);
+
             services.AddDbContext<IDieteticSNSDbContext, DieteticSNSDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DieteticSNSDatabase")));
         }

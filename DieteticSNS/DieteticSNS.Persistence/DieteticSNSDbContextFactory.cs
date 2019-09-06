@@ -1,4 +1,5 @@
-﻿using DieteticSNS.Persistence.Infrastructure;
+﻿using System;
+using DieteticSNS.Persistence.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Persistence
@@ -8,6 +9,11 @@ namespace DieteticSNS.Persistence
         protected override DieteticSNSDbContext CreateNewInstance(DbContextOptions<DieteticSNSDbContext> options)
         {
             return new DieteticSNSDbContext(options);
+        }
+
+        public static DieteticSNSDbContext Create()
+        {
+            throw new NotImplementedException();
         }
     }
 }
