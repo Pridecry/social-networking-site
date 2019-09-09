@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DieteticSNS.Persistence.Migrations
 {
     [DbContext(typeof(DieteticSNSDbContext))]
-    [Migration("20190903205329_Initial")]
+    [Migration("20190909101010_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,13 +83,13 @@ namespace DieteticSNS.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Carbohydrate");
+                    b.Property<int>("Carbohydrate");
 
-                    b.Property<decimal>("Fat");
+                    b.Property<int>("Fat");
 
                     b.Property<string>("Name");
 
-                    b.Property<decimal>("Protein");
+                    b.Property<int>("Protein");
 
                     b.HasKey("Id");
 
@@ -170,7 +170,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<int>("IngredientId");
 
-                    b.Property<decimal>("Quantity");
+                    b.Property<int>("Quantity");
 
                     b.Property<int>("Unit");
 
@@ -245,7 +245,7 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<string>("ConcurrencyStamp");
 
-                    b.Property<int>("CountryId");
+                    b.Property<int?>("CountryId");
 
                     b.Property<string>("Email");
 
@@ -452,8 +452,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasOne("DieteticSNS.Domain.Entities.Country", "Country")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.PostComment", b =>

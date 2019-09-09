@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DieteticSNS.Application.Interfaces;
 using DieteticSNS.Domain.Entities;
+using FluentValidation;
 using MediatR;
 
 namespace DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient
@@ -26,6 +27,8 @@ namespace DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient
 
             public async Task<Unit> Handle(CreateIngredientCommand request, CancellationToken cancellationToken)
             {
+                new CreateIngredientCommandValidator().ValidateAndThrow(request);
+
                 var entity = new Ingredient
                 {
                     Name = request.Name,

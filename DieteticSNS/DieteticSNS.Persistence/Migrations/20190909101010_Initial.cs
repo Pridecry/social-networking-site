@@ -28,9 +28,9 @@ namespace DieteticSNS.Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Protein = table.Column<decimal>(nullable: false),
-                    Carbohydrate = table.Column<decimal>(nullable: false),
-                    Fat = table.Column<decimal>(nullable: false)
+                    Protein = table.Column<int>(nullable: false),
+                    Carbohydrate = table.Column<int>(nullable: false),
+                    Fat = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,9 +60,9 @@ namespace DieteticSNS.Persistence.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    ProfilePicURL = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    ProfilePicURL = table.Column<string>(nullable: true),
+                    CountryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,7 +72,7 @@ namespace DieteticSNS.Persistence.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,7 +189,7 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     RecipeId = table.Column<int>(nullable: false),
                     IngredientId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<decimal>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
                     Unit = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

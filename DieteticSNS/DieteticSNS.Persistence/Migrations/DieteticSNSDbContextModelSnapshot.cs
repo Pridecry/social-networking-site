@@ -390,7 +390,7 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.User", "User")
                         .WithMany("Followers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Like", b =>
