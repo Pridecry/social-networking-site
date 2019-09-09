@@ -27,8 +27,6 @@ namespace DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient
 
             public async Task<Unit> Handle(CreateIngredientCommand request, CancellationToken cancellationToken)
             {
-                new CreateIngredientCommandValidator().ValidateAndThrow(request);
-
                 var entity = new Ingredient
                 {
                     Name = request.Name,

@@ -10,10 +10,25 @@ namespace DieteticSNS.WebAPI.Controllers
 {
     public class IngredientsController : BaseController
     {
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<CustomersListViewModel>> GetAll()
+        {
+            return Ok(await Mediator.Send(new GetCustomersListQuery()));
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<CustomerDetailModel>> Get(string id)
+        {
+            return Ok(await Mediator.Send(new GetCustomerDetailQuery { Id = id }));
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateIngredient([FromBody]CreateIngredientCommand command)
+        public async Task<IActionResult> CreateIngredient(CreateIngredientCommand command)
         {
             await Mediator.Send(command);
 
@@ -23,7 +38,7 @@ namespace DieteticSNS.WebAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(int id, [FromBody]UpdateIngredientCommand command)
+        public async Task<IActionResult> Update(int id, UpdateIngredientCommand command)
         {
             command.Id = id;
             await Mediator.Send(command);
@@ -34,9 +49,9 @@ namespace DieteticSNS.WebAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromRoute]DeleteIngredientCommand command)
         {
-            await Mediator.Send(new DeleteIngredientCommand { Id = id });
+            await Mediator.Send(command);
 
             return NoContent();
         }

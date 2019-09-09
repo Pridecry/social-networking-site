@@ -31,8 +31,8 @@ namespace DieteticSNS.WebAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DieteticSNSDatabase")));
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateIngredientCommandValidator>());
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateIngredientCommandValidator>());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
