@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient
 {

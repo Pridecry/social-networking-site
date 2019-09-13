@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
+using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,18 +13,18 @@ namespace DieteticSNS.WebAPI.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<CustomersListViewModel>> GetAll()
+        public async Task<ActionResult<IngredientsModel>> GetAll()
         {
-            return Ok(await Mediator.Send(new GetCustomersListQuery()));
+            return Ok(await Mediator.Send(new GetIngredientsListQuery()));
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CustomerDetailModel>> Get(string id)
-        {
-            return Ok(await Mediator.Send(new GetCustomerDetailQuery { Id = id }));
-        }
+        //[HttpGet("{id}")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<ActionResult<CustomerDetailModel>> Get(string id)
+        //{
+        //    return Ok(await Mediator.Send(new GetCustomerDetailQuery { Id = id }));
+        //}
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
