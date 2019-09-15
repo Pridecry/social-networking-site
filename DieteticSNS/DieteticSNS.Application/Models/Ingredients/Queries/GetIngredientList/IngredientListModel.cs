@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using DieteticSNS.Domain.Entities;
 
 namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList
 {
-    public class IngredientsModel
+    public class IngredientListModel
     {
-        public List<Ingredient> AllIngredients { get; set; }
+        public IList<IngredientModel> Ingredients { get; set; }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using DieteticSNS.Application.Exceptions;
 using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Domain.Entities;
 using MediatR;
 
 namespace DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient
@@ -28,7 +27,7 @@ namespace DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient
 
                 if (entity == null)
                 {
-                    throw new Exception();
+                    throw new NotFoundException(nameof(Ingredient), request.Id);
                 }
 
                 _context.Ingredients.Remove(entity);

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
+using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +14,18 @@ namespace DieteticSNS.WebAPI.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IngredientsModel>> GetAll()
+        public async Task<ActionResult<IngredientListModel>> GetAll()
         {
-            return Ok(await Mediator.Send(new GetIngredientsListQuery()));
+            return Ok(await Mediator.Send(new GetIngredientListQuery()));
         }
 
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<ActionResult<CustomerDetailModel>> Get(string id)
-        //{
-        //    return Ok(await Mediator.Send(new GetCustomerDetailQuery { Id = id }));
-        //}
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IngredientDetailsModel>> Get(int id)
+        {
+            return Ok(await Mediator.Send(new GetIngredientDetailsQuery { Id = id }));
+        }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -50,9 +51,9 @@ namespace DieteticSNS.WebAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromRoute]DeleteIngredientCommand command)
+        public async Task<IActionResult> Delete(int id)
         {
-            await Mediator.Send(command);
+            await Mediator.Send(new DeleteIngredientCommand { Id = id });
 
             return NoContent();
         }
