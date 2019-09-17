@@ -36,6 +36,12 @@ namespace DieteticSNS.WebAPI
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateIngredientCommandValidator>());
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -43,6 +49,7 @@ namespace DieteticSNS.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -51,8 +58,6 @@ namespace DieteticSNS.WebAPI
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            //app.UseEndpoint();
         }
     }
 }

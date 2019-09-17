@@ -1,0 +1,8 @@
+﻿@model DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList.IngredientListModel
+
+<ul>
+    @foreach (var item in Model.Ingredients)
+    {
+        <li>@item.Name @item.Protein @item.Carbohydrate @item.Fat</li>
+    }
+</ul>
