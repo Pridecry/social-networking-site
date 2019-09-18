@@ -1,0 +1,25 @@
+﻿*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+:root {
+    --main-colour-light: rgb(254, 254, 254);
+    --main-colour-dark: #000000;
+    --main-colour-yellow: #FDEE30;
+}
+
+body {
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    background-image: linear-gradient(rgba(254, 254, 254, .4), rgba(254, 254, 254, .4)), url('./blur-calorie-intake-calories-1927500.jpg');
+    background-size: cover;
+    line-height: 1.7;
+}
+
+html {
+    font-size: 62.5%;
+}
