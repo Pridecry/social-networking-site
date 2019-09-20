@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <partial name="Layout/_Navigation" />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2 bg-danger">User profile</div>
+        <div class="col-md-6 bg-success" style="position:relative">
+            @RenderBody()
+        </div>
+        <div class="col-md-3 bg-danger"></div>
+    </div>
+
+</div>

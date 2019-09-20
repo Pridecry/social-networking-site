@@ -1,5 +1,9 @@
 ﻿@model DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList.IngredientListModel
 
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
 <ul>
     @foreach (var item in Model.Ingredients)
     {

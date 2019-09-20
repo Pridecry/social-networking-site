@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <partial name="Layout/_AdminNavigation" />
+
+    <div class="row">
+        <div class="col-md-auto bg-danger">
+
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="#">todo</a>
+                <a class="nav-link" href="#">todo</a>
+                <a asp-controller="Ingredients" asp-action="GetIngredientList" class="nav-link">Ingredient list</a>
+                <a asp-controller="Ingredients" asp-action="CreateIngredient" class="nav-link">Create ingredient</a>
+
+                <div class="dropdown show">
+                    <a class="dropdown-toggle nav-link" href="#" id="dropdownMenuLink" data-toggle="dropdown">
+                        Dropdown link
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item nav-link" asp-controller="Ingredients" asp-action="GetList">Ingredient list</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item nav-link" asp-controller="Ingredients" asp-action="GetList">Ingredient list</a>
+                    </div>
+                </div>
+
+                
+
+            </nav>
+
+        </div>
+        <div class="col m-2" >
+            @RenderBody()
+        </div>
+    </div>
+
+</div>
