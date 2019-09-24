@@ -3,72 +3,20 @@
 }
 
 <div class="row">
-    <div class="col-md-auto">
-
-        <nav class="nav nav-pills flex-column">
-            <a class="nav-link active" href="#">todo</a>
-            <a class="nav-link" href="#">todo</a>
-            <a asp-controller="Ingredients" asp-action="GetIngredientList" class="nav-link">Ingredient list</a>
-            <a asp-controller="Ingredients" asp-action="CreateIngredient" class="nav-link">Create ingredient</a>
-
-
-
-            <div class="dropdown">
-                <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Dropdown link</a>
-
-                <div class="dropdown-menu">
-                    <a asp-controller="Ingredients" asp-action="GetList" class="dropdown-item">Ingredient item</a>
-                    <a asp-controller="Ingredients" asp-action="GetList" class="dropdown-item">Ingredient item</a>
-                    <div class="dropdown-divider"></div>
-                    <a asp-controller="Ingredients" asp-action="GetList" class="dropdown-item">Ingredient item</a>
-                </div>
+    <div class="col-md-auto pl-0">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="navbar-nav flex-column text-center mx-4">
+                <h4 class="navbar-text">Admin panel</h4>
+                <hr class="w-100 mt-0" style="border: 1px solid white"/>
+                <a class="nav-link active" href="#"><h5>todo</h5></a>
+                <a asp-controller="Ingredients" asp-action="GetIngredientList" class="nav-link"><h5>Ingredient list</h5></a>
+                <a asp-controller="Ingredients" asp-action="CreateIngredient" class="nav-link"><h5>Create ingredient</h5></a>
+                <a class="nav-link" href="#"><h5>todo</h5></a>
             </div>
         </nav>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
-                    <a class="nav-item nav-link disabled" href="#">Disabled</a>
-                </div>
-            </div>
-        </nav>
-
     </div>
     <div class="col m-5">
-        <ul class="nav nav-tabs flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-
         @RenderBody()
-
-
     </div>
 </div>
 

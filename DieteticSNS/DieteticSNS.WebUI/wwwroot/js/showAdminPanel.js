@@ -10,5 +10,5 @@ function switchAdminPanel() {
     row.classList.remove("bg-primary");
     row.classList.add("bg-warning");
 
-    heading.innerHTML = "Dieteticer - Admin panel";
+    heading.classList.add("text-dark");
 }
