@@ -14,9 +14,13 @@
 </head>
 
 <body>
-    @RenderBody()
+    <div class="container-fluid">
+        <partial name="Layout/_Navigation" />
+        @RenderBody()
+    </div>
 
     <!-- Optional JavaScript first -->
+    <script src="~/js/main.js"></script>
 
     <script src="~/lib/jquery/jquery.slim.min.js"></script>
     <script src="~/lib/bootstrap-4.3.1/js/bootstrap.bundle.min.js"></script>
