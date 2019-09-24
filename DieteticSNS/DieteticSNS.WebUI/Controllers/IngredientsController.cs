@@ -29,7 +29,7 @@ namespace DieteticSNS.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateIngredient(CreateIngredientCommand command)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(command);
             }

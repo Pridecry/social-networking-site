@@ -4,22 +4,37 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Name" for="name">Name</label>
-        <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Enter name">
-    </div>
-    <div class="form-group">
-        <label asp-for="Protein" for="protein">Protein</label>
-        <input asp-for="Protein" type="number" class="form-control" id="protein" placeholder="0">
-    </div>
-    <div class="form-group">
-        <label asp-for="Carbohydrate" for="carbohydrate">Carbohydrate</label>
-        <input asp-for="Carbohydrate" type="number" class="form-control" id="carbohydrate" placeholder="0">
-    </div>
-    <div class="form-group">
-        <label asp-for="Fat" for="fat">Fat</label>
-        <input asp-for="Fat" type="number" class="form-control" id="fat" placeholder="0">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<h3>Create ingredient</h3>
+<hr class="my-4">
+
+<div class="jumbotron">
+
+
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-md-1">
+                <label asp-for="Name" for="name" class="col-form-label">Name</label>
+            </div>
+            <div class="col-md-10">
+                <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Enter name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Protein" for="protein">Protein</label>
+            <input asp-for="Protein" type="number" class="form-control" id="protein" placeholder="0">
+            <span asp-validation-for="Protein" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Carbohydrate" for="carbohydrate">Carbohydrate</label>
+            <input asp-for="Carbohydrate" type="number" class="form-control" id="carbohydrate" placeholder="0">
+            <span asp-validation-for="Carbohydrate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Fat" for="fat">Fat</label>
+            <input asp-for="Fat" type="number" class="form-control" id="fat" placeholder="0">
+            <span asp-validation-for="Fat" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
