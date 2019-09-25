@@ -5,15 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Dietetic social networking site">
+    <title>Dieteticer</title>
 
     <link href="~/lib/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
 
-    <title>Dieteticer</title>
 </head>
 
-<body class="bg-light">
+<body class="bg-light" style="opacity:0">
     <div class="container-fluid">
         <partial name="Layout/_Navigation" />
         @RenderBody()
@@ -25,6 +26,12 @@
     <script src="~/lib/jquery/jquery.slim.min.js"></script>
     <script src="~/lib/bootstrap-4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/js/datatable.js"></script>
+    <script src="~/js/fouc.js"></script>
 </body>
 
 </html>

@@ -4,9 +4,46 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<ul>
-    @foreach (var item in Model.Ingredients)
-    {
-        <li>@item.Name @item.Protein @item.Carbohydrate @item.Fat</li>
-    }
-</ul>
+<div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+        <h3>Ingredients</h3>
+    </div>
+    <div class="col-auto">
+        <a asp-controller="Ingredients" asp-action="CreateIngredient" class="btn btn-dark">Create ingredient</a>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<table class="table table-striped table-bordered datatable" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Protein</th>
+            <th>Carbohydrate</th>
+            <th>Fat</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Protein</td>
+                <td>@item.Carbohydrate</td>
+                <td>@item.Fat</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Protein</th>
+            <th>Carbohydrate</th>
+            <th>Fat</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>

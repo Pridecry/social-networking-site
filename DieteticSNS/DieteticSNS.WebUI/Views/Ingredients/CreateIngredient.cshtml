@@ -4,37 +4,59 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>Create ingredient</h3>
+<div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+        <h3>Create ingredient</h3>
+    </div>
+    <div class="col-auto">
+        <a asp-controller="Ingredients" asp-action="GetIngredientList" class="btn btn-dark">Back to list</a>
+    </div>
+</div>
+
 <hr class="my-4">
 
 <div class="jumbotron">
-
-
-    <form method="post">
+    <form method="post" class="">
         <div class="form-group row">
-            <div class="col-md-1">
-                <label asp-for="Name" for="name" class="col-form-label">Name</label>
+            <div class="col-2 text-right">
+                <label asp-for="Name" for="name" class="col-form-label"><b>Name</b></label>
             </div>
-            <div class="col-md-10">
+            <div class="col-10">
                 <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Enter name">
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Protein" for="protein">Protein</label>
-            <input asp-for="Protein" type="number" class="form-control" id="protein" placeholder="0">
-            <span asp-validation-for="Protein" class="text-danger"></span>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Protein" for="protein" class="col-form-label"><b>Protein</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Protein" type="number" class="form-control" value="" placeholder="0">
+                <span asp-validation-for="Protein"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Carbohydrate" for="carbohydrate">Carbohydrate</label>
-            <input asp-for="Carbohydrate" type="number" class="form-control" id="carbohydrate" placeholder="0">
-            <span asp-validation-for="Carbohydrate" class="text-danger"></span>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Carbohydrate" for="carbohydrate" class="col-form-label"><b>Carbohydrate</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Carbohydrate" type="number" class="form-control" id="carbohydrate" value="" placeholder="0">
+                <span asp-validation-for="Carbohydrate"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Fat" for="fat">Fat</label>
-            <input asp-for="Fat" type="number" class="form-control" id="fat" placeholder="0">
-            <span asp-validation-for="Fat" class="text-danger"></span>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Fat" for="fat" class="col-form-label"><b>Fat</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Fat" type="number" class="form-control" id="fat" value="" placeholder="0">
+                <span asp-validation-for="Fat"></span>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row">
+            <div class="col-auto offset-2 mt-2">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
     </form>
 </div>

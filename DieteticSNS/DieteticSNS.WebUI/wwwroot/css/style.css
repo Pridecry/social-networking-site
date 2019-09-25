@@ -1,25 +1,40 @@
-﻿/**,
-*::before,
-*::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: inherit;
+﻿/*** Validation error ***/
+.field-validation-error {
+    color: #e80c4d;
 }
 
-:root {
-    --main-colour-light: rgb(254, 254, 254);
-    --main-colour-dark: #000000;
-    --main-colour-yellow: #FDEE30;
+input.input-validation-error {
+    border: 1px solid #e80c4d;
 }
 
-body {
-    box-sizing: border-box;
-    font-size: 1.6rem;
-    background-image: linear-gradient(rgba(254, 254, 254, .4), rgba(254, 254, 254, .4)), url('./blur-calorie-intake-calories-1927500.jpg');
-    background-size: cover;
-    line-height: 1.7;
+/*** Pagination ***/
+.page-link {
+    color: #343a40;
 }
 
-html {
-    font-size: 62.5%;
-}*/
+.page-link:hover {
+    color: #232930;
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.page-item.disabled .page-link {
+    color: #8e979f;
+}
+
+/*** Inputs ***/
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #787e84;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+}

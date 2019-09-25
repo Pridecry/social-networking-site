@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
+using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,25 @@ namespace DieteticSNS.WebUI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateIngredient(CreateIngredientCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await Mediator.Send(command);
+
+            return RedirectToAction(nameof(GetIngredientList));
+        }
+
+        [HttpGet]
+        public IActionResult UpdateIngredient()
+        {
+            return View(new UpdateIngredientCommand());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateIngredient(UpdateIngredientCommand command)
         {
             if (!ModelState.IsValid)
             {
