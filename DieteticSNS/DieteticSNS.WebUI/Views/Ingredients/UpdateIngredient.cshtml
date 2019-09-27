@@ -1,15 +1,63 @@
-﻿
+﻿@model DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient.UpdateIngredientCommand
+
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!DOCTYPE html>
+<div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+        <h3>Update ingredient</h3>
+    </div>
+    <div class="col-auto">
+        <a asp-controller="Ingredients" asp-action="GetIngredientList" class="btn btn-dark">Back to list</a>
+    </div>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UpdateIngredient</title>
-</head>
-<body>
-</body>
-</html>
+<hr class="my-4">
+
+<div class="jumbotron">
+    <form method="post" class="">
+        <input asp-for="Id" hidden />
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Name" for="name" class="col-form-label"><b>Name</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Enter name">
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Protein" for="protein" class="col-form-label"><b>Protein</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Protein" type="number" class="form-control" value="" placeholder="0">
+                <span asp-validation-for="Protein"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Carbohydrate" for="carbohydrate" class="col-form-label"><b>Carbohydrate</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Carbohydrate" type="number" class="form-control" id="carbohydrate" value="" placeholder="0">
+                <span asp-validation-for="Carbohydrate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Fat" for="fat" class="col-form-label"><b>Fat</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Fat" type="number" class="form-control" id="fat" value="" placeholder="0">
+                <span asp-validation-for="Fat"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto offset-2 mt-2">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

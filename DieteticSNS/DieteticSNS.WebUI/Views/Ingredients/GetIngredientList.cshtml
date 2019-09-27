@@ -33,7 +33,15 @@
                 <td>@item.Protein</td>
                 <td>@item.Carbohydrate</td>
                 <td>@item.Fat</td>
-                <td></td>
+                <td>
+                    @*<a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id">Update</a> |
+                        <a asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id">Delete</a>*@
+
+                    <a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" style="padding: 0px !important">Update</a> |
+                    <form asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-link" style="padding: 0px !important">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

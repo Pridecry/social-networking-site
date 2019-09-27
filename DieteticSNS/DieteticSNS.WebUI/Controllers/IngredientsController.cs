@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
+using DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
@@ -41,9 +42,15 @@ namespace DieteticSNS.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateIngredient()
+        public async Task<IActionResult> UpdateIngredient(int id)
         {
-            return View(new UpdateIngredientCommand());
+            var details = await Mediator.Send(new GetIngredientDetailsQuery { Id = id });
+
+            //todo 
+            //map from details to command
+            //configure 
+
+            return View(new UpdateIngredientCommand { Id = id });
         }
 
         [HttpPost]
@@ -55,6 +62,14 @@ namespace DieteticSNS.WebUI.Controllers
             }
 
             await Mediator.Send(command);
+
+            return RedirectToAction(nameof(GetIngredientList));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteIngredient(int id)
+        {
+            await Mediator.Send(new DeleteIngredientCommand { Id = id });
 
             return RedirectToAction(nameof(GetIngredientList));
         }
