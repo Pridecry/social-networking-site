@@ -33,13 +33,18 @@
                 <td>@item.Protein</td>
                 <td>@item.Carbohydrate</td>
                 <td>@item.Fat</td>
-                <td>
-                    @*<a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id">Update</a> |
-                        <a asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id">Delete</a>*@
-
-                    <a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" style="padding: 0px !important">Update</a> |
+                @*<td class="py-1 px-0">
+                    <button asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" class="btn btn-link">Update</button>
+                        <span>|</span>
+                        <form asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-link">Delete</button>
+                        </form>
+                </td>*@
+                <td class="py-2 px-0">
+                    <a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm ml-3 mr-1">Update <i class="far fa-edit"></i></a>
+                    
                     <form asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-link" style="padding: 0px !important">Delete</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Delete <i class="far fa-trash-alt"></i></button>
                     </form>
                 </td>
             </tr>

@@ -25,12 +25,16 @@ namespace DieteticSNS.WebUI.Controllers
         [HttpGet]
         public IActionResult CreateIngredient()
         {
+            ViewBag.Calories = 0;
+
             return View(new CreateIngredientCommand());
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateIngredient(CreateIngredientCommand command)
         {
+            ViewBag.Calories = (command.Protein ?? 0) * 4 + (command.Carbohydrate ?? 0) * 4 + (command.Fat ?? 0) * 9;
+
             if (!ModelState.IsValid)
             {
                 return View(command);
@@ -49,13 +53,25 @@ namespace DieteticSNS.WebUI.Controllers
             //todo 
             //map from details to command
             //configure 
+            var command = new UpdateIngredientCommand
+            {
+                Id = id,
+                Name = details.Name,
+                Protein = details.Protein,
+                Carbohydrate = details.Carbohydrate,
+                Fat = details.Fat
+            };
 
-            return View(new UpdateIngredientCommand { Id = id });
+            ViewBag.Calories = (command.Protein ?? 0) * 4 + (command.Carbohydrate ?? 0) * 4 + (command.Fat ?? 0) * 9;
+
+            return View(command);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateIngredient(UpdateIngredientCommand command)
         {
+            ViewBag.Calories = (command.Protein ?? 0) * 4 + (command.Carbohydrate ?? 0) * 4 + (command.Fat ?? 0) * 9;
+
             if (!ModelState.IsValid)
             {
                 return View(command);
