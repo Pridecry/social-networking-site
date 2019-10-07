@@ -1,4 +1,5 @@
-﻿var style = getComputedStyle(document.body);
+﻿// Bootstrap color styles
+var style = getComputedStyle(document.body);
 var theme = {};
 
 theme.primary = style.getPropertyValue('--primary');
@@ -9,3 +10,14 @@ theme.warning = style.getPropertyValue('--warning');
 theme.danger = style.getPropertyValue('--danger');
 theme.light = style.getPropertyValue('--light');
 theme.dark = style.getPropertyValue('--dark');
+
+// Admin-navigation activ state change
+$(document).ready(function () {
+    $('.navbar-nav ').find('a[href="' + location.pathname + '"]')
+        .closest('a').addClass('active');
+});
+
+//Flash of unstyled content fix
+$(document).ready(function () {
+    $("body").css('opacity', 1);
+});

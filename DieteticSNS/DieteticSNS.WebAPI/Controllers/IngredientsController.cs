@@ -13,7 +13,7 @@ namespace DieteticSNS.WebAPI.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IngredientListModel>> GetAll()
+        public async Task<ActionResult<IngredientListVm>> GetAll()
         {
             return Ok(await Mediator.Send(new GetIngredientListQuery()));
         }
@@ -21,7 +21,7 @@ namespace DieteticSNS.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IngredientDetailsModel>> Get(int id)
+        public async Task<ActionResult<IngredientDetailsVm>> Get(int id)
         {
             return Ok(await Mediator.Send(new GetIngredientDetailsQuery { Id = id }));
         }

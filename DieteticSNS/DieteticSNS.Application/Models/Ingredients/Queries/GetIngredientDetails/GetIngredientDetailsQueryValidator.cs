@@ -10,7 +10,6 @@ namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetail
         public GetIngredientDetailsQueryValidator()
         {
             RuleFor(v => v.Id).NotEmpty();
-
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList.IngredientListModel
+﻿@model DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList.IngredientListVm
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -33,18 +33,29 @@
                 <td>@item.Protein</td>
                 <td>@item.Carbohydrate</td>
                 <td>@item.Fat</td>
-                @*<td class="py-1 px-0">
-                    <button asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" class="btn btn-link">Update</button>
-                        <span>|</span>
-                        <form asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-link">Delete</button>
-                        </form>
-                </td>*@
                 <td class="py-2 px-0">
                     <a asp-controller="Ingredients" asp-action="UpdateIngredient" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm ml-3 mr-1">Update <i class="far fa-edit"></i></a>
-                    
+
                     <form asp-controller="Ingredients" asp-action="DeleteIngredient" asp-route-id="@item.Id" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-outline-danger btn-sm">Delete <i class="far fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#deleteModal_"+item.Id)">Delete <i class="far fa-trash-alt"></i></button>
+
+                        <div class="modal fade" id="@("deleteModal_"+item.Id)" tabindex="-1">
+                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete confirmation</h5>
+                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to delete this item?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </td>
             </tr>

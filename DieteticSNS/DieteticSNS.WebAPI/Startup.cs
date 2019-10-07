@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using DieteticSNS.Application.Infrastructure;
-using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Application.Common.Behaviours;
+using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Persistence;
 using DieteticSNS.WebAPI.Filters;
@@ -35,7 +35,7 @@ namespace DieteticSNS.WebAPI
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateIngredientCommandValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDieteticSNSDbContext>());
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

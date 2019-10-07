@@ -11,13 +11,13 @@ namespace DieteticSNS.WebUI.Controllers
     public class IngredientsController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<IngredientListModel>> GetIngredientList()
+        public async Task<ActionResult<IngredientListVm>> GetIngredientList()
         {
             return View(await Mediator.Send(new GetIngredientListQuery()));
         }
 
         [HttpGet]
-        public async Task<ActionResult<IngredientDetailsModel>> Get(int id)
+        public async Task<ActionResult<IngredientDetailsVm>> Get(int id)
         {
             return View(await Mediator.Send(new GetIngredientDetailsQuery { Id = id }));
         }
@@ -50,17 +50,7 @@ namespace DieteticSNS.WebUI.Controllers
         {
             var details = await Mediator.Send(new GetIngredientDetailsQuery { Id = id });
 
-            //todo 
-            //map from details to command
-            //configure 
-            var command = new UpdateIngredientCommand
-            {
-                Id = id,
-                Name = details.Name,
-                Protein = details.Protein,
-                Carbohydrate = details.Carbohydrate,
-                Fat = details.Fat
-            };
+            var command = Mapper.Map<UpdateIngredientCommand>(details);
 
             ViewBag.Calories = (command.Protein ?? 0) * 4 + (command.Carbohydrate ?? 0) * 4 + (command.Fat ?? 0) * 9;
 

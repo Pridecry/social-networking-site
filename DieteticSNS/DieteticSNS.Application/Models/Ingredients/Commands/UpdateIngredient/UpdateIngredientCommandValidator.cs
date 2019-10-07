@@ -6,6 +6,7 @@ namespace DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient
     {
         public UpdateIngredientCommandValidator()
         {
+            RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Protein).NotEmpty();
             RuleFor(x => x.Carbohydrate).NotEmpty();

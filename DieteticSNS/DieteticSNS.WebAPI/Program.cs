@@ -1,5 +1,5 @@
 ﻿using System;
-using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Persistence;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DieteticSNS.Application.Interfaces;
+using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;

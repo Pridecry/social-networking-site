@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
-using DieteticSNS.Application.Infrastructure;
-using DieteticSNS.Application.Interfaces;
+using AutoMapper;
+using DieteticSNS.Application.Common.Behaviours;
+using DieteticSNS.Application.Common.Interfaces;
+using DieteticSNS.Application.Common.Mappings;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Persistence;
 using FluentValidation.AspNetCore;
@@ -25,6 +27,8 @@ namespace DieteticSNS.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(new Assembly[] { typeof(IngredientsProfile).GetTypeInfo().Assembly });
+
             services.AddMediatR(typeof(CreateIngredientCommand).GetTypeInfo().Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
@@ -34,7 +38,7 @@ namespace DieteticSNS.WebUI
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateIngredientCommandValidator>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDieteticSNSDbContext>());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

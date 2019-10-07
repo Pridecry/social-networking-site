@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using DieteticSNS.Application.Exceptions;
+using DieteticSNS.Application.Common.Exceptions;
 using DieteticSNS.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
