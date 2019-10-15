@@ -5,21 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DieteticSNS.WebUI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-
-
             return View();
         }
 
-        [Authorize]
         public IActionResult AdminPanel()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -4,10 +4,12 @@ using DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DieteticSNS.WebUI.Controllers
 {
+    [Authorize]
     public class IngredientsController : BaseController
     {
         [HttpGet]

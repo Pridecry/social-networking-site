@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using DieteticSNS.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -10,12 +11,14 @@ namespace DieteticSNS.Application.Common.Behaviours
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
+        private readonly ICurrentUserService _currentUserService;
 
-        public RequestPerformanceBehaviour(ILogger<TRequest> logger)
+        public RequestPerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
         {
             _timer = new Stopwatch();
 
             _logger = logger;
+            _currentUserService = currentUserService;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -30,9 +33,8 @@ namespace DieteticSNS.Application.Common.Behaviours
             {
                 var name = typeof(TRequest).Name;
 
-                // TODO: Add User Details
-
-                _logger.LogWarning("Northwind Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
+                _logger.LogWarning("Northwind Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
+                    name, _timer.ElapsedMilliseconds, _currentUserService.GetUserId(), request);
             }
 
             return response;

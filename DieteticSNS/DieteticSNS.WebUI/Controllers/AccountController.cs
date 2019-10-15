@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.WebUI.Models.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,6 +50,7 @@ namespace DieteticSNS.WebUI.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

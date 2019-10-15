@@ -6,6 +6,7 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Common.Mappings;
 using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Persistence;
+using DieteticSNS.WebUI.Services;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,10 @@ namespace DieteticSNS.WebUI
             services.AddApplication();
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services.AddHttpContextAccessor();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
