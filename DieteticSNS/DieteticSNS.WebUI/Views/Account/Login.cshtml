@@ -1,0 +1,27 @@
+﻿@model DieteticSNS.WebUI.Models.Account.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+
+<form method="post">
+    <h3 class="text-center pb-3 text-secondary">LOG INTO YOUR ACCOUNT</h3>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="Email">
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Password">
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="custom-control custom-checkbox">
+        <input asp-for="RememberMe" type="checkbox" class="custom-control-input" id="remember">
+        <label class="custom-control-label" for="remember">Remember me?</label>
+    </div>
+    <button type="submit" class="btn btn-secondary mt-3 px-3"><i class="fas fa-lock mr-1"></i> Login</button>
+    <h5 class="text-center text-secondary pt-5">
+        Not a member yet? 
+        <a asp-controller="Account" asp-action="Register">Register</a>
+    </h5>
+</form>

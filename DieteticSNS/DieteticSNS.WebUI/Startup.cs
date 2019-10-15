@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using DieteticSNS.Application;
 using DieteticSNS.Application.Common.Behaviours;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Common.Mappings;
@@ -27,14 +28,10 @@ namespace DieteticSNS.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(new Assembly[] { typeof(IngredientsProfile).GetTypeInfo().Assembly });
+            services.AddPersistence(Configuration);
+            services.AddApplication();
 
-            services.AddMediatR(typeof(CreateIngredientCommand).GetTypeInfo().Assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-
-            services.AddDbContext<IDieteticSNSDbContext, DieteticSNSDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DieteticSNSDatabase")));
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -56,6 +53,8 @@ namespace DieteticSNS.WebUI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

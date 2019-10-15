@@ -38,3 +38,22 @@ input.input-validation-error {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
 }
+
+/*** Custom checkbox ***/
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #787e84;
+    background-color: #787e84;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: #787e84;
+}
+
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    background-color: #787e84;
+    border-color: #787e84;
+}

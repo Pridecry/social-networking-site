@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.Domain.Entities.Base;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Persistence
 {
-    public class DieteticSNSDbContext : DbContext, IDieteticSNSDbContext
+    public class DieteticSNSDbContext : IdentityDbContext<User, IdentityRole<int>, int>, IDieteticSNSDbContext
     {
         public DieteticSNSDbContext(DbContextOptions<DieteticSNSDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Comment> Comments { get; set; }
@@ -34,10 +35,11 @@ namespace DieteticSNS.Persistence
         public DbSet<RecipeStars> RecipeStars { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Stars> Stars { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DieteticSNSDbContext).Assembly);
         }
 

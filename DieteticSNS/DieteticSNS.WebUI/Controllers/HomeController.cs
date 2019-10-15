@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using DieteticSNS.WebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DieteticSNS.WebUI.Controllers
@@ -8,9 +9,12 @@ namespace DieteticSNS.WebUI.Controllers
     {
         public IActionResult Index()
         {
+
+
             return View();
         }
 
+        [Authorize]
         public IActionResult AdminPanel()
         {
             return View();

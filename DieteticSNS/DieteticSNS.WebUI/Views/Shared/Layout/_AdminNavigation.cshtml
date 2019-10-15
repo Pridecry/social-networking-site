@@ -2,8 +2,15 @@
     <div class="navbar-nav flex-column text-center mx-4">
         <h4 class="navbar-text">Admin panel</h4>
         <hr class="w-100 mt-0" style="border: 1px solid white" />
+
         <a class="nav-link" href="#"><h5>todo</h5></a>
         <a asp-controller="Ingredients" asp-action="GetIngredientList" class="nav-link"><h5>Ingredients</h5></a>
-        <a class="nav-link" href="#"><h5>todo</h5></a>
+        <a asp-controller="Account" asp-action="Login" class="nav-link"><h5>Login</h5></a>
+        <a asp-controller="Account" asp-action="Register" class="nav-link"><h5>Register</h5></a>
+
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="nav-link"><h5>Logout</h5></button>
+        </form>
+
     </div>
 </nav>
