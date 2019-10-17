@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using DieteticSNS.Application.Common.Interfaces;
+using DieteticSNS.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace DieteticSNS.WebUI.Services
@@ -10,29 +11,49 @@ namespace DieteticSNS.WebUI.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDieteticSNSDbContext _context;
 
+        private readonly User _user;
+
         public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context)
         {
             _httpContextAccessor = httpContextAccessor;
             _context = context;
+
+            var id = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id != null)
+            {
+                _user = _context.Users.SingleOrDefault(x => x.Id == int.Parse(id)); 
+            }
         }
 
         public string GetUserId()
         {
-            return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _user?.Id.ToString();
         }
 
         public string GetUserFullName()
         {
-            var id = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            return $"{ _user?.FirstName } { _user?.LastName }";
+        }
 
-            if (id == null)
-            {
-                return string.Empty;
-            }
+        public int GetUserFollowersCount()
+        {
+            return _user?.Followers.Count ?? 0;
+        }
 
-            var user = _context.Users.SingleOrDefault(x => x.Id == int.Parse(id));
+        public int GetUserFollowingsCount()
+        {
+            return _user?.Followings.Count ?? 0;
+        }
 
-            return $"{ user?.FirstName } { user?.LastName }";
+        public int GetUserPostsCount()
+        {
+            return _user?.Posts.Count ?? 0;
+        }
+
+        public int GetUserRecipesCount()
+        {
+            return _user?.Recipes.Count ?? 0;
         }
     }
 }

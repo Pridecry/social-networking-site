@@ -4,5 +4,9 @@
     {
         string GetUserId();
         string GetUserFullName();
+        int GetUserFollowersCount();
+        int GetUserFollowingsCount();
+        int GetUserPostsCount();
+        int GetUserRecipesCount();
     }
 }
