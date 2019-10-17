@@ -27,7 +27,7 @@
             <div class="dropdown-menu dropdown-menu-right mt-4">
                 <a asp-controller="Account" asp-action="Register" class="dropdown-item">Register</a>
                 <a asp-controller="Account" asp-action="Login" class="dropdown-item">Login</a>
-                <a asp-controller="Account" asp-action="Settings" class="dropdown-item">Settings</a>
+                <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item">Settings</a>
                 <div class="dropdown-divider"></div>
                 <form asp-controller="Account" asp-action="Logout" method="post">
                     <button type="submit" class="dropdown-item">Logout</button>

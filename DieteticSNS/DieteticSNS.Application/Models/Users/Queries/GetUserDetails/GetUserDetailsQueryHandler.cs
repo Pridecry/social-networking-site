@@ -7,30 +7,30 @@ using DieteticSNS.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails
+namespace DieteticSNS.Application.Models.Users.Queries.GetUserDetails
 {
-    public class GetIngredientDetailsQueryHandler : IRequestHandler<GetIngredientDetailsQuery, IngredientDetailsVm>
+    public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
     {
         private readonly IConfiguration _configuration;
 
-        public GetIngredientDetailsQueryHandler(IConfiguration configuration)
+        public GetUserDetailsQueryHandler(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<IngredientDetailsVm> Handle(GetIngredientDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var model = await connection.QueryFirstOrDefaultAsync<IngredientDetailsVm>($@"
+                var model = await connection.QueryFirstOrDefaultAsync<UserDetailsVm>($@"
                     SELECT * 
-                    FROM Ingredients
+                    FROM AspNetUsers
                     WHERE id = { request.Id }
                 ");
 
                 if (model == null)
                 {
-                    throw new NotFoundException(nameof(Ingredient), request.Id);
+                    throw new NotFoundException(nameof(User), request.Id);
                 }
 
                 return model;

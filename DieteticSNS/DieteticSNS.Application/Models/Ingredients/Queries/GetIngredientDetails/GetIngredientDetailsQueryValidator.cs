@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails
 {
@@ -9,7 +6,7 @@ namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetail
     {
         public GetIngredientDetailsQueryValidator()
         {
-            RuleFor(v => v.Id).NotEmpty();
+            RuleFor(x => x.Id).NotEmpty();
         }
     }
 }

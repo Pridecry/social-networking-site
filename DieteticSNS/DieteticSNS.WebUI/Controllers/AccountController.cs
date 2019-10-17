@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
+using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.WebUI.Models.Account;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DieteticSNS.WebUI.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -96,6 +98,29 @@ namespace DieteticSNS.WebUI.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateAccount(int id)
+        {
+            var details = await Mediator.Send(new GetUserDetailsQuery { Id = id });
+            var command = Mapper.Map<UpdateUserCommand>(details);
+
+            return View(command);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAccount(UpdateUserCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await Mediator.Send(command);
+
+            ///?
+            return LocalRedirect(Url.Content("~/"));
         }
     }
 }

@@ -6,26 +6,26 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
 
-namespace DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient
+namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 {
-    public class UpdateIngredientCommandHandler : IRequestHandler<UpdateIngredientCommand>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     {
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
 
-        public UpdateIngredientCommandHandler(IDieteticSNSDbContext context, IMapper mapper)
+        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(UpdateIngredientCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Ingredients.FindAsync(request.Id);
+            var entity = await _context.Users.FindAsync(request.Id);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(Ingredient), request.Id);
+                throw new NotFoundException(nameof(User), request.Id);
             }
 
             _mapper.Map(request, entity);

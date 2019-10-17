@@ -54,8 +54,7 @@
     <Folder Include="Models\Reports\Queries\" />
     <Folder Include="Models\Stars\Commands\" />
     <Folder Include="Models\Stars\Queries\" />
-    <Folder Include="Models\Users\Commands\" />
-    <Folder Include="Models\Users\Queries\" />
+    <Folder Include="Models\Users\Queries\GetUserList\" />
   </ItemGroup>
 
 </Project>
