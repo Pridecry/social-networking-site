@@ -16,14 +16,14 @@
 <hr class="my-4">
 
 <div class="jumbotron">
-    <form method="post">
+    <form method="post" autocomplete="off">
         <input asp-for="Id" hidden />
         <div class="form-group row">
             <div class="col-2 text-right">
                 <label asp-for="FirstName" for="firstName" class="col-form-label"><b>First name</b></label>
             </div>
             <div class="col-10">
-                <input asp-for="FirstName" type="text" id="firstName" class="form-control" placeholder="Enter first name" autocomplete="off">
+                <input asp-for="FirstName" type="text" id="firstName" class="form-control" placeholder="Enter first name">
                 <span asp-validation-for="FirstName"></span>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <label asp-for="LastName" for="lastName" class="col-form-label"><b>Last name</b></label>
             </div>
             <div class="col-10">
-                <input asp-for="LastName" type="text" id="lastName" class="form-control" placeholder="Enter last name" autocomplete="off">
+                <input asp-for="LastName" type="text" id="lastName" class="form-control" placeholder="Enter last name">
                 <span asp-validation-for="LastName"></span>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <label asp-for="ProfilePicURL" for="profilePicURL" class="col-form-label"><b>ProfilePicURL</b></label>
             </div>
             <div class="col-10">
-                <input asp-for="ProfilePicURL" type="text" id="profilePicURL" class="form-control" placeholder="Enter profilePicURL" autocomplete="off">
+                <input asp-for="ProfilePicURL" type="text" id="profilePicURL" class="form-control" placeholder="Enter profilePicURL">
                 <span asp-validation-for="ProfilePicURL"></span>
             </div>
         </div>
