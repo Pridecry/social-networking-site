@@ -21,6 +21,19 @@
     {
       "library": "datatables@1.10.19",
       "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "library": "bootstrap-select@1.13.11",
+      "destination": "wwwroot/lib/bootstrap-select/",
+      "files": [
+        "css/bootstrap-select.min.css",
+        "css/bootstrap-select.css.map",
+        "css/bootstrap-select.css",
+        "js/bootstrap-select.js",
+        "js/bootstrap-select.js.map",
+        "js/bootstrap-select.min.js",
+        "js/bootstrap-select.min.js.map"
+      ]
     }
   ]
 }

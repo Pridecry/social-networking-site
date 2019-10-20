@@ -55,5 +55,28 @@ input.input-validation-error {
 
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
     background-color: #787e84;
+      }
+
+/*** Custom select ***/
+.custom-select:focus {
     border-color: #787e84;
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
 }
+
+.dropdown-item.active {
+    background: #787e84;
+}
+
+.dropdown-item:focus {
+    background: #787e84;
+    outline-color: black;
+}
+
+ .bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
