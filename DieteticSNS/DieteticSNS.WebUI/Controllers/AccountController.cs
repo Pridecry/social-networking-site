@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DieteticSNS.Application.Models.Countries.Queries.GetCountriesList;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Domain.Entities;
@@ -108,11 +110,13 @@ namespace DieteticSNS.WebUI.Controllers
             var details = await Mediator.Send(new GetUserDetailsQuery { Id = id });
             var command = Mapper.Map<UpdateUserCommand>(details);
 
-            ViewBag.Countries = new List<SelectListItem>
+            var countryListVm = await Mediator.Send(new GetCountryListQuery());
+
+            ViewBag.Countries = countryListVm.Countries.Select(x => new SelectListItem()
             {
-                new SelectListItem {Text = "Polska", Value = "1"},
-                new SelectListItem {Text = "Niemcy", Value = "2"}
-            };
+                Value = x.Id.ToString(),
+                Text = x.Name
+            }).ToList();
 
             return View(command);
         }
@@ -122,6 +126,14 @@ namespace DieteticSNS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var countryListVm = await Mediator.Send(new GetCountryListQuery());
+
+                ViewBag.Countries = countryListVm.Countries.Select(x => new SelectListItem()
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                }).ToList();
+
                 return View(command);
             }
 

@@ -50,9 +50,8 @@
                 <label asp-for="Gender" for="gender" class="col-form-label"><b>Gender</b></label>
             </div>
             <div class="col-10">
-                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<DieteticSNS.Domain.Enumerations.Gender>()" id="gender" class="selectpicker w-100"
-                        title="Choose..." data-style="custom-select">
-                    <option selected="selected" value="">Choose...</option>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<DieteticSNS.Domain.Enumerations.Gender>()" id="gender" class="selectpicker w-100" data-style="custom-select">
+                    <option selected="selected" value="">-</option>
                 </select>
                 <span asp-validation-for="Gender"></span>
             </div>
@@ -71,17 +70,15 @@
                 <label asp-for="CountryId" for="countryId" class="col-form-label"><b>Country</b></label>
             </div>
             <div class="col-10">
-                <select asp-for="CountryId" asp-items="@ViewBag.Countries" id="countryId" class="selectpicker w-100" data-live-search="true"
-                        title="Choose..." data-style="custom-select">
-                    <option selected="selected" value="">Choose...</option>
+                <select asp-for="CountryId" asp-items="@ViewBag.Countries" id="countryId" class="selectpicker w-100" data-style="custom-select" data-live-search="true" data-size="7">
+                    <option selected="selected" value="">-</option>
                 </select>
-                <span asp-validation-for="Gender"></span>
+                <span asp-validation-for="CountryId"></span>
             </div>
         </div>
-
         <div class="row">
             <div class="col-auto offset-2 mt-2 pl-3">
-                <button type="submit" class="btn btn-dark">Submit</button>
+                <button type="submit" class="btn btn-dark">Save changes</button>
             </div>
         </div>
     </form>

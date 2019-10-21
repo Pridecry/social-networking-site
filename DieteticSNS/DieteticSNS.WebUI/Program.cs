@@ -1,6 +1,9 @@
 ﻿using System;
-using DieteticSNS.Application.Common.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
+using DieteticSNS.Application.System.Commands.SeedData;
 using DieteticSNS.Persistence;
+using MediatR;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,23 +14,26 @@ namespace DieteticSNS.WebUI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
+                var services = scope.ServiceProvider;
+
                 try
                 {
-                    var context = scope.ServiceProvider.GetService<IDieteticSNSDbContext>();
+                    var context = services.GetRequiredService<DieteticSNSDbContext>();
+                    context.Database.Migrate();
 
-                    var concreteContext = (DieteticSNSDbContext)context;
-                    concreteContext.Database.Migrate();
+                    var mediator = services.GetRequiredService<IMediator>();
+                    await mediator.Send(new SeedDataCommand(), CancellationToken.None);
                 }
                 catch (Exception ex)
                 {
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while migrating the database.");
+                    logger.LogError(ex, "An error occurred while migrating or initializing the database.");
                 }
             }
 

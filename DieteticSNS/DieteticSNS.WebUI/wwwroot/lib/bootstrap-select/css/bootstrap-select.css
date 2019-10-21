@@ -402,26 +402,30 @@ select.selectpicker {
   top: -4px;
   border-top: 7px solid rgba(204, 204, 204, 0.2);
   border-bottom: 0;
+  display: none;
 }
 .bootstrap-select.show-menu-arrow.dropup .dropdown-toggle .filter-option:after {
-  bottom: auto;
-  top: -4px;
-  border-top: 6px solid white;
-  border-bottom: 0;
+    bottom: auto;
+    top: -4px;
+    border-top: 6px solid white;
+    border-bottom: 0;
+    display: none;
 }
 .bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle .filter-option:before {
-  right: 12px;
-  left: auto;
+    right: 12px;
+    left: auto;
+    display: none;
 }
 .bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle .filter-option:after {
-  right: 13px;
-  left: auto;
+    right: 13px;
+    left: auto;
+    display: none;
 }
 .bootstrap-select.show-menu-arrow.open > .dropdown-toggle .filter-option:before,
 .bootstrap-select.show-menu-arrow.show > .dropdown-toggle .filter-option:before,
 .bootstrap-select.show-menu-arrow.open > .dropdown-toggle .filter-option:after,
 .bootstrap-select.show-menu-arrow.show > .dropdown-toggle .filter-option:after {
-  display: block;
+    display: none;
 }
 .bs-searchbox,
 .bs-actionsbox,

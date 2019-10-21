@@ -27,6 +27,7 @@ namespace DieteticSNS.Application.Models.Countries.Queries.GetCountryList
                 var Countries = await connection.QueryAsync<CountryDto>($@"
                         SELECT * 
                         FROM Countries
+                        ORDER BY Name
                     ");
 
                 model.Countries = Countries.ToList();
