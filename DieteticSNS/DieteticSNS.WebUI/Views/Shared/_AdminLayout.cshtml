@@ -11,4 +11,9 @@
     </div>
 </div>
 
-<script src="~/js/showAdminPanel.js"></script>
+@section Scripts
+{
+    @RenderSection("Scripts", required: false)
+
+    <script src="~/js/showAdminPanel.js"></script>
+}

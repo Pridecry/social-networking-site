@@ -24,7 +24,7 @@
 
     <script src="~/lib/jquery/jquery.slim.min.js"></script>
     @*<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
 
     <script src="~/lib/bootstrap-4.3.1/js/bootstrap.bundle.min.js"></script>
 
@@ -33,7 +33,11 @@
     <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
 
     <script src="~/js/main.js"></script>
-    <script src="~/js/datatable.js"></script>
+    
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: false)
+    }
 </body>
 
 </html>
