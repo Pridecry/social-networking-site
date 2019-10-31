@@ -33,20 +33,20 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
                 throw new NotFoundException(nameof(User), request.Id);
             }
 
-            if (request.Photo != null)
+            if (request.Avatar != null)
             {
                 string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + request.Photo.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + request.Avatar.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                await request.Photo.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                await request.Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
-                if (entity.ProfilePicURL != null)
+                if (entity.AvatarPath != null)
                 {
-                    File.Delete(Path.Combine(uploadsFolder, entity.ProfilePicURL));
+                    File.Delete(Path.Combine(uploadsFolder, entity.AvatarPath));
                 }
 
-                entity.ProfilePicURL = uniqueFileName;
+                entity.AvatarPath = uniqueFileName;
             }
 
             _mapper.Map(request, entity);

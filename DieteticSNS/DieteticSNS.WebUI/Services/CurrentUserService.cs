@@ -64,15 +64,15 @@ namespace DieteticSNS.WebUI.Services
         public string GetUserAvatarPath()
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
-            string fileName = _user?.ProfilePicURL ?? "";
+            string fileName = _user?.AvatarPath ?? "";
             string avatarPath = Path.Combine(uploadsFolder, fileName);
 
-            if (_user?.ProfilePicURL == null || !File.Exists(avatarPath))
+            if (_user?.AvatarPath == null || !File.Exists(avatarPath))
             {
                 return "~/img/uploads/noavatar.jpg";
             }
 
-            return "~/img/uploads/" + _user.ProfilePicURL;
+            return "~/img/uploads/" + _user.AvatarPath;
         }
     }
 }

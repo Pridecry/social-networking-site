@@ -12,7 +12,7 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }
-        public IFormFile Photo { get; set; }
+        public IFormFile Avatar { get; set; }
         public int? CountryId { get; set; }
     }
 }

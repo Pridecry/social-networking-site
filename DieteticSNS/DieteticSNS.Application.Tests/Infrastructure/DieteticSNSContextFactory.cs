@@ -378,7 +378,7 @@ namespace DieteticSNS.Application.Tests.Infrastructure
                     LastName = $"LastName{i}",
                     BirthDate = DateTime.UtcNow,
                     Gender = Gender.Male,
-                    ProfilePicURL = $"ProfilePicURL{i}",
+                    AvatarPath = $"AvatarPath{i}",
                     CountryId = i + 1
                 };
             }

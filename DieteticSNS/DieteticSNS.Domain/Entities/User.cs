@@ -11,7 +11,7 @@ namespace DieteticSNS.Domain.Entities
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }
-        public string ProfilePicURL { get; set; }
+        public string AvatarPath { get; set; }
 
         public int? CountryId { get; set; }
         public virtual Country Country { get; set; }
