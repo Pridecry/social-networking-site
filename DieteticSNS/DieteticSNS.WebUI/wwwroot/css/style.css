@@ -1,4 +1,12 @@
-﻿/*** Validation error ***/
+﻿:root {
+    --main-color-gray: #787e84;
+    --main-color-gray-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+    --main-color-dark: #343a40;
+    --main-color-dark-hover: #23272b;
+    --main-color-dark-border: #1d2124;
+}
+
+/*** Validation error ***/
 .field-validation-error {
     color: #e80c4d;
 }
@@ -9,21 +17,21 @@ input.input-validation-error {
 
 /*** Pagination ***/
 .page-link {
-    color: #343a40;
+    color: var(--main-color-dark);
 }
 
 .page-link:hover {
-    color: #232930;
+    color: var(--main-color-dark-hover);
 }
 
 .page-link:focus {
-    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+    box-shadow: var(--main-color-gray-shadow);
 }
 
 .page-item.active .page-link {
     color: #fff;
-    background-color: #343a40;
-    border-color: #343a40;
+    background-color: var(--main-color-dark);
+    border-color: var(--main-color-dark-border);
 }
 
 .page-item.disabled .page-link {
@@ -34,41 +42,41 @@ input.input-validation-error {
 .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #787e84;
+    border-color: var(--main-color-gray);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+    box-shadow: var(--main-color-gray-shadow);
 }
 
 /*** Custom checkbox ***/
 .custom-control-input:checked ~ .custom-control-label::before {
-    border-color: #787e84;
-    background-color: #787e84;
+    border-color: var(--main-color-gray);
+    background-color: var(--main-color-gray);
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+    box-shadow: var(--main-color-gray-shadow);
 }
 
 .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-    border-color: #787e84;
+    border-color: var(--main-color-gray);
 }
 
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-    background-color: #787e84;
-      }
+    background-color: var(--main-color-gray);
+}
 
 /*** Custom select ***/
 .custom-select:focus {
-    border-color: #787e84;
-    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+    border-color: var(--main-color-gray);
+    box-shadow: var(--main-color-gray-shadow);
 }
 
 .dropdown-item.active {
-    background: #787e84;
+    background: var(--main-color-gray);
 }
 
 .dropdown-item:focus {
-    background: #787e84;
+    background: var(--main-color-gray);
     outline-color: black;
 }
 
@@ -86,4 +94,10 @@ input.input-validation-error {
 .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: #6c757d;
+}
+
+/*** Custom file input ***/
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: var(--main-color-gray);
+    box-shadow: var(--main-color-gray-shadow);
 }

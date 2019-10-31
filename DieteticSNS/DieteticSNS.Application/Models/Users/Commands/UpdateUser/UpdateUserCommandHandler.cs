@@ -33,8 +33,6 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
                 throw new NotFoundException(nameof(User), request.Id);
             }
 
-            _mapper.Map(request, entity);
-
             if (request.Photo != null)
             {
                 string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
@@ -43,8 +41,15 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 
                 await request.Photo.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
+                if (entity.ProfilePicURL != null)
+                {
+                    File.Delete(Path.Combine(uploadsFolder, entity.ProfilePicURL));
+                }
+
                 entity.ProfilePicURL = uniqueFileName;
             }
+
+            _mapper.Map(request, entity);
 
             await _context.SaveChangesAsync(cancellationToken);
 

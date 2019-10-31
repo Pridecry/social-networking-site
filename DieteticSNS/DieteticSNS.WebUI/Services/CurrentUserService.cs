@@ -12,7 +12,7 @@ namespace DieteticSNS.WebUI.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDieteticSNSDbContext _context;
-        public IHostingEnvironment _hostingEnvironment { get; }
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         private readonly User _user;
 
@@ -63,9 +63,13 @@ namespace DieteticSNS.WebUI.Services
 
         public string GetUserAvatarPath()
         {
-            if (_user?.ProfilePicURL == null)
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
+            string fileName = _user?.ProfilePicURL ?? "";
+            string avatarPath = Path.Combine(uploadsFolder, fileName);
+
+            if (_user?.ProfilePicURL == null || !File.Exists(avatarPath))
             {
-                return "~/img/uploads/noavatar";
+                return "~/img/uploads/noavatar.jpg";
             }
 
             return "~/img/uploads/" + _user.ProfilePicURL;
