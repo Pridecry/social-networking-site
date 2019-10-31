@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace DieteticSNS.WebUI.Services
@@ -10,13 +12,16 @@ namespace DieteticSNS.WebUI.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDieteticSNSDbContext _context;
+        public IHostingEnvironment _hostingEnvironment { get; }
 
         private readonly User _user;
 
-        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context)
+
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _httpContextAccessor = httpContextAccessor;
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
 
             var id = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -54,6 +59,16 @@ namespace DieteticSNS.WebUI.Services
         public int GetUserRecipesCount()
         {
             return _user?.Recipes.Count ?? 0;
+        }
+
+        public string GetUserAvatarPath()
+        {
+            if (_user?.ProfilePicURL == null)
+            {
+                return "~/img/uploads/noavatar";
+            }
+
+            return "~/img/uploads/" + _user.ProfilePicURL;
         }
     }
 }

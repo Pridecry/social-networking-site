@@ -62,7 +62,7 @@
             </div>
             <div class="col-10">
                 <div class="custom-file">
-                    <input asp-for="Photo" type="file" id="photo" class="form-control custom-file-input" placeholder="Enter profilePicURL">
+                    <input asp-for="Photo" type="file" id="photo" class="form-control custom-file-input">
                     <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                 </div>
             </div>
@@ -86,14 +86,7 @@
     </form>
 </div>
 
-@section Scripts 
+@section Scripts
 {
-    <script>
-        $(document).ready(function () {
-            $('.custom-file-input').on("change", function () {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).next('.custom-file-label').html(fileName);
-            })
-        });
-    </script>
+    <script src="~/js/changeFileLabelHtml.js"></script>
 }

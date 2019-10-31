@@ -139,8 +139,7 @@ namespace DieteticSNS.WebUI.Controllers
 
             await Mediator.Send(command);
 
-            ///?
-            return LocalRedirect(Url.Content("~/"));
+            return View();
         }
     }
 }

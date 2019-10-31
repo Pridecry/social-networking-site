@@ -8,5 +8,6 @@
         int GetUserFollowingsCount();
         int GetUserPostsCount();
         int GetUserRecipesCount();
+        string GetUserAvatarPath();
     }
 }

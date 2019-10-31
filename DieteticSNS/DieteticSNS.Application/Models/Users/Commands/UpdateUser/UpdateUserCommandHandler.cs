@@ -1,10 +1,13 @@
-﻿using System.Threading;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DieteticSNS.Application.Common.Exceptions;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 {
@@ -12,11 +15,13 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
     {
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper)
+        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -29,6 +34,18 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
             }
 
             _mapper.Map(request, entity);
+
+            if (request.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + request.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                await request.Photo.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+                entity.ProfilePicURL = uniqueFileName;
+            }
+
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
