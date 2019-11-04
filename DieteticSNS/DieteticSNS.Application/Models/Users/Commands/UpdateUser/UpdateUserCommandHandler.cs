@@ -1,13 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DieteticSNS.Application.Common.Exceptions;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
 
 namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 {
@@ -15,13 +12,13 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
     {
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IImageService _imageService;
 
-        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService)
         {
             _context = context;
             _mapper = mapper;
-            _hostingEnvironment = hostingEnvironment;
+            _imageService = imageService;
         }
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -35,18 +32,15 @@ namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 
             if (request.Avatar != null)
             {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + request.Avatar.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                await request.Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                string fileName = _imageService.SaveImage(request.Avatar);
+                //await request.Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
 
                 if (entity.AvatarPath != null)
                 {
-                    File.Delete(Path.Combine(uploadsFolder, entity.AvatarPath));
+                    _imageService.DeleteImage(entity.AvatarPath);
                 }
 
-                entity.AvatarPath = uniqueFileName;
+                entity.AvatarPath = fileName;
             }
 
             _mapper.Map(request, entity);

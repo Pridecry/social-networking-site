@@ -16,7 +16,6 @@ namespace DieteticSNS.WebUI.Services
 
         private readonly User _user;
 
-
         public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _httpContextAccessor = httpContextAccessor;

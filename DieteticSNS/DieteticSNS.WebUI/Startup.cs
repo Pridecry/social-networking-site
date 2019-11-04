@@ -1,18 +1,12 @@
-﻿using System.Reflection;
-using AutoMapper;
-using DieteticSNS.Application;
-using DieteticSNS.Application.Common.Behaviours;
+﻿using DieteticSNS.Application;
 using DieteticSNS.Application.Common.Interfaces;
-using DieteticSNS.Application.Common.Mappings;
-using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
+using DieteticSNS.Infrastructure;
 using DieteticSNS.Persistence;
 using DieteticSNS.WebUI.Services;
 using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,6 +23,7 @@ namespace DieteticSNS.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructure();
             services.AddPersistence(Configuration);
             services.AddApplication();
 

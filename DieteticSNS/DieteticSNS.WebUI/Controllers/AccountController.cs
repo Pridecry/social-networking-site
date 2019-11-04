@@ -139,7 +139,7 @@ namespace DieteticSNS.WebUI.Controllers
 
             await Mediator.Send(command);
 
-            return View();
+            return RedirectToAction(nameof(UpdateAccount), command.Id);
         }
     }
 }
