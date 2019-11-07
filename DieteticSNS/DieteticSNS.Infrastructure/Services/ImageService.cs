@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using DieteticSNS.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
+using SixLabors.Memory;
 using SixLabors.Primitives;
 
 namespace DieteticSNS.WebUI.Services
@@ -21,6 +23,8 @@ namespace DieteticSNS.WebUI.Services
             _hostingEnvironment = hostingEnvironment;
 
             uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"img\uploads");
+
+            Configuration.Default.MemoryAllocator = ArrayPoolMemoryAllocator.CreateDefault();
         }
 
         public string SaveImage(IFormFile file, int size = 500, bool compress = false)
@@ -33,14 +37,16 @@ namespace DieteticSNS.WebUI.Services
                 image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Crop,
-                    Size = new Size(size, size)
+                    Position = AnchorPositionMode.Center,
+                    Size = new Size(size, size),
                 }));
 
                 if (compress)
                 {
                     var encoder = new JpegEncoder()
                     {
-                        Quality = 100
+                        //default value - 75
+                        Quality = 60
                     }; 
 
                     image.Save(filePath, encoder);
@@ -50,6 +56,8 @@ namespace DieteticSNS.WebUI.Services
                     image.Save(filePath);
                 }
             }
+
+            Configuration.Default.MemoryAllocator.ReleaseRetainedResources();
 
             return uniqueFileName;
         }

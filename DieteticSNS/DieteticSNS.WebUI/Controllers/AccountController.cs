@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountriesList;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
@@ -17,11 +18,13 @@ namespace DieteticSNS.WebUI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IImageService _imageService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IImageService imageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _imageService = imageService;
         }
 
         [HttpGet]
