@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountriesList;
+using DieteticSNS.Application.Models.Users.Commands.DeleteAvatar;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Domain.Entities;
@@ -112,6 +113,7 @@ namespace DieteticSNS.WebUI.Controllers
         {
             var details = await Mediator.Send(new GetUserDetailsQuery { Id = id });
             var command = Mapper.Map<UpdateUserCommand>(details);
+            command.Id = id;
 
             var countryListVm = await Mediator.Send(new GetCountryListQuery());
 
@@ -143,6 +145,14 @@ namespace DieteticSNS.WebUI.Controllers
             await Mediator.Send(command);
 
             return RedirectToAction(nameof(UpdateAccount), command.Id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAvatar(int id)
+        {
+            await Mediator.Send(new DeleteAvatarCommand { Id = id });
+
+            return RedirectToAction(nameof(UpdateAccount), new { id });
         }
     }
 }

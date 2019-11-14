@@ -68,7 +68,7 @@ namespace DieteticSNS.WebUI.Services
 
             if (_user?.AvatarPath == null || !File.Exists(avatarPath))
             {
-                return "~/img/uploads/noavatar.jpg";
+                return "~/img/noavatar.jpg";
             }
 
             return "~/img/uploads/" + _user.AvatarPath;

@@ -1,37 +1,33 @@
 ﻿@using DieteticSNS.Application.Common.Interfaces
 @inject ICurrentUserService currentUserService
 
-<div class="row text-center my-4">
-    <div class="col">
-        <div class="card">
-            <div class="bg-secondary py-4">
-                <img class="rounded-circle img-fluid mx-auto border border-dark" style="height:100px; width: 100px" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+<div class="card text-center my-4">
+    <div class="bg-secondary py-4">
+        <img class="rounded-circle img-fluid mx-auto border border-dark" style="height:100px; width: 100px" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+    </div>
+    <div class="card-body px-0">
+        <h5 class="card-title">@currentUserService.GetUserFullName()</h5>
+        <p class="card-text">@User.Identity.Name</p>
+
+        <div class="row no-gutters mt-4">
+            <div class="col-6">
+                <h6>FOLLOWERS</h6>
+                <p>@currentUserService.GetUserFollowersCount()</p>
             </div>
-            <div class="card-body px-0">
-                <h5 class="card-title">@currentUserService.GetUserFullName()</h5>
-                <p class="card-text">@User.Identity.Name</p>
+            <div class="col-6">
+                <h6>FOLLOWING</h6>
+                <p>@currentUserService.GetUserFollowingsCount()</p>
+            </div>
+        </div>
 
-                <div class="row no-gutters mt-4">
-                    <div class="col-6">
-                        <h6>FOLLOWERS</h6>
-                        <p>@currentUserService.GetUserFollowersCount()</p>
-                    </div>
-                    <div class="col-6">
-                        <h6>FOLLOWING</h6>
-                        <p>@currentUserService.GetUserFollowingsCount()</p>
-                    </div>
-                </div>
-
-                <div class="row no-gutters">
-                    <div class="col-6">
-                        <h6>POSTS</h6>
-                        <span>@currentUserService.GetUserPostsCount()</span>
-                    </div>
-                    <div class="col-6">
-                        <h6>RECIPES</h6>
-                        <span>@currentUserService.GetUserRecipesCount()</span>
-                    </div>
-                </div>
+        <div class="row no-gutters">
+            <div class="col-6">
+                <h6>POSTS</h6>
+                <span>@currentUserService.GetUserPostsCount()</span>
+            </div>
+            <div class="col-6">
+                <h6>RECIPES</h6>
+                <span>@currentUserService.GetUserRecipesCount()</span>
             </div>
         </div>
     </div>
