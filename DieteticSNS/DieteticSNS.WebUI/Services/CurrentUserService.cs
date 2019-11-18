@@ -73,5 +73,14 @@ namespace DieteticSNS.WebUI.Services
 
             return "~/img/uploads/" + _user.AvatarPath;
         }
+
+        public bool HasAvatar()
+        {
+            if (_user?.AvatarPath != null)
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }

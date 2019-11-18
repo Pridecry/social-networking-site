@@ -1,7 +1,5 @@
-﻿using System.IO;
-using DieteticSNS.Application.Common.Validators;
+﻿using DieteticSNS.Application.Common.Validators;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 
 namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
 {

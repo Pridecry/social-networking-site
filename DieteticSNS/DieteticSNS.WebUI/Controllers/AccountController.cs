@@ -20,12 +20,14 @@ namespace DieteticSNS.WebUI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IImageService _imageService;
+        private readonly ICurrentUserService _userService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IImageService imageService)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IImageService imageService, ICurrentUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _imageService = imageService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -112,6 +114,9 @@ namespace DieteticSNS.WebUI.Controllers
         public async Task<IActionResult> UpdateAccount(int id)
         {
             var details = await Mediator.Send(new GetUserDetailsQuery { Id = id });
+
+            ViewBag.HasAvatar = details.AvatarPath != null ? true : false; 
+
             var command = Mapper.Map<UpdateUserCommand>(details);
             command.Id = id;
 
@@ -131,6 +136,8 @@ namespace DieteticSNS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.HasAvatar = _userService.HasAvatar();
+
                 var countryListVm = await Mediator.Send(new GetCountryListQuery());
 
                 ViewBag.Countries = countryListVm.Countries.Select(x => new SelectListItem()

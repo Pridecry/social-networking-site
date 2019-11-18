@@ -25,10 +25,10 @@ namespace DieteticSNS.Application.Models.Countries.Queries.GetCountryList
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
                 var Countries = await connection.QueryAsync<CountryDto>($@"
-                        SELECT * 
-                        FROM Countries
-                        ORDER BY Name
-                    ");
+                    SELECT * 
+                    FROM Countries
+                    ORDER BY Name
+                ");
 
                 model.Countries = Countries.ToList();
             }

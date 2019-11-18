@@ -9,6 +9,7 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserDetails
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }
+        public string AvatarPath { get; set; }
         public int? CountryId { get; set; }
     }
 }

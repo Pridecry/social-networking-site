@@ -4,14 +4,16 @@ using DieteticSNS.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DieteticSNS.Persistence.Migrations
 {
     [DbContext(typeof(DieteticSNSDbContext))]
-    partial class DieteticSNSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191118080012_mig-6")]
+    partial class mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,8 +160,6 @@ namespace DieteticSNS.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedAt");
 

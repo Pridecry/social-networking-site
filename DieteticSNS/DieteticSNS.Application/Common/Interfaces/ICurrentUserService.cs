@@ -9,5 +9,6 @@
         int GetUserPostsCount();
         int GetUserRecipesCount();
         string GetUserAvatarPath();
+        bool HasAvatar();
     }
 }

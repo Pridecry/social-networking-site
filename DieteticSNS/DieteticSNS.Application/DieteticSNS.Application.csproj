@@ -36,8 +36,6 @@
     <Folder Include="Models\PostLikes\Queries\" />
     <Folder Include="Models\PostReports\Commands\" />
     <Folder Include="Models\PostReports\Queries\" />
-    <Folder Include="Models\Posts\Commands\" />
-    <Folder Include="Models\Posts\Queries\" />
     <Folder Include="Models\RecipeComments\Commands\" />
     <Folder Include="Models\RecipeComments\Queries\" />
     <Folder Include="Models\RecipeIngredients\Commands\" />

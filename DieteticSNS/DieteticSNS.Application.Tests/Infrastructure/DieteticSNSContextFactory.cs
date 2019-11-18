@@ -181,7 +181,7 @@ namespace DieteticSNS.Application.Tests.Infrastructure
                 {
                     UserId = i + 1,
                     Description = $"Description{i}",
-                    ImageURL = $"ImageURL{i}"
+                    PhotoPath = $"PhotoPath{i}"
                 };
             }
 

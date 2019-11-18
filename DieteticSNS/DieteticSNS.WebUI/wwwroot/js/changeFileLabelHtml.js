@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    $('.custom-file-input').on("change", function () {
-        var fileName = $(this).val().split("\\").pop();
+    $(document).on('change', '.custom-file-input', function () {
+        var fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').html(fileName);
     })
 });

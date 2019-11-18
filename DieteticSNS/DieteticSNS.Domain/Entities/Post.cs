@@ -9,8 +9,9 @@ namespace DieteticSNS.Domain.Entities
         public int UserId { get; set; }
         public User User { get; set; }
 
+        public string Title { get; set; }
         public string Description { get; set; }
-        public string ImageURL { get; set; }
+        public string PhotoPath { get; set; }
 
         public virtual ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();
         public virtual ICollection<PostReport> PostReports { get; set; } = new HashSet<PostReport>();

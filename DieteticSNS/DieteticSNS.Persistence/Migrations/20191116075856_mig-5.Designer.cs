@@ -4,14 +4,16 @@ using DieteticSNS.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DieteticSNS.Persistence.Migrations
 {
     [DbContext(typeof(DieteticSNSDbContext))]
-    partial class DieteticSNSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191116075856_mig-5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,8 +138,6 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<string>("PhotoPath");
 
-                    b.Property<string>("Title");
-
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<int>("UserId");
@@ -158,8 +158,6 @@ namespace DieteticSNS.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedAt");
 

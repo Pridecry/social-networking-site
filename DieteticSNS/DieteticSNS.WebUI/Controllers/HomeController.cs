@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.WebUI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -25,9 +25,9 @@ namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientList
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
                 var ingredients = await connection.QueryAsync<IngredientDto>($@"
-                        SELECT * 
-                        FROM Ingredients
-                    ");
+                    SELECT * 
+                    FROM Ingredients
+                ");
 
                 model.Ingredients = ingredients.ToList();
             }
