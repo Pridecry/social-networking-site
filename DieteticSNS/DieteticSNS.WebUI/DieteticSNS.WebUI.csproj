@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DieteticSNS.Application\DieteticSNS.Application.csproj" />
     <ProjectReference Include="..\DieteticSNS.Infrastructure\DieteticSNS.Infrastructure.csproj" />
     <ProjectReference Include="..\DieteticSNS.Persistence\DieteticSNS.Persistence.csproj" />
   </ItemGroup>

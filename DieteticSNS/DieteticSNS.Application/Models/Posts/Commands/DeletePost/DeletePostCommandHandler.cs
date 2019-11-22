@@ -10,10 +10,12 @@ namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {
         private readonly IDieteticSNSDbContext _context;
+        private readonly IImageService _imageService;
 
-        public DeletePostCommandHandler(IDieteticSNSDbContext context)
+        public DeletePostCommandHandler(IDieteticSNSDbContext context, IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
@@ -25,6 +27,7 @@ namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
                 throw new NotFoundException(nameof(Post), request.Id);
             }
 
+            _imageService.DeleteImage(entity.PhotoPath);
             _context.Posts.Remove(entity);
 
             await _context.SaveChangesAsync(cancellationToken);

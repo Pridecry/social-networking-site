@@ -15,7 +15,9 @@ namespace DieteticSNS.WebUI.Controllers
         [HttpGet]
         public async Task<ActionResult<PostListVm>> GetPostList()
         {
-            return View(await Mediator.Send(new GetPostListQuery()));
+            ViewBag.PostList = await Mediator.Send(new GetPostListQuery());
+
+            return View();
         }
 
         [HttpGet]
@@ -36,8 +38,6 @@ namespace DieteticSNS.WebUI.Controllers
 
             ModelState.Clear();
             return PartialView("_CreatePost");
-            //return PartialView("Layout/_Redirect", Url.Action("Index", "Home"));
-            //return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

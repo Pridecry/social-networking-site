@@ -1,0 +1,53 @@
+﻿@using DieteticSNS.Application.Models.Posts.Queries.GetPostsList
+
+@using DieteticSNS.Application.Common.Extensions
+@using DieteticSNS.Application.Common.Interfaces
+@inject ICurrentUserService currentUserService
+
+@{
+    Layout = "~/Views/Shared/_StandardLayout.cshtml";
+
+    PostListVm posts = (PostListVm)ViewBag.PostList;
+    string dir = "~/img/uploads/";
+}
+
+<partial name="~/Views/Posts/_CreatePost.cshtml" />
+
+@foreach (var item in posts.Posts)
+{
+    <div class="card my-4">
+        <div class="card-body pb-0">
+            <div class="row mb-2">
+                <div class="col-auto">
+                    <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, item.AvatarPath)" asp-append-version="true" alt="Avatar">
+                </div>
+                <div class="col">
+                    <h5 class="mb-3">@item.FirstName @item.LastName</h5>
+                    <h6 class="card-title">@item.Title</h6>
+                </div>
+                <div class="col-auto">
+                    <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
+                </div>
+            </div>
+            @if (!String.IsNullOrEmpty(item.Description))
+            {
+                <p class="card-text">
+                    @item.Description
+                </p>
+            }
+        </div>
+        <div class="text-center">
+            <img class="card-img-top p-4" src=@String.Concat(dir, item.PhotoPath) asp-append-version="true" alt="Post image">
+        </div>
+    </div>
+}
+
+@section LeftPanel
+{
+    <partial name="Layout/_UserProfile" />
+}
+
+@section Scripts
+{
+    <script src="~/js/changeFileLabelHtml.js"></script>
+}

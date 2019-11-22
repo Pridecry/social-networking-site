@@ -25,8 +25,9 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
                 var Posts = await connection.QueryAsync<PostDto>($@"
-                    SELECT * 
-                    FROM Posts
+                    SELECT posts.Id, UserId, Title, Description, PhotoPath, CreatedAt, FirstName, LastName, AvatarPath
+                    FROM dbo.Posts posts LEFT OUTER JOIN dbo.AspNetUsers users ON posts.UserId = users.Id
+                    ORDER BY CreatedAt DESC;
                 ");
 
                 model.Posts = Posts.ToList();
