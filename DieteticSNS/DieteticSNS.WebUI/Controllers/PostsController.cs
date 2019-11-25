@@ -2,7 +2,6 @@
 using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.Application.Models.Posts.Commands.DeletePost;
 using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
-using DieteticSNS.Application.Models.Posts.Queries.GetPostDetails;
 using DieteticSNS.Application.Models.Posts.Queries.GetPostsList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +19,6 @@ namespace DieteticSNS.WebUI.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<PostDetailsVm>> Get(int id)
-        {
-            return View(await Mediator.Send(new GetPostDetailsQuery { Id = id }));
-        }
-
         [HttpPost]
         public async Task<PartialViewResult> CreatePost(CreatePostCommand command)
         {
@@ -40,31 +33,21 @@ namespace DieteticSNS.WebUI.Controllers
             return PartialView("_CreatePost");
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> UpdatePost(int id)
-        //{
-        //    var details = await Mediator.Send(new GetPostDetailsQuery { Id = id });
-
-        //    var command = Mapper.Map<UpdatePostCommand>(details);
-
-        //    return View(command);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> UpdatePost(UpdatePostCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(GetPostList));
+                return NoContent();
             }
 
             await Mediator.Send(command);
 
-            return RedirectToAction(nameof(GetPostList));
+            return NoContent();
         }
 
         [HttpPost]
-        public async Task<NoContentResult> DeletePost(int id)
+        public async Task<IActionResult> DeletePost(int id)
         {
             await Mediator.Send(new DeletePostCommand { Id = id });
 

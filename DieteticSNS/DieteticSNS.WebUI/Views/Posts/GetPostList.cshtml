@@ -25,7 +25,7 @@
                 </div>
                 <div class="col">
                     <h5 class="mb-3">@item.FirstName @item.LastName</h5>
-                    <h6 class="card-title">@item.Title</h6>
+                    <h6 id="@("title_"+item.Id)" class="card-title">@item.Title</h6>
                 </div>
                 <div class="col-auto">
                     <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
@@ -38,17 +38,13 @@
                                 <i class="fas fa-ellipsis-h"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-
-                                <form id="@("editForm_"+item.Id)" asp-controller="Posts" asp-action="UpdatePost" asp-route-id="@item.Id" method="post">
+                                <form id="@("editForm_"+item.Id)" asp-controller="Posts" asp-action="UpdatePost" asp-route-id="@item.Id" autocomplete="off" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideEditModal(@item.Id)" data-ajax-success="setTimeout(updateCard, 300, @item.Id)">
                                     <button id="@("editButton_"+item.Id)" type="button" class="dropdown-item" data-toggle="modal" data-target="@("#editModal_"+item.Id)">Edit post <i class="far fa-edit"></i></button>
                                 </form>
-
                                 <div class="dropdown-divider"></div>
-
-                                <form id="@("deleteForm_"+item.Id)" asp-controller="Posts" asp-action="DeletePost" asp-route-id="@item.Id" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal(@item.Id)" data-ajax-success="setTimeout(deleteCard, 400, @item.Id)">
+                                <form id="@("deleteForm_"+item.Id)" asp-controller="Posts" asp-action="DeletePost" asp-route-id="@item.Id" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideDeleteModal(@item.Id)" data-ajax-success="setTimeout(deleteCard, 400, @item.Id)">
                                     <button type="button" class="dropdown-item" data-toggle="modal" data-target="@("#deleteModal_"+item.Id)">Delete post <i class="far fa-trash-alt"></i></button>
                                 </form>
-
                             </div>
 
                             <div class="modal fade" id="@("deleteModal_"+item.Id)" tabindex="-1">
@@ -88,7 +84,7 @@
                                                     <label asp-for="@command.Title" for="Title" class="col-form-label"><b>Title</b></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <input asp-for="@command.Title" type="text" class="form-control" placeholder="Enter title" form="@("editForm_"+item.Id)">
+                                                    <input id=@("titleInput_"+item.Id) asp-for="@command.Title" type="text" class="form-control" placeholder="Enter title" form="@("editForm_"+item.Id)" required>
                                                     <span asp-validation-for="@command.Title"></span>
                                                 </div>
                                             </div>
@@ -97,7 +93,7 @@
                                                     <label asp-for="@command.Description" for="description" class="col-form-label"><b>Description</b></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <textarea asp-for="@command.Description" class="form-control" rows="3" placeholder="Say something here" form="@("editForm_"+item.Id)"></textarea>
+                                                    <textarea id=@("descriptionInput_"+item.Id) asp-for="@command.Description" class="form-control" rows="3" placeholder="Say something here" form="@("editForm_"+item.Id)"></textarea>
                                                     <span asp-validation-for="@command.Description"></span>
                                                 </div>
                                             </div>
@@ -116,7 +112,7 @@
             </div>
             @if (!String.IsNullOrEmpty(item.Description))
             {
-                <p class="card-text">
+                <p id="@("description_"+item.Id)" class="card-text">
                     @item.Description
                 </p>
             }
@@ -135,5 +131,5 @@
 @section Scripts
 {
     <script src="~/js/changeFileLabelHtml.js"></script>
-    <script src="~/js/deletePost.js"></script>
+    <script src="~/js/updatePost.js"></script>
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
-using DieteticSNS.Application.Models.Posts.Queries.GetPostDetails;
 using DieteticSNS.Domain.Entities;
 
 namespace DieteticSNS.Application.Common.Mappings
@@ -12,8 +11,6 @@ namespace DieteticSNS.Application.Common.Mappings
         {
             CreateMap<UpdatePostCommand, Post>();
             CreateMap<CreatePostCommand, Post>();
-
-            CreateMap<PostDetailsVm, UpdatePostCommand>();
         }
     }
 }
