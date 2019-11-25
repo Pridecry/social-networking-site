@@ -40,22 +40,22 @@ namespace DieteticSNS.WebUI.Controllers
             return PartialView("_CreatePost");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UpdatePost(int id)
-        {
-            var details = await Mediator.Send(new GetPostDetailsQuery { Id = id });
+        //[HttpGet]
+        //public async Task<IActionResult> UpdatePost(int id)
+        //{
+        //    var details = await Mediator.Send(new GetPostDetailsQuery { Id = id });
 
-            var command = Mapper.Map<UpdatePostCommand>(details);
+        //    var command = Mapper.Map<UpdatePostCommand>(details);
 
-            return View(command);
-        }
+        //    return View(command);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> UpdatePost(UpdatePostCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(command);
+                return RedirectToAction(nameof(GetPostList));
             }
 
             await Mediator.Send(command);
@@ -64,11 +64,11 @@ namespace DieteticSNS.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<NoContentResult> DeletePost(int id)
         {
             await Mediator.Send(new DeletePostCommand { Id = id });
 
-            return RedirectToAction(nameof(GetPostList));
+            return NoContent();
         }
     }
 }
