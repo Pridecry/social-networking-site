@@ -21,3 +21,8 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("body").css('opacity', 1);
 });
+
+function toggleDiv(id) {
+    var div = document.getElementById("comments_" + id);
+    div.style.display = div.style.display == "none" ? "block" : "none";
+}

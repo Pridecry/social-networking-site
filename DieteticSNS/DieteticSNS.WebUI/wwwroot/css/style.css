@@ -101,3 +101,8 @@ input.input-validation-error {
     border-color: var(--main-color-gray);
     box-shadow: var(--main-color-gray-shadow);
 }
+
+/*** Custom ***/
+.clickable {
+    cursor: pointer;
+}
