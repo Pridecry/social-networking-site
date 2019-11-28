@@ -3,7 +3,7 @@ using DieteticSNS.Application.Models.Ingredients.Commands.CreateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.DeleteIngredient;
 using DieteticSNS.Application.Models.Ingredients.Commands.UpdateIngredient;
 using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientDetails;
-using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
+using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

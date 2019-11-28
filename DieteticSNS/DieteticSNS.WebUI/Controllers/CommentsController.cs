@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
+using DieteticSNS.Application.Models.Comments.Commands.DeleteComment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,12 +43,12 @@ namespace DieteticSNS.WebUI.Controllers
         //    return NoContent();
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> DeleteComment(int id)
-        //{
-        //    await Mediator.Send(new DeleteCommentCommand { Id = id });
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            await Mediator.Send(new DeleteCommentCommand { Id = id });
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
     }
 }

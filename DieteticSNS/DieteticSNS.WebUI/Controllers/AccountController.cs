@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
-using DieteticSNS.Application.Models.Countries.Queries.GetCountriesList;
+using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using DieteticSNS.Application.Models.Users.Commands.DeleteAvatar;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;

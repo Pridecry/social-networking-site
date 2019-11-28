@@ -2,7 +2,7 @@
 using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.Application.Models.Posts.Commands.DeletePost;
 using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
-using DieteticSNS.Application.Models.Posts.Queries.GetPostsList;
+using DieteticSNS.Application.Models.Posts.Queries.GetPostList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

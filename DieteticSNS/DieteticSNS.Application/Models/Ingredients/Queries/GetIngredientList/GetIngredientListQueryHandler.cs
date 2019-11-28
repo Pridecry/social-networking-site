@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 

@@ -3,7 +3,7 @@ using DieteticSNS.Application.Models.Countries.Commands.CreateCountry;
 using DieteticSNS.Application.Models.Countries.Commands.DeleteCountry;
 using DieteticSNS.Application.Models.Countries.Commands.UpdateCountry;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountryDetails;
-using DieteticSNS.Application.Models.Countries.Queries.GetCountriesList;
+using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

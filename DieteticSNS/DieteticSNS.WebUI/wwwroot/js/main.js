@@ -23,6 +23,6 @@ $(document).ready(function () {
 });
 
 function toggleDiv(id) {
-    var div = document.getElementById("comments_" + id);
+    var div = document.getElementById(id);
     div.style.display = div.style.display == "none" ? "block" : "none";
 }

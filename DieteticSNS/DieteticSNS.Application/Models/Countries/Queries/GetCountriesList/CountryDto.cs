@@ -1,4 +1,4 @@
-﻿namespace DieteticSNS.Application.Models.Countries.Queries.GetCountriesList
+﻿namespace DieteticSNS.Application.Models.Countries.Queries.GetCountryList
 {
     public class CountryDto
     {

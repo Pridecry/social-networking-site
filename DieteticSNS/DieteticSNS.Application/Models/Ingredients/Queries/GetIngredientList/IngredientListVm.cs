@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientsList
+namespace DieteticSNS.Application.Models.Ingredients.Queries.GetIngredientList
 {
     public class IngredientListVm
     {

@@ -1,19 +1,18 @@
-﻿function hideDeleteModal(id) {
-
-    $("#deleteModal_" + id).modal('hide');
+﻿function hideModal(id) {
+    $(id).modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
 };
 
-function deleteCard(id) {
-    $("#postCard" + id).remove();
+function deleteItem(id) {
+    $(id).remove();
 };
 
-function hideEditModal(id) {
+function deleteComment(commentId, counterId) {
+    $(commentId).remove();
 
-    $("#editModal_" + id).modal('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
+    let counterValue = $(counterId).text();
+    $(counterId).html(counterValue - 1);
 };
 
 function updateCard(id) {

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using DieteticSNS.Application.Models.Posts.Queries.GetPostsList;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
@@ -31,6 +30,21 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                 ");
 
                 model.Posts = Posts.ToList();
+
+                var Comments = await connection.QueryAsync<PostCommentDto>($@"
+                    SELECT comments.Id, CreatedAt, UserId, Content, PostId, FirstName, LastName, AvatarPath
+                    FROM dbo.Comments comments LEFT OUTER JOIN dbo.AspNetUsers users ON comments.UserId = users.Id
+                    WHERE PostId IS NOT NULL;
+                ");
+
+                var commentList = Comments.ToList();
+
+                foreach (var post in model.Posts)
+                {
+                    var postCommentList = commentList.Where(x => x.PostId == post.Id).ToList();
+
+                    post.PostComments.AddRange(postCommentList);
+                }
             }
 
             return model;

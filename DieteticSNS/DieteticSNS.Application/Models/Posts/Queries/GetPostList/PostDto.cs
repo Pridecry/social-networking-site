@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace DieteticSNS.Application.Models.Posts.Queries.GetPostsList
+namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
 {
     public class PostDto
     {
@@ -13,5 +14,7 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostsList
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string AvatarPath { get; set; }
+
+        public List<PostCommentDto> PostComments { get; set; } = new List<PostCommentDto>();
     }
 }
