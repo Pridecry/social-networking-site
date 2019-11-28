@@ -34,14 +34,14 @@ namespace DieteticSNS.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdatePost(UpdatePostCommand command)
+        public async Task<IActionResult> UpdatePost(UpdatePostCommand updatePostCommand)
         {
             if (!ModelState.IsValid)
             {
                 return NoContent();
             }
 
-            await Mediator.Send(command);
+            await Mediator.Send(updatePostCommand);
 
             return NoContent();
         }

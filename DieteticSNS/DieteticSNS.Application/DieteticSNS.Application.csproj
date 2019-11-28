@@ -24,7 +24,7 @@
     <Folder Include="Models\CommentLikes\Queries\" />
     <Folder Include="Models\CommentReports\Commands\" />
     <Folder Include="Models\CommentReports\Queries\" />
-    <Folder Include="Models\Comments\Commands\" />
+    <Folder Include="Models\Comments\Commands\DeleteComment\" />
     <Folder Include="Models\Comments\Queries\" />
     <Folder Include="Models\Followings\Commands\" />
     <Folder Include="Models\Followings\Queries\" />

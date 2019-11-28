@@ -1,4 +1,5 @@
-﻿@using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
+﻿@using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
+@using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
 @using DieteticSNS.Application.Models.Posts.Queries.GetPostsList
 
 @using DieteticSNS.Application.Common.Extensions
@@ -8,7 +9,9 @@
 @{
     Layout = "~/Views/Shared/_StandardLayout.cshtml";
 
-    UpdatePostCommand command = new UpdatePostCommand();
+    CreatePostCommentCommand createPostCommentCommand = new CreatePostCommentCommand();
+    UpdatePostCommand updatePostCommand = new UpdatePostCommand();
+
     PostListVm posts = (PostListVm)ViewBag.PostList;
     string dir = "~/img/uploads/";
 }
@@ -74,27 +77,25 @@
                                         </div>
                                         <div class="modal-body">
                                             @{
-                                                command.Id = item.Id;
-                                                command.Title = item.Title;
-                                                command.Description = item.Description;
+                                                updatePostCommand.Id = item.Id;
+                                                updatePostCommand.Title = item.Title;
+                                                updatePostCommand.Description = item.Description;
                                             }
-                                            <input asp-for="@command.Id" form="@("editForm_"+item.Id)" hidden />
+                                            <input asp-for="@updatePostCommand.Id" form="@("editForm_"+item.Id)" hidden />
                                             <div class="form-group row">
                                                 <div class="col-2 text-right">
-                                                    <label asp-for="@command.Title" for="Title" class="col-form-label"><b>Title</b></label>
+                                                    <label asp-for="@updatePostCommand.Title" for="Title" class="col-form-label"><b>Title</b></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <input id=@("titleInput_"+item.Id) asp-for="@command.Title" type="text" class="form-control" placeholder="Enter title" form="@("editForm_"+item.Id)" required>
-                                                    <span asp-validation-for="@command.Title"></span>
+                                                    <input id=@("titleInput_"+item.Id) asp-for="@updatePostCommand.Title" type="text" class="form-control" placeholder="Enter title" form="@("editForm_"+item.Id)" required oninvalid="this.setCustomValidity('Please fill out this field')" oninput="setCustomValidity('')">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-2 text-right">
-                                                    <label asp-for="@command.Description" for="description" class="col-form-label"><b>Description</b></label>
+                                                    <label asp-for="@updatePostCommand.Description" for="description" class="col-form-label"><b>Description</b></label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <textarea id=@("descriptionInput_"+item.Id) asp-for="@command.Description" class="form-control" rows="3" placeholder="Say something here" form="@("editForm_"+item.Id)"></textarea>
-                                                    <span asp-validation-for="@command.Description"></span>
+                                                    <textarea id=@("descriptionInput_"+item.Id) asp-for="@updatePostCommand.Description" class="form-control" rows="3" placeholder="Say something here" form="@("editForm_"+item.Id)"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -180,7 +181,15 @@
                         <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
                     </div>
                     <div class="col pl-0">
-                        <input id=@("titleInput_"+item.Id) type="text" class="form-control" placeholder="Write a comment...">
+                        @{
+                            createPostCommentCommand.PostId = item.Id;
+                        }
+                        <form asp-controller="Comments" asp-action="CreateComment" autocomplete="off" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="clearContentInput(@item.Id)">
+                            <input asp-for="@createPostCommentCommand.PostId" hidden />
+                            <input id=@("contentInput_"+item.Id) asp-for="@createPostCommentCommand.Content" type="text" class="form-control" placeholder="Write a comment...">
+                            <input type="submit" hidden />
+                        </form>
+
                     </div>
                 </div>
 
@@ -207,5 +216,5 @@
 @section Scripts
 {
     <script src="~/js/changeFileLabelHtml.js"></script>
-    <script src="~/js/updatePost.js"></script>
+    <script src="~/js/theWall.js"></script>
 }

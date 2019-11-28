@@ -23,3 +23,7 @@ function updateCard(id) {
     $("#title_" + id).html(titleValue);
     $("#description_" + id).html(descriptionValue);
 };
+
+function clearContentInput(id) {
+    $("#contentInput_" + id).val("");
+};
