@@ -27,7 +27,6 @@
     <Folder Include="Models\Comments\Queries\" />
     <Folder Include="Models\Followings\Commands\" />
     <Folder Include="Models\Followings\Queries\" />
-    <Folder Include="Models\Likes\Commands\" />
     <Folder Include="Models\Likes\Queries\" />
     <Folder Include="Models\PostComments\Commands\" />
     <Folder Include="Models\PostComments\Queries\" />

@@ -28,7 +28,6 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                     FROM dbo.Posts posts LEFT OUTER JOIN dbo.AspNetUsers users ON posts.UserId = users.Id
                     ORDER BY CreatedAt DESC;
                 ");
-
                 model.Posts = Posts.ToList();
 
                 var Comments = await connection.QueryAsync<PostCommentDto>($@"
@@ -36,14 +35,21 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                     FROM dbo.Comments comments LEFT OUTER JOIN dbo.AspNetUsers users ON comments.UserId = users.Id
                     WHERE PostId IS NOT NULL;
                 ");
-
                 var commentList = Comments.ToList();
+
+                var Likes = await connection.QueryAsync<PostLikeDto>($@"
+                    SELECT Id, UserId, CommentId, PostId
+                    FROM dbo.Likes
+                ");
+                var likeList = Likes.ToList();
 
                 foreach (var post in model.Posts)
                 {
                     var postCommentList = commentList.Where(x => x.PostId == post.Id).ToList();
+                    var postLikeList = likeList.Where(x => x.PostId == post.Id && x.PostId != null).ToList();
 
                     post.PostComments.AddRange(postCommentList);
+                    post.PostLikes.AddRange(postLikeList);
                 }
             }
 

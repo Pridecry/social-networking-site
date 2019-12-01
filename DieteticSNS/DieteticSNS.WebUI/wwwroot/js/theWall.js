@@ -26,3 +26,25 @@ function updateCard(id) {
 function clearContentInput(id) {
     $("#contentInput_" + id).val("");
 };
+
+function increment(id) {
+    let counterValue = parseInt($(id).text());
+    $(id).html(counterValue + 1);
+};
+
+function decrement(id) {
+    let counterValue = parseInt($(id).text());
+    $(id).html(counterValue - 1);
+};
+
+function postLikeToggle(value, id) {
+    if (value == false) {
+        $("#postLikeButton_" + id).removeClass("d-none");
+        $("#postLikedButton_" + id).addClass("d-none");
+        decrement("#postLikeCounter_" + id);
+    } else {
+        $("#postLikeButton_" + id).addClass("d-none");
+        $("#postLikedButton_" + id).removeClass("d-none");
+        increment("#postLikeCounter_" + id);
+    }
+};
