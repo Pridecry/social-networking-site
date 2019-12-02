@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,19 +38,34 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                 ");
                 var commentList = Comments.ToList();
 
-                var Likes = await connection.QueryAsync<PostLikeDto>($@"
-                    SELECT Id, UserId, CommentId, PostId
+                var postLikes = await connection.QueryAsync<PostLikeDto>($@"
+                    SELECT Id, UserId, PostId
                     FROM dbo.Likes
+                    WHERE PostId IS NOT NULL;
                 ");
-                var likeList = Likes.ToList();
+                var postsLikeList = postLikes.ToList();
+
+                var commentLikes = await connection.QueryAsync<CommentLikeDto>($@"
+                    SELECT Id, UserId, CommentId
+                    FROM dbo.Likes
+                    WHERE CommentId IS NOT NULL;
+                ");
+                var commentsLikeList = commentLikes.ToList();
 
                 foreach (var post in model.Posts)
                 {
                     var postCommentList = commentList.Where(x => x.PostId == post.Id).ToList();
-                    var postLikeList = likeList.Where(x => x.PostId == post.Id && x.PostId != null).ToList();
+                    var postLikeList = postsLikeList.Where(x => x.PostId == post.Id).ToList();
 
                     post.PostComments.AddRange(postCommentList);
                     post.PostLikes.AddRange(postLikeList);
+
+                    foreach (var comment in post.PostComments)
+                    {
+                        var commentLikeList = commentsLikeList.Where(x => x.CommentId == comment.Id).ToList();
+
+                        comment.CommentLikes.AddRange(commentLikeList);
+                    }
                 }
             }
 

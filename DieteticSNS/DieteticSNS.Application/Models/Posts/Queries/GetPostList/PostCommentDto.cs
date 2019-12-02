@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
 {
@@ -12,5 +13,7 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string AvatarPath { get; set; }
+
+        public List<CommentLikeDto> CommentLikes { get; set; } = new List<CommentLikeDto>();
     }
 }

@@ -48,3 +48,15 @@ function postLikeToggle(value, id) {
         increment("#postLikeCounter_" + id);
     }
 };
+
+function commentLikeToggle(value, id) {
+    if (value == false) {
+        $("#commentLikeButton_" + id).removeClass("d-none");
+        $("#commentLikedButton_" + id).addClass("d-none");
+        decrement("#commentLikeCounter_" + id);
+    } else {
+        $("#commentLikeButton_" + id).addClass("d-none");
+        $("#commentLikedButton_" + id).removeClass("d-none");
+        increment("#commentLikeCounter_" + id);
+    }
+};
