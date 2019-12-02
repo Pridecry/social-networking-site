@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\CommentLikes\**" />
+    <Compile Remove="Models\CommentReports\**" />
+    <Compile Remove="Models\PostComments\**" />
+    <Compile Remove="Models\PostLikes\**" />
+    <Compile Remove="Models\PostReports\**" />
+    <EmbeddedResource Remove="Models\CommentLikes\**" />
+    <EmbeddedResource Remove="Models\CommentReports\**" />
+    <EmbeddedResource Remove="Models\PostComments\**" />
+    <EmbeddedResource Remove="Models\PostLikes\**" />
+    <EmbeddedResource Remove="Models\PostReports\**" />
+    <None Remove="Models\CommentLikes\**" />
+    <None Remove="Models\CommentReports\**" />
+    <None Remove="Models\PostComments\**" />
+    <None Remove="Models\PostLikes\**" />
+    <None Remove="Models\PostReports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Dapper" Version="2.0.30" />
@@ -20,20 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\CommentLikes\Commands\" />
-    <Folder Include="Models\CommentLikes\Queries\" />
-    <Folder Include="Models\CommentReports\Commands\" />
-    <Folder Include="Models\CommentReports\Queries\" />
     <Folder Include="Models\Comments\Queries\" />
     <Folder Include="Models\Followings\Commands\" />
     <Folder Include="Models\Followings\Queries\" />
     <Folder Include="Models\Likes\Queries\" />
-    <Folder Include="Models\PostComments\Commands\" />
-    <Folder Include="Models\PostComments\Queries\" />
-    <Folder Include="Models\PostLikes\Commands\" />
-    <Folder Include="Models\PostLikes\Queries\" />
-    <Folder Include="Models\PostReports\Commands\" />
-    <Folder Include="Models\PostReports\Queries\" />
     <Folder Include="Models\RecipeComments\Commands\" />
     <Folder Include="Models\RecipeComments\Queries\" />
     <Folder Include="Models\RecipeIngredients\Commands\" />
@@ -44,7 +52,6 @@
     <Folder Include="Models\RecipeStars\Queries\" />
     <Folder Include="Models\Recipes\Commands\" />
     <Folder Include="Models\Recipes\Queries\" />
-    <Folder Include="Models\Reports\Commands\" />
     <Folder Include="Models\Reports\Queries\" />
     <Folder Include="Models\Stars\Commands\" />
     <Folder Include="Models\Stars\Queries\" />

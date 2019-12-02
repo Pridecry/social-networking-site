@@ -94,7 +94,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
                 commentReports[i] = new CommentReport
                 {
                     AccuserId = i + 1,
-                    Content = $"Content{i}",
                     CommentId = i + 1
                 };
             }
@@ -233,7 +232,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
                 postReports[i] = new PostReport
                 {
                     Id = i + 1,
-                    Content = $"Content{i}",
                     PostId = i + 1
                 };
             }
@@ -305,7 +303,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
                 recipeReports[i] = new RecipeReport
                 {
                     AccuserId = i + 1,
-                    Content = $"Content{i}",
                     RecipeId = i + 1
                 };
             }
@@ -340,8 +337,7 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             {
                 reports[i] = new Report
                 {
-                    AccuserId = i + 1,
-                    Content = $"Content{i}"
+                    AccuserId = i + 1
                 };
             }
 

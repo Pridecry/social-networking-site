@@ -52,19 +52,37 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                 ");
                 var commentsLikeList = commentLikes.ToList();
 
+                var postReports = await connection.QueryAsync<PostReportDto>($@"
+                    SELECT AccuserId, PostId
+                    FROM dbo.Reports
+                    WHERE PostId IS NOT NULL;
+                ");
+                var postReportsList = postReports.ToList();
+
+                var commentReports = await connection.QueryAsync<CommentReportDto>($@"
+                    SELECT AccuserId, CommentId
+                    FROM dbo.Reports
+                    WHERE CommentId IS NOT NULL;
+                ");
+                var commentReportsList = commentReports.ToList();
+
                 foreach (var post in model.Posts)
                 {
                     var postCommentList = commentList.Where(x => x.PostId == post.Id).ToList();
                     var postLikeList = postsLikeList.Where(x => x.PostId == post.Id).ToList();
+                    var postReportList = postReportsList.Where(x => x.PostId == post.Id).ToList();
 
                     post.PostComments.AddRange(postCommentList);
                     post.PostLikes.AddRange(postLikeList);
+                    post.PostReports.AddRange(postReportList);
 
                     foreach (var comment in post.PostComments)
                     {
                         var commentLikeList = commentsLikeList.Where(x => x.CommentId == comment.Id).ToList();
+                        var commentReportList = commentReportsList.Where(x => x.CommentId == comment.Id).ToList();
 
                         comment.CommentLikes.AddRange(commentLikeList);
+                        comment.CommentReports.AddRange(commentReportList);
                     }
                 }
             }

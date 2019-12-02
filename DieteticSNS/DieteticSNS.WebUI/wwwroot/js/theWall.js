@@ -60,3 +60,11 @@ function commentLikeToggle(value, id) {
         increment("#commentLikeCounter_" + id);
     }
 };
+
+function disableReportPostButton(id) {
+    $("#reportPostButton_" + id).attr('disabled', true); 
+};
+
+function disableReportCommentButton(id) {
+    $("#reportCommentButton_" + id).attr('disabled', true);
+};

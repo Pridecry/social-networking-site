@@ -1,5 +1,4 @@
-﻿using System;
-using DieteticSNS.Domain.Entities.Base;
+﻿using DieteticSNS.Domain.Entities.Base;
 
 namespace DieteticSNS.Domain.Entities
 {
@@ -7,7 +6,5 @@ namespace DieteticSNS.Domain.Entities
     {
         public int AccuserId { get; set; }
         public User Accuser { get; set; }
-
-        public string Content { get; set; }
     }
 }

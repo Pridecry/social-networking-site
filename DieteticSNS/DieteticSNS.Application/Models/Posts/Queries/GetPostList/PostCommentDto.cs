@@ -15,5 +15,6 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
         public string AvatarPath { get; set; }
 
         public List<CommentLikeDto> CommentLikes { get; set; } = new List<CommentLikeDto>();
+        public List<CommentReportDto> CommentReports { get; set; } = new List<CommentReportDto>();
     }
 }

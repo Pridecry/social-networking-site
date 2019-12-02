@@ -1,9 +1,8 @@
 ﻿namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
 {
-    public class CommentLikeDto
+    public class CommentReportDto
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public int AccuserId { get; set; }
         public int CommentId { get; set; }
     }
 }

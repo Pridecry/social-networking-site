@@ -17,5 +17,6 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
 
         public List<PostLikeDto> PostLikes { get; set; } = new List<PostLikeDto>();
         public List<PostCommentDto> PostComments { get; set; } = new List<PostCommentDto>();
+        public List<PostReportDto> PostReports { get; set; } = new List<PostReportDto>();
     }
 }
