@@ -38,7 +38,7 @@
                         <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
                             <i class="fas fa-ellipsis-h"></i>
                         </a>
-                        @if (post.UserId != int.Parse(currentUserService.GetUserId()))
+                        @if (post.UserId == int.Parse(currentUserService.GetUserId()))
                         {
                             <div class="dropdown-menu dropdown-menu-right">
                                 <form id="@("editForm_"+post.Id)" asp-controller="Posts" asp-action="UpdatePost" asp-route-id="@post.Id" autocomplete="off" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal('#editModal_'+@post.Id)" data-ajax-success="setTimeout(updateCard, 300, @post.Id)">
@@ -233,7 +233,7 @@
                                     <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </a>
-                                    @if (comment.UserId != int.Parse(currentUserService.GetUserId()))
+                                    @if (comment.UserId == int.Parse(currentUserService.GetUserId()))
                                     {
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <form id="@("deleteCommentForm_"+comment.Id)" asp-controller="Comments" asp-action="DeleteComment" asp-route-id="@comment.Id" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal('#deleteCommentModal_'+@comment.Id)" data-ajax-success="setTimeout(deleteComment, 400, '#postComment_'+@comment.Id, '#commentCounter_'+@post.Id)">

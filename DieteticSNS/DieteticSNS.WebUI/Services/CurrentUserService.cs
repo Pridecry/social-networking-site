@@ -5,6 +5,7 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.WebUI.Services
 {
@@ -26,7 +27,12 @@ namespace DieteticSNS.WebUI.Services
 
             if (id != null)
             {
-                _user = _context.Users.SingleOrDefault(x => x.Id == int.Parse(id)); 
+                _user = _context.Users
+                    .Include(x => x.Followers)
+                    .Include(x => x.Followings)
+                    .Include(x => x.Posts)
+                    .Include(x => x.Recipes)
+                    .SingleOrDefault(x => x.Id == int.Parse(id)); 
             }
         }
 
