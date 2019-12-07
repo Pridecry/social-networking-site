@@ -13,11 +13,11 @@ namespace DieteticSNS.WebUI.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDieteticSNSDbContext _context;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         private readonly User _user;
 
-        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context, IHostingEnvironment hostingEnvironment)
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor, IDieteticSNSDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _httpContextAccessor = httpContextAccessor;
             _context = context;
