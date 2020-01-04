@@ -29,11 +29,11 @@ namespace DieteticSNS.Application.Common.Behaviours
 
             _timer.Stop();
 
-            if (_timer.ElapsedMilliseconds > 500)
+            if (_timer.ElapsedMilliseconds > 5000)
             {
                 var name = typeof(TRequest).Name;
 
-                _logger.LogWarning("Northwind Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
+                _logger.LogWarning("DieteticSNS Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
                     name, _timer.ElapsedMilliseconds, _currentUserService.GetUserId(), request);
             }
 
