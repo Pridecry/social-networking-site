@@ -1,6 +1,6 @@
 ﻿@model DieteticSNS.Application.Models.Posts.Commands.CreatePost.CreatePostCommand
 
-<form id="createPostForm" asp-controller="Posts" asp-action="CreatePost" autocomplete="off" enctype="multipart/form-data" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#createPostForm">
+<form id="createPostForm" asp-controller="Posts" asp-action="CreatePost" autocomplete="off" enctype="multipart/form-data" data-ajax="true"  data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#createPostForm" data-ajax-success="updateWallView">
     <div class="card my-4">
         <div class="card-body pb-2">
             <div class="form-group row">

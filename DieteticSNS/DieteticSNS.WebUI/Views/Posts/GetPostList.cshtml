@@ -365,7 +365,16 @@
                         @{
                             createPostCommentCommand.PostId = post.Id;
                         }
-                        <form asp-controller="Comments" asp-action="CreateComment" autocomplete="off" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="clearContentInput(@post.Id)">
+                        <form 
+                              asp-controller="Comments" 
+                              asp-action="CreateComment" 
+                              autocomplete="off"
+                              method="post"
+                              data-ajax="true"
+                              data-ajax-method="post" 
+                              data-ajax-complete="clearContentInput(@post.Id)" 
+                              data-ajax-success="updateCommentView(@post.Id)" 
+                        >
                             <input asp-for="@createPostCommentCommand.PostId" hidden />
                             <input id=@("contentInput_"+post.Id) asp-for="@createPostCommentCommand.Content" type="text" class="form-control" placeholder="Write a comment...">
                             <input type="submit" hidden />

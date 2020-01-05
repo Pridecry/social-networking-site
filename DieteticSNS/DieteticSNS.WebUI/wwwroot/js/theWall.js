@@ -68,3 +68,32 @@ function disableReportPostButton(id) {
 function disableReportCommentButton(id) {
     $("#reportCommentButton_" + id).attr('disabled', true);
 };
+
+function updateView(type, postId) {
+    if (type === 'newPost') {
+        return isRequestValid()
+            ? window.location.reload(true)
+            : false;
+    } else if (type === 'comment') {
+        localStorage.setItem('currentCommentWindow', postId);
+        return window.location.reload(true)
+    }
+}
+
+var updateWallView = updateView.bind(null, 'newPost');
+var updateCommentView = updateView.bind(null, 'comment');
+
+function isRequestValid() {
+    return !document.querySelector('.field-validation-error');
+}
+
+function initialLoadHandler() {
+    var currentCommentWindow = localStorage.getItem('currentCommentWindow');
+
+    if (currentCommentWindow) {
+        document.getElementById('comments_' + currentCommentWindow).style.display = 'block';
+        return localStorage.removeItem('currentCommentWindow');
+    }
+}
+
+initialLoadHandler();
