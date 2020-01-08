@@ -106,3 +106,14 @@ input.input-validation-error {
 .clickable {
     cursor: pointer;
 }
+
+.badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+    padding: 1px 3px;
+    font-size: 10px;
+    position: absolute;
+    top: -5px;
+    right: 15px;
+}
