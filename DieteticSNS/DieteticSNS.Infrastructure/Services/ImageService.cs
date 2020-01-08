@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Memory;
 using SixLabors.Primitives;
 
-namespace DieteticSNS.WebUI.Services
+namespace DieteticSNS.Infrastructure.Services
 {
     public class ImageService : IImageService
     {

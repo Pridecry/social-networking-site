@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DieteticSNS.Application.Common.Interfaces;
@@ -12,12 +13,14 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreateCommentLike
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _userService;
+        private readonly IWallService _wallService;
 
-        public CreateCommentLikeCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService)
+        public CreateCommentLikeCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService, IWallService wallService)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
+            _wallService = wallService;
         }
 
         public async Task<Unit> Handle(CreateCommentLikeCommand request, CancellationToken cancellationToken)
@@ -26,7 +29,15 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreateCommentLike
             entity.UserId = int.Parse(_userService.GetUserId());
 
             _context.CommentLikes.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
+
+            if (await _context.SaveChangesAsync(cancellationToken) > 0)
+            {
+                var item = _context.CommentLikes
+                    .Where(x => x.CommentId == entity.CommentId && x.UserId == entity.UserId)
+                    .FirstOrDefault();
+
+                await _wallService.SendCommentLike(entity.UserId, item.Id, item.CommentId);
+            }
 
             return Unit.Value;
         }

@@ -160,7 +160,7 @@
                 <div class="col-auto">
                     @if (post.PostLikes.Exists(x => x.UserId == int.Parse(currentUserService.GetUserId())))
                     {
-                        <form asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
+                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
                             <button id="@("postLikedButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><h6><i class="far fa-thumbs-up text-primary"></i> Liked</h6></button>
                         </form>
                         <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id)">
@@ -169,7 +169,7 @@
                     }
                     else
                     {
-                        <form asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
+                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
                             <button id="@("postLikedButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><h6><i class="far fa-thumbs-up text-primary"></i> Liked</h6></button>
                         </form>
                         <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id)">
@@ -304,7 +304,7 @@
                             <div class="col-auto">
                                 @if (comment.CommentLikes.Exists(x => x.UserId == int.Parse(currentUserService.GetUserId())))
                                 {
-                                    <form asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
+                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
                                         <button id="@("commentLikedButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
                                     </form>
                                     <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id)">
@@ -313,7 +313,7 @@
                                 }
                                 else
                                 {
-                                    <form asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
+                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
                                         <button id="@("commentLikedButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
                                     </form>
                                     <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id)">
@@ -359,7 +359,7 @@
                 }
                 <div class="row">
                     <div class="col-auto">
-                        <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+                        <img id=@("avatarPath_"+post.Id) class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
                     </div>
                     <div class="col pl-0">
                         @{
@@ -373,7 +373,6 @@
                               data-ajax="true"
                               data-ajax-method="post" 
                               data-ajax-complete="clearContentInput(@post.Id)" 
-                              data-ajax-success="updateCommentView(@post.Id)" 
                         >
                             <input asp-for="@createPostCommentCommand.PostId" hidden />
                             <input id=@("contentInput_"+post.Id) asp-for="@createPostCommentCommand.Content" type="text" class="form-control" placeholder="Write a comment...">

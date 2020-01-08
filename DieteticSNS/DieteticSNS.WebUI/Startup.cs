@@ -3,6 +3,7 @@ using System.Globalization;
 using DieteticSNS.Application;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Infrastructure;
+using DieteticSNS.Infrastructure.Hubs;
 using DieteticSNS.Persistence;
 using DieteticSNS.WebUI.Services;
 using FluentValidation.AspNetCore;
@@ -31,6 +32,8 @@ namespace DieteticSNS.WebUI
             services.AddPersistence(Configuration);
             services.AddApplication();
 
+            services.AddSignalR();
+
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
@@ -47,8 +50,6 @@ namespace DieteticSNS.WebUI
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IDieteticSNSDbContext>());
-
-            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,20 +67,24 @@ namespace DieteticSNS.WebUI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseRequestLocalization();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "error",
-                    template: "/Error",
-                    defaults: new { controller = "Home", action = "Error" });
+                endpoints.MapHub<NotificationHub>("/notificationHub");
+                endpoints.MapHub<WallHub>("/wallHub");
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
+                    name: "error",
+                    pattern: "/Error",
+                    defaults: new { controller = "Home", action = "Error" });
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
+                    pattern: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Posts", action = "GetPostList" });
             });
         }

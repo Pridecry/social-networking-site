@@ -43,6 +43,15 @@
         "dist/jquery.unobtrusive-ajax.js",
         "dist/jquery.unobtrusive-ajax.min.js"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "dist/browser/signalr.js",
+        "dist/browser/signalr.min.js"
+      ]
     }
   ]
 }
