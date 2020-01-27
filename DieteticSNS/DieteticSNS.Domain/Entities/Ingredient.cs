@@ -11,6 +11,6 @@ namespace DieteticSNS.Domain.Entities
         public int? Carbohydrate { get; set; }
         public int? Fat { get; set; }
 
-        public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new HashSet<RecipeIngredient>();
+        public virtual ICollection<RecipeIngredient> RecipeIngredients { get; private set; } = new HashSet<RecipeIngredient>();
     }
 }

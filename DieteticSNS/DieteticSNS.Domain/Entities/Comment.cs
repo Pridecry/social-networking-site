@@ -10,7 +10,7 @@ namespace DieteticSNS.Domain.Entities
 
         public string Content { get; set; }
 
-        public virtual ICollection<CommentLike> CommentLikes { get; set; } = new HashSet<CommentLike>();
-        public virtual ICollection<CommentReport> CommentReports { get; set; } = new HashSet<CommentReport>();
+        public virtual ICollection<CommentLike> CommentLikes { get; private set; } = new HashSet<CommentLike>();
+        public virtual ICollection<CommentReport> CommentReports { get; private set; } = new HashSet<CommentReport>();
     }
 }

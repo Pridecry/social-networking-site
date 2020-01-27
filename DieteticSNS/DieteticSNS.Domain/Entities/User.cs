@@ -16,13 +16,13 @@ namespace DieteticSNS.Domain.Entities
         public int? CountryId { get; set; }
         public virtual Country Country { get; set; }
 
-        public virtual ICollection<Following> Followings { get; set; } = new HashSet<Following>();
-        public virtual ICollection<Following> Followers { get; set; } = new HashSet<Following>();
-        public virtual ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
-        public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
-        public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
-        public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
-        public virtual ICollection<Like> Likes { get; set; } = new HashSet<Like>();
-        public virtual ICollection<Stars> Stars { get; set; } = new HashSet<Stars>();
+        public virtual ICollection<Following> Followings { get; private set; } = new HashSet<Following>();
+        public virtual ICollection<Following> Followers { get; private set; } = new HashSet<Following>();
+        public virtual ICollection<Recipe> Recipes { get; private set; } = new HashSet<Recipe>();
+        public virtual ICollection<Post> Posts { get; private set; } = new HashSet<Post>();
+        public virtual ICollection<Comment> Comments { get; private set; } = new HashSet<Comment>();
+        public virtual ICollection<Report> Reports { get; private set; } = new HashSet<Report>();
+        public virtual ICollection<Like> Likes { get; private set; } = new HashSet<Like>();
+        public virtual ICollection<Stars> Stars { get; private set; } = new HashSet<Stars>();
     }
 }

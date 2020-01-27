@@ -13,8 +13,8 @@ namespace DieteticSNS.Domain.Entities
         public string Description { get; set; }
         public string PhotoPath { get; set; }
 
-        public virtual ICollection<PostComment> PostComments { get; set; } = new HashSet<PostComment>();
-        public virtual ICollection<PostReport> PostReports { get; set; } = new HashSet<PostReport>();
-        public virtual ICollection<PostLike> PostLikes { get; set; } = new HashSet<PostLike>();
+        public virtual ICollection<PostComment> PostComments { get; private set; } = new HashSet<PostComment>();
+        public virtual ICollection<PostReport> PostReports { get; private set; } = new HashSet<PostReport>();
+        public virtual ICollection<PostLike> PostLikes { get; private set; } = new HashSet<PostLike>();
     }
 }
