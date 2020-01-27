@@ -1,5 +1,4 @@
-﻿using System;
-using DieteticSNS.Domain.Entities.Base;
+﻿using DieteticSNS.Domain.Entities.Base;
 
 namespace DieteticSNS.Domain.Entities
 {

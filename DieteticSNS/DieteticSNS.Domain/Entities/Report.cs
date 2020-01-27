@@ -2,7 +2,7 @@
 
 namespace DieteticSNS.Domain.Entities
 {
-    public class Report : BaseTimeStampEntity
+    public abstract class Report : BaseTimeStampEntity
     {
         public int AccuserId { get; set; }
         public User Accuser { get; set; }

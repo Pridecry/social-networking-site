@@ -1,5 +1,4 @@
-﻿using System;
-using DieteticSNS.Domain.Enumerations;
+﻿using DieteticSNS.Domain.Enumerations;
 
 namespace DieteticSNS.Domain.Entities
 {

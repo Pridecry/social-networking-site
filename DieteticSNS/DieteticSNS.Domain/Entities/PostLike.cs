@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DieteticSNS.Domain.Entities
+﻿namespace DieteticSNS.Domain.Entities
 {
     public class PostLike : Like
     {
