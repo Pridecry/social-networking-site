@@ -6,7 +6,7 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
 
-namespace DieteticSNS.Application.Models.Account.Commands.UpdateUser
+namespace DieteticSNS.Application.Models.Account.Commands.UpdateAccount
 {
     public class UpdateAccountCommandHandler : IRequestHandler<UpdateAccountCommand>
     {

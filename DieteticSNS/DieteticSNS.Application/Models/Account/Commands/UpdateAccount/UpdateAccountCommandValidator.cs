@@ -1,7 +1,7 @@
 ﻿using DieteticSNS.Application.Common.Validators;
 using FluentValidation;
 
-namespace DieteticSNS.Application.Models.Account.Commands.UpdateUser
+namespace DieteticSNS.Application.Models.Account.Commands.UpdateAccount
 {
     public class UpdateAccountCommandValidator : AbstractValidator<UpdateAccountCommand>
     {

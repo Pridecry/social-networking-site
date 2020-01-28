@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 

@@ -1,0 +1,45 @@
+﻿@model DieteticSNS.Application.Models.Users.Commands.UpdateUser.UpdateUserCommand
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+        <h3>Update user</h3>
+    </div>
+    <div class="col-auto">
+        <a asp-controller="Users" asp-action="GetUserList" class="btn btn-dark">Back to list</a>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<div class="jumbotron">
+    <form method="post" autocomplete="off">
+        <input asp-for="Id" hidden />
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="FirstName" for="name" class="col-form-label"><b>First name</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="FirstName" type="text" id="name" class="form-control" placeholder="Enter first name">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="LastName" for="lastName" class="col-form-label"><b>Last name</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="LastName" type="text" id="lastName" class="form-control" placeholder="Enter last name">
+                <span asp-validation-for="LastName"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto offset-2 mt-2">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
