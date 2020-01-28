@@ -18,13 +18,13 @@ namespace DieteticSNS.Application.Tests.Infrastructure
 
             context.Database.EnsureCreated();
 
-            context.Comments.AddRange(AddCommentsToDatabase());
+            //context.Comments.AddRange(AddCommentsToDatabase());
             context.CommentLikes.AddRange(AddCommentLikesToDatabase());
             context.CommentReports.AddRange(AddCommentReportsToDatabase());
             context.Countries.AddRange(AddCountriesToDatabase());
             context.Followings.AddRange(AddFollowingsToDatabase());
             context.Ingredients.AddRange(AddIngredientsToDatabase());
-            context.Likes.AddRange(AddLikesToDatabase());
+            //context.Likes.AddRange(AddLikesToDatabase());
             context.Posts.AddRange(AddPostsToDatabase());
             context.PostComments.AddRange(AddPostCommentsToDatabase());
             context.PostLikes.AddRange(AddPostLikesToDatabase());
@@ -34,7 +34,7 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             context.RecipeIngredients.AddRange(AddRecipeIngredientsToDatabase());
             context.RecipeReports.AddRange(AddRecipeReportsToDatabase());
             context.RecipeStars.AddRange(AddRecipeStarsToDatabase());
-            context.Reports.AddRange(AddReportsToDatabase());
+            //context.Reports.AddRange(AddReportsToDatabase());
             context.Stars.AddRange(AddStarsToDatabase());
             context.Users.AddRange(AddUsersToDatabase());
 
@@ -50,22 +50,22 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             context.Dispose();
         }
 
-        private static Comment[] AddCommentsToDatabase()
-        {
-            int commentsCount = 10;
-            var comments = new Comment[commentsCount];
+        //private static Comment[] AddCommentsToDatabase()
+        //{
+        //    int commentsCount = 10;
+        //    var comments = new Comment[commentsCount];
 
-            for (int i = 0; i < commentsCount; i++)
-            {
-                comments[i] = new Comment
-                {
-                    UserId = i + 1,
-                    Content = $"Content{i}"
-                };
-            }
+        //    for (int i = 0; i < commentsCount; i++)
+        //    {
+        //        comments[i] = new Comment
+        //        {
+        //            UserId = i + 1,
+        //            Content = $"Content{i}"
+        //        };
+        //    }
 
-            return comments;
-        }
+        //    return comments;
+        //}
 
         private static CommentLike[] AddCommentLikesToDatabase()
         {
@@ -153,21 +153,21 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             return ingredients;
         }
 
-        private static Like[] AddLikesToDatabase()
-        {
-            int likesCount = 10;
-            var likes = new Like[likesCount];
+        //private static Like[] AddLikesToDatabase()
+        //{
+        //    int likesCount = 10;
+        //    var likes = new Like[likesCount];
 
-            for (int i = 0; i < likesCount; i++)
-            {
-                likes[i] = new Like
-                {
-                    UserId = i + 1
-                };
-            }
+        //    for (int i = 0; i < likesCount; i++)
+        //    {
+        //        likes[i] = new Like
+        //        {
+        //            UserId = i + 1
+        //        };
+        //    }
 
-            return likes;
-        }
+        //    return likes;
+        //}
 
         private static Post[] AddPostsToDatabase()
         {
@@ -328,21 +328,21 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             return recipeStars;
         }
 
-        private static Report[] AddReportsToDatabase()
-        {
-            int reportsCount = 10;
-            var reports = new Report[reportsCount];
+        //private static Report[] AddReportsToDatabase()
+        //{
+        //    int reportsCount = 10;
+        //    var reports = new Report[reportsCount];
 
-            for (int i = 0; i < reportsCount; i++)
-            {
-                reports[i] = new Report
-                {
-                    AccuserId = i + 1
-                };
-            }
+        //    for (int i = 0; i < reportsCount; i++)
+        //    {
+        //        reports[i] = new Report
+        //        {
+        //            AccuserId = i + 1
+        //        };
+        //    }
 
-            return reports;
-        }
+        //    return reports;
+        //}
 
         private static Stars[] AddStarsToDatabase()
         {
