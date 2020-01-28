@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.WebUI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +13,7 @@ namespace DieteticSNS.WebUI.Controllers
             return View();
         }
 
+        //[Authorize(Roles = "Administrator")]
         public IActionResult AdminPanel()
         {
             return View();

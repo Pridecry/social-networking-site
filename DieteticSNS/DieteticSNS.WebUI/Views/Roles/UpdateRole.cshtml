@@ -1,0 +1,36 @@
+﻿@model DieteticSNS.Application.Models.Roles.Commands.UpdateRole.UpdateRoleCommand
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row justify-content-between align-items-center">
+    <div class="col-auto">
+        <h3>Update role</h3>
+    </div>
+    <div class="col-auto">
+        <a asp-controller="Roles" asp-action="GetRoleList" class="btn btn-dark">Back to list</a>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<div class="jumbotron">
+    <form method="post" autocomplete="off">
+        <input asp-for="Id" hidden />
+        <div class="form-group row">
+            <div class="col-2 text-right">
+                <label asp-for="Name" for="name" class="col-form-label"><b>Name</b></label>
+            </div>
+            <div class="col-10">
+                <input asp-for="Name" type="text" id="name" class="form-control" placeholder="Enter name">
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto offset-2 mt-2">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

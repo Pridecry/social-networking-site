@@ -17,6 +17,7 @@ namespace DieteticSNS.Persistence
             services.AddScoped<IDieteticSNSDbContext>(provider => provider.GetService<DieteticSNSDbContext>());
 
             services.AddIdentity<User, IdentityRole<int>>()
+                .AddRoles<IdentityRole<int>>()
                 .AddEntityFrameworkStores<DieteticSNSDbContext>();
 
             return services;

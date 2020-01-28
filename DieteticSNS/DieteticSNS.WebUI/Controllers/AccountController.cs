@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
