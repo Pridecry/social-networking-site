@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DieteticSNS.Application.Models.Users.Commands.DeleteAvatar
+namespace DieteticSNS.Application.Models.Account.Commands.DeleteAvatar
 {
     public class DeleteAvatarCommand : IRequest
     {

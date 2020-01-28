@@ -6,22 +6,22 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
 
-namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
+namespace DieteticSNS.Application.Models.Account.Commands.UpdateUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
+    public class UpdateAccountCommandHandler : IRequestHandler<UpdateAccountCommand>
     {
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
         private readonly IImageService _imageService;
 
-        public UpdateUserCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService)
+        public UpdateAccountCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService)
         {
             _context = context;
             _mapper = mapper;
             _imageService = imageService;
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.Users.FindAsync(request.Id);
 

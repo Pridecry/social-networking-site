@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
-using DieteticSNS.Application.Models.Users.Commands.DeleteAvatar;
-using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
-using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
+using DieteticSNS.Application.Models.Account.Commands.DeleteAvatar;
+using DieteticSNS.Application.Models.Account.Commands.UpdateUser;
+using DieteticSNS.Application.Models.Account.Queries.GetUserDetails;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.WebUI.Models.Account;
 using Microsoft.AspNetCore.Authorization;
@@ -112,11 +112,11 @@ namespace DieteticSNS.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAccount(int id)
         {
-            var details = await Mediator.Send(new GetUserDetailsQuery { Id = id });
+            var details = await Mediator.Send(new GetAccountDetailsQuery { Id = id });
 
             ViewBag.HasAvatar = details.AvatarPath != null ? true : false; 
 
-            var command = Mapper.Map<UpdateUserCommand>(details);
+            var command = Mapper.Map<UpdateAccountCommand>(details);
             command.Id = id;
 
             var countryListVm = await Mediator.Send(new GetCountryListQuery());
@@ -131,7 +131,7 @@ namespace DieteticSNS.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAccount(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateAccount(UpdateAccountCommand command)
         {
             if (!ModelState.IsValid)
             {

@@ -1,11 +1,11 @@
 ﻿using DieteticSNS.Application.Common.Validators;
 using FluentValidation;
 
-namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
+namespace DieteticSNS.Application.Models.Account.Commands.UpdateUser
 {
-    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+    public class UpdateAccountCommandValidator : AbstractValidator<UpdateAccountCommand>
     {
-        public UpdateUserCommandValidator()
+        public UpdateAccountCommandValidator()
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.FirstName).NotEmpty();

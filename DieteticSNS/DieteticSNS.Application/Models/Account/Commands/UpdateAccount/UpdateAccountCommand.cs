@@ -3,9 +3,9 @@ using DieteticSNS.Domain.Enumerations;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace DieteticSNS.Application.Models.Users.Commands.UpdateUser
+namespace DieteticSNS.Application.Models.Account.Commands.UpdateUser
 {
-    public class UpdateUserCommand : IRequest
+    public class UpdateAccountCommand : IRequest
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

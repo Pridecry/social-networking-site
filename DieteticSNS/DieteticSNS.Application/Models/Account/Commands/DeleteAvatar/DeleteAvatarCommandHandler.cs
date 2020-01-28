@@ -5,7 +5,7 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
 
-namespace DieteticSNS.Application.Models.Users.Commands.DeleteAvatar
+namespace DieteticSNS.Application.Models.Account.Commands.DeleteAvatar
 {
     public class DeleteAvatarCommandHandler : IRequestHandler<DeleteAvatarCommand>
     {

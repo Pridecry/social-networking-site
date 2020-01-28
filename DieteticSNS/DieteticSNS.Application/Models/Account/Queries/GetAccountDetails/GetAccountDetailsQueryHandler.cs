@@ -7,22 +7,22 @@ using DieteticSNS.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace DieteticSNS.Application.Models.Users.Queries.GetUserDetails
+namespace DieteticSNS.Application.Models.Account.Queries.GetUserDetails
 {
-    public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
+    public class GetAccountDetailsQueryHandler : IRequestHandler<GetAccountDetailsQuery, AccountDetailsVm>
     {
         private readonly IConfiguration _configuration;
 
-        public GetUserDetailsQueryHandler(IConfiguration configuration)
+        public GetAccountDetailsQueryHandler(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<AccountDetailsVm> Handle(GetAccountDetailsQuery request, CancellationToken cancellationToken)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var model = await connection.QueryFirstOrDefaultAsync<UserDetailsVm>($@"
+                var model = await connection.QueryFirstOrDefaultAsync<AccountDetailsVm>($@"
                     SELECT * 
                     FROM AspNetUsers
                     WHERE id = { request.Id }

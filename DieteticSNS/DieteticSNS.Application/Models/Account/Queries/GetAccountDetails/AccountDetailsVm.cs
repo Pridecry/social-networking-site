@@ -1,9 +1,9 @@
 ﻿using System;
 using DieteticSNS.Domain.Enumerations;
 
-namespace DieteticSNS.Application.Models.Users.Queries.GetUserDetails
+namespace DieteticSNS.Application.Models.Account.Queries.GetUserDetails
 {
-    public class UserDetailsVm
+    public class AccountDetailsVm
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
