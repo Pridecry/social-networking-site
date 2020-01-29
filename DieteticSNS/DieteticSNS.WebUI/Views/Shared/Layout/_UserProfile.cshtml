@@ -8,27 +8,12 @@
     <div class="card-body px-0">
         <h5 class="card-title">@currentUserService.GetUserFullName()</h5>
         <p class="card-text">@User.Identity.Name</p>
-
-        <div class="row no-gutters mt-4">
-            <div class="col-6">
-                <h6>FOLLOWERS</h6>
-                <p>@currentUserService.GetUserFollowersCount()</p>
-            </div>
-            <div class="col-6">
-                <h6>FOLLOWING</h6>
-                <p>@currentUserService.GetUserFollowingsCount()</p>
-            </div>
-        </div>
-
-        <div class="row no-gutters">
-            <div class="col-6">
-                <h6>POSTS</h6>
-                <span>@currentUserService.GetUserPostsCount()</span>
-            </div>
-            <div class="col-6">
-                <h6>RECIPES</h6>
-                <span>@currentUserService.GetUserRecipesCount()</span>
-            </div>
-        </div>
+        <hr />
+        <h6 class="card-subtitle">FOLLOWERS</h6>
+        <p class="card-text">@currentUserService.GetUserFollowersCount()</p>
+        <h6 class="card-subtitle">FOLLOWING</h6>
+        <p class="card-text">@currentUserService.GetUserFollowingsCount()</p>
+        <h6 class="card-subtitle">POSTS</h6>
+        <p class="card-text">@currentUserService.GetUserPostsCount()</p>
     </div>
 </div>

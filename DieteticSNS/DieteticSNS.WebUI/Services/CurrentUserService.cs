@@ -31,7 +31,6 @@ namespace DieteticSNS.WebUI.Services
                     .Include(x => x.Followers)
                     .Include(x => x.Followings)
                     .Include(x => x.Posts)
-                    .Include(x => x.Recipes)
                     .SingleOrDefault(x => x.Id == int.Parse(id)); 
             }
         }
@@ -59,11 +58,6 @@ namespace DieteticSNS.WebUI.Services
         public int GetUserPostsCount()
         {
             return _user?.Posts.Count ?? 0;
-        }
-
-        public int GetUserRecipesCount()
-        {
-            return _user?.Recipes.Count ?? 0;
         }
 
         public string GetUserAvatarPath()

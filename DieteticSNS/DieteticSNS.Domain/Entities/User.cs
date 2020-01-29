@@ -18,11 +18,9 @@ namespace DieteticSNS.Domain.Entities
 
         public virtual ICollection<Following> Followings { get; private set; } = new HashSet<Following>();
         public virtual ICollection<Following> Followers { get; private set; } = new HashSet<Following>();
-        public virtual ICollection<Recipe> Recipes { get; private set; } = new HashSet<Recipe>();
         public virtual ICollection<Post> Posts { get; private set; } = new HashSet<Post>();
         public virtual ICollection<Comment> Comments { get; private set; } = new HashSet<Comment>();
         public virtual ICollection<Report> Reports { get; private set; } = new HashSet<Report>();
         public virtual ICollection<Like> Likes { get; private set; } = new HashSet<Like>();
-        public virtual ICollection<Stars> Stars { get; private set; } = new HashSet<Stars>();
     }
 }

@@ -10,16 +10,34 @@
     <Compile Remove="Models\PostComments\**" />
     <Compile Remove="Models\PostLikes\**" />
     <Compile Remove="Models\PostReports\**" />
+    <Compile Remove="Models\RecipeComments\**" />
+    <Compile Remove="Models\RecipeIngredients\**" />
+    <Compile Remove="Models\RecipeReports\**" />
+    <Compile Remove="Models\RecipeStars\**" />
+    <Compile Remove="Models\Recipes\**" />
+    <Compile Remove="Models\Stars\**" />
     <EmbeddedResource Remove="Models\CommentLikes\**" />
     <EmbeddedResource Remove="Models\CommentReports\**" />
     <EmbeddedResource Remove="Models\PostComments\**" />
     <EmbeddedResource Remove="Models\PostLikes\**" />
     <EmbeddedResource Remove="Models\PostReports\**" />
+    <EmbeddedResource Remove="Models\RecipeComments\**" />
+    <EmbeddedResource Remove="Models\RecipeIngredients\**" />
+    <EmbeddedResource Remove="Models\RecipeReports\**" />
+    <EmbeddedResource Remove="Models\RecipeStars\**" />
+    <EmbeddedResource Remove="Models\Recipes\**" />
+    <EmbeddedResource Remove="Models\Stars\**" />
     <None Remove="Models\CommentLikes\**" />
     <None Remove="Models\CommentReports\**" />
     <None Remove="Models\PostComments\**" />
     <None Remove="Models\PostLikes\**" />
     <None Remove="Models\PostReports\**" />
+    <None Remove="Models\RecipeComments\**" />
+    <None Remove="Models\RecipeIngredients\**" />
+    <None Remove="Models\RecipeReports\**" />
+    <None Remove="Models\RecipeStars\**" />
+    <None Remove="Models\Recipes\**" />
+    <None Remove="Models\Stars\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,19 +61,7 @@
     <Folder Include="Models\Followings\Commands\" />
     <Folder Include="Models\Followings\Queries\" />
     <Folder Include="Models\Likes\Queries\" />
-    <Folder Include="Models\RecipeComments\Commands\" />
-    <Folder Include="Models\RecipeComments\Queries\" />
-    <Folder Include="Models\RecipeIngredients\Commands\" />
-    <Folder Include="Models\RecipeIngredients\Queries\" />
-    <Folder Include="Models\RecipeReports\Commands\" />
-    <Folder Include="Models\RecipeReports\Queries\" />
-    <Folder Include="Models\RecipeStars\Commands\" />
-    <Folder Include="Models\RecipeStars\Queries\" />
-    <Folder Include="Models\Recipes\Commands\" />
-    <Folder Include="Models\Recipes\Queries\" />
     <Folder Include="Models\Reports\Queries\" />
-    <Folder Include="Models\Stars\Commands\" />
-    <Folder Include="Models\Stars\Queries\" />
   </ItemGroup>
 
 </Project>

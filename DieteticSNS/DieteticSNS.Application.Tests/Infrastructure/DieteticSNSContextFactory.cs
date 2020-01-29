@@ -23,19 +23,12 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             context.CommentReports.AddRange(AddCommentReportsToDatabase());
             context.Countries.AddRange(AddCountriesToDatabase());
             context.Followings.AddRange(AddFollowingsToDatabase());
-            context.Ingredients.AddRange(AddIngredientsToDatabase());
             //context.Likes.AddRange(AddLikesToDatabase());
             context.Posts.AddRange(AddPostsToDatabase());
             context.PostComments.AddRange(AddPostCommentsToDatabase());
             context.PostLikes.AddRange(AddPostLikesToDatabase());
             context.PostReports.AddRange(AddPostReportsToDatabase());
-            context.Recipes.AddRange(AddRecipesToDatabase());
-            context.RecipeComments.AddRange(AddRecipeCommentsToDatabase());
-            context.RecipeIngredients.AddRange(AddRecipeIngredientsToDatabase());
-            context.RecipeReports.AddRange(AddRecipeReportsToDatabase());
-            context.RecipeStars.AddRange(AddRecipeStarsToDatabase());
             //context.Reports.AddRange(AddReportsToDatabase());
-            context.Stars.AddRange(AddStarsToDatabase());
             context.Users.AddRange(AddUsersToDatabase());
 
             context.SaveChanges();
@@ -134,25 +127,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             return followings;
         }
 
-        private static Ingredient[] AddIngredientsToDatabase()
-        {
-            int ingredientsCount = 10;
-            var ingredients = new Ingredient[ingredientsCount];
-
-            for (int i = 0; i < ingredientsCount; i++)
-            {
-                ingredients[i] = new Ingredient
-                {
-                    Name = $"Name{i}",
-                    Protein = i + 1,
-                    Carbohydrate = i + 1,
-                    Fat = i + 1
-                };
-            }
-
-            return ingredients;
-        }
-
         //private static Like[] AddLikesToDatabase()
         //{
         //    int likesCount = 10;
@@ -239,95 +213,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
             return postReports;
         }
 
-        private static Recipe[] AddRecipesToDatabase()
-        {
-            int recipesCount = 10;
-            var recipes = new Recipe[recipesCount];
-
-            for (int i = 0; i < recipesCount; i++)
-            {
-                recipes[i] = new Recipe
-                {
-                    UserId = i + 1,
-                    Description = $"Description{i}"
-                };
-            }
-
-            return recipes;
-        }
-
-        private static RecipeComment[] AddRecipeCommentsToDatabase()
-        {
-            int recipeCommentsCount = 10;
-            var recipeComments = new RecipeComment[recipeCommentsCount];
-
-            for (int i = 0; i < recipeCommentsCount; i++)
-            {
-                recipeComments[i] = new RecipeComment
-                {
-                    UserId = i + 1,
-                    Content = $"Content{i}",
-                    RecipeId = i + 1
-                };
-            }
-
-            return recipeComments;
-        }
-
-        private static RecipeIngredient[] AddRecipeIngredientsToDatabase()
-        {
-            int recipeIngredientsCount = 10;
-            var recipeIngredients = new RecipeIngredient[recipeIngredientsCount];
-
-            for (int i = 0; i < recipeIngredientsCount; i++)
-            {
-                recipeIngredients[i] = new RecipeIngredient
-                {
-                    RecipeId = i + 1,
-                    IngredientId = i + 1,
-                    Quantity = i + 1,
-                    Unit = Unit.Gram
-                };
-            }
-
-            return recipeIngredients;
-        }
-
-        private static RecipeReport[] AddRecipeReportsToDatabase()
-        {
-            int recipeReportsCount = 10;
-            var recipeReports = new RecipeReport[recipeReportsCount];
-
-            for (int i = 0; i < recipeReportsCount; i++)
-            {
-                recipeReports[i] = new RecipeReport
-                {
-                    AccuserId = i + 1,
-                    RecipeId = i + 1
-                };
-            }
-
-            return recipeReports;
-        }
-
-        private static RecipeStars[] AddRecipeStarsToDatabase()
-        {
-            int recipeStarsCount = 10;
-            var recipeStars = new RecipeStars[recipeStarsCount];
-
-            for (int i = 0; i < recipeStarsCount; i++)
-            {
-                recipeStars[i] = new RecipeStars
-                {
-                    UserId = i + 1,
-                    Amount = i + 1,
-                    RecipeId = i + 1
-                };
-            }
-
-            return recipeStars;
-        }
-
         //private static Report[] AddReportsToDatabase()
         //{
         //    int reportsCount = 10;
@@ -343,23 +228,6 @@ namespace DieteticSNS.Application.Tests.Infrastructure
 
         //    return reports;
         //}
-
-        private static Stars[] AddStarsToDatabase()
-        {
-            int starsCount = 10;
-            var stars = new Stars[starsCount];
-
-            for (int i = 0; i < starsCount; i++)
-            {
-                stars[i] = new Stars
-                {
-                    UserId = i + 1,
-                    Amount = i + 1
-                };
-            }
-
-            return stars;
-        }
 
         private static User[] AddUsersToDatabase()
         {
