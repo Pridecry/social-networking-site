@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace DieteticSNS.WebUI.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult AdminPanel()
         {
             return View();

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,12 +23,12 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var Posts = await connection.QueryAsync<PostDto>($@"
+                var posts = await connection.QueryAsync<PostDto>($@"
                     SELECT posts.Id, UserId, Title, Description, PhotoPath, CreatedAt, FirstName, LastName, AvatarPath
                     FROM dbo.Posts posts LEFT OUTER JOIN dbo.AspNetUsers users ON posts.UserId = users.Id
                     ORDER BY CreatedAt DESC;
                 ");
-                model.Posts = Posts.ToList();
+                model.Posts = posts.ToList();
 
                 var Comments = await connection.QueryAsync<PostCommentDto>($@"
                     SELECT comments.Id, CreatedAt, UserId, Content, PostId, FirstName, LastName, AvatarPath

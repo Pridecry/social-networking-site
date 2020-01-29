@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DieteticSNS.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class RolesController : BaseController
     {
         [HttpGet]

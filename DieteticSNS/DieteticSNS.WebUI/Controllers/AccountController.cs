@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DieteticSNS.WebUI.Controllers
 {
+    [Authorize]
     public class AccountController : BaseController
     {
         private readonly UserManager<User> _userManager;
@@ -29,12 +30,14 @@ namespace DieteticSNS.WebUI.Controllers
             _userService = userService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -61,7 +64,6 @@ namespace DieteticSNS.WebUI.Controllers
             return View(model);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -70,12 +72,14 @@ namespace DieteticSNS.WebUI.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
