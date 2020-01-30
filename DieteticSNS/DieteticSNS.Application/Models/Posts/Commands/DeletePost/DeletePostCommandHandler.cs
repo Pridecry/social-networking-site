@@ -4,6 +4,7 @@ using DieteticSNS.Application.Common.Exceptions;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
 {
@@ -20,7 +21,12 @@ namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
 
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Posts.FindAsync(request.Id);
+            var entity = await _context.Posts
+                .Include(x => x.PostComments)
+                .Include(x => x.PostReports)
+                .Include(x => x.PostLikes)
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
+                
 
             if (entity == null)
             {
@@ -28,6 +34,11 @@ namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
             }
 
             _imageService.DeleteImage(entity.PhotoPath);
+
+            _context.Comments.RemoveRange(entity.PostComments);
+            _context.Reports.RemoveRange(entity.PostReports);
+            _context.Likes.RemoveRange(entity.PostLikes);
+
             _context.Posts.Remove(entity);
 
             await _context.SaveChangesAsync(cancellationToken);

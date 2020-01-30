@@ -459,7 +459,7 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -468,13 +468,13 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.User", "Follower")
                         .WithMany("Followings")
                         .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DieteticSNS.Domain.Entities.User", "User")
                         .WithMany("Followers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -509,7 +509,8 @@ namespace DieteticSNS.Persistence.Migrations
                 {
                     b.HasOne("DieteticSNS.Domain.Entities.Country", "Country")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -577,7 +578,7 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.Comment", "Comment")
                         .WithMany("CommentLikes")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -595,7 +596,7 @@ namespace DieteticSNS.Persistence.Migrations
                     b.HasOne("DieteticSNS.Domain.Entities.Comment", "Comment")
                         .WithMany("CommentReports")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

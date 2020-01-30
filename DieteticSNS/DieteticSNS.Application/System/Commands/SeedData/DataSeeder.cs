@@ -3,16 +3,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace DieteticSNS.Application.System.Commands.SeedData
 {
     public class DataSeeder
     {
         private readonly IDieteticSNSDbContext _context;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-        public DataSeeder(IDieteticSNSDbContext context)
+        public DataSeeder(IDieteticSNSDbContext context, RoleManager<IdentityRole<int>> roleManager)
         {
             _context = context;
+            _roleManager = roleManager;
         }
 
         public async Task SeedAllAsync(CancellationToken cancellationToken)
@@ -22,7 +25,21 @@ namespace DieteticSNS.Application.System.Commands.SeedData
                 return;
             }
 
+            await SeedRolesAsync();
             await SeedCustomersAsync(cancellationToken);
+        }
+
+        private async Task SeedRolesAsync()
+        {
+            var roles = new[]
+            {
+                new IdentityRole<int> { Name = "Administrator" }
+            };
+
+            foreach (var role in roles)
+            {
+                await _roleManager.CreateAsync(role);
+            }
         }
 
         private async Task SeedCustomersAsync(CancellationToken cancellationToken)
