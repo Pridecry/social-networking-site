@@ -44,11 +44,33 @@
                 <a asp-controller="Account" asp-action="Register" class="dropdown-item">Register</a>
                 <a asp-controller="Account" asp-action="Login" class="dropdown-item">Login</a>
                 <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item">Settings</a>
+                <form id="deleteAccountForm" asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@currentUserService.GetUserId()" method="post" class="d-inline">
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">Delete account</button>
+                </form>
                 <div class="dropdown-divider"></div>
                 <form asp-controller="Account" asp-action="Logout" method="post">
                     <button type="submit" class="dropdown-item">Logout</button>
                 </form>
             </div>
+
+            <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete confirmation</h5>
+                            <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure to delete account?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger" form="deleteAccountForm">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="col-1"></div>

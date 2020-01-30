@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DieteticSNS.Application.Models.Account.Commands.DeleteAccount;
 
 namespace DieteticSNS.WebUI.Controllers
 {
@@ -163,6 +164,14 @@ namespace DieteticSNS.WebUI.Controllers
             await Mediator.Send(new DeleteAvatarCommand { Id = id });
 
             return RedirectToAction(nameof(UpdateAccount), new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAccount(int id)
+        {
+            await Mediator.Send(new DeleteAccountCommand { Id = id });
+
+            return RedirectToAction(nameof(Login));
         }
     }
 }

@@ -27,7 +27,6 @@ namespace DieteticSNS.Application.Models.Posts.Commands.DeletePost
                 .Include(x => x.PostLikes)
                 .FirstOrDefaultAsync(x => x.Id == request.Id);
                 
-
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Post), request.Id);
