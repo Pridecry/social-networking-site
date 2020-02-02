@@ -13,7 +13,10 @@
     UpdatePostCommand updatePostCommand = new UpdatePostCommand();
 
     PostListVm posts = (PostListVm)ViewBag.PostList;
+
     string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
+
 }
 
 <partial name="~/Views/Posts/_CreatePost.cshtml" />
@@ -24,7 +27,14 @@
         <div class="card-body pb-0">
             <div class="row mb-2">
                 <div class="col-auto">
-                    <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, post.AvatarPath)" asp-append-version="true" alt="Avatar">
+                    @if (!String.IsNullOrEmpty(post.AvatarPath))
+                    {
+                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, post.AvatarPath)" asp-append-version="true" alt="Avatar">
+                    }
+                    else
+                    {
+                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                    }
                 </div>
                 <div class="col">
                     <h5 class="mb-3">@post.FirstName @post.LastName</h5>
@@ -220,7 +230,14 @@
                     <div class="pb-2" id="@("postComment_"+comment.Id)">
                         <div class="row flex-nowrap">
                             <div class="col-auto">
-                                <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@String.Concat(dir, comment.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                @if (!String.IsNullOrEmpty(comment.AvatarPath))
+                                {
+                                    <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@String.Concat(dir, comment.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                }
+                                else
+                                {
+                                    <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                }
                             </div>
                             <div class="col-auto px-0 mb-0 flex-shrink-1">
                                 <div class="jumbotron px-3 py-2 mb-0">

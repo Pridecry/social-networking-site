@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using DieteticSNS.Application.Models.Users.Commands.AddUserRoles;
+using DieteticSNS.Application.Models.Users.Commands.BlockUser;
 using DieteticSNS.Application.Models.Users.Commands.DeleteUser;
+using DieteticSNS.Application.Models.Users.Commands.UnblockUser;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Application.Models.Users.Queries.GetUserList;
@@ -80,6 +82,22 @@ namespace DieteticSNS.WebUI.Controllers
             }
 
             await Mediator.Send(command);
+
+            return RedirectToAction(nameof(GetUserList));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BlockUser(int id)
+        {
+            await Mediator.Send(new BlockUserCommand { Id = id });
+
+            return RedirectToAction(nameof(GetUserList));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnblockUser(int id)
+        {
+            await Mediator.Send(new UnblockUserCommand { Id = id });
 
             return RedirectToAction(nameof(GetUserList));
         }

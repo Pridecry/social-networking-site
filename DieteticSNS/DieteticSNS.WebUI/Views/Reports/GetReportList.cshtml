@@ -1,0 +1,326 @@
+﻿@model DieteticSNS.Application.Models.Reports.Queries.GetReportList.ReportListVm
+
+@using DieteticSNS.Application.Common.Extensions
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
+}
+
+<div class="row">
+    <div class="col-auto">
+        <h3>Reports</h3>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<div class="accordion" id="reportAccordion">
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
+                    Post reports
+                </button>
+            </h2>
+        </div>
+        <div id="collapseOne" class="collapse show" data-parent="#reportAccordion">
+            <div class="card-body">
+                <table class="table table-striped table-bordered datatable-post_report" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Report count</th>
+                            <th>Created at</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PostReports)
+                        {
+                            <tr>
+                                <td>@item.Count</td>
+                                <td>@item.CreatedAt.ToLocalTime()</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td class="py-2 px-0">
+                                    <button type="button" class="btn btn-outline-dark btn-sm ml-3 mr-1" data-toggle="modal" data-target="@("#insightModal_"+item.PostId)">Insight <i class="fas fa-eye"></i></button>
+                                    <div class="modal fade" id="@("insightModal_"+item.PostId)" tabindex="-1">
+                                        <div class="modal-dialog modal modal-dialog-centered">
+                                            <div class="card">
+                                                <div class="card-body pb-0">
+                                                    <div class="row mb-2">
+                                                        <div class="col-auto">
+                                                            @if (!String.IsNullOrEmpty(item.AvatarPath))
+                                                            {
+                                                                <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, item.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                                            }
+                                                        </div>
+                                                        <div class="col">
+                                                            <h5 class="mb-3">@item.FirstName @item.LastName</h5>
+                                                            <h6 class="card-title">@item.Title</h6>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
+                                                        </div>
+                                                    </div>
+                                                    @if (!String.IsNullOrEmpty(item.Description))
+                                                    {
+                                                        <p class="card-text">
+                                                            @item.Description
+                                                        </p>
+                                                    }
+                                                </div>
+                                                <div class="text-center">
+                                                    <img class="card-img-top p-4" src=@String.Concat(dir, item.PhotoPath) asp-append-version="true" alt="Post image">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form asp-controller="Reports" asp-action="BlockUser" asp-route-id="@item.UserId" method="post" class="d-inline mr-1">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#blockUserModal_"+item.PostId)">Block user <i class="fas fa-user-lock"></i></button>
+                                        <div class="modal fade" id="@("blockUserModal_"+item.PostId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Block user confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to block the author of this post?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Block</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form asp-controller="Reports" asp-action="DeletePost" asp-route-id="@item.PostId" method="post" class="d-inline mr-1">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#deleteModal_"+item.PostId)">Delete post <i class="far fa-trash-alt"></i></button>
+                                        <div class="modal fade" id="@("deleteModal_"+item.PostId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to delete this post?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form asp-controller="Reports" asp-action="DeletePostReports" asp-route-id="@item.PostId" method="post" class="d-inline">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#rejectModal_"+item.PostId)">Reject <i class="fas fa-ban"></i></button>
+                                        <div class="modal fade" id="@("rejectModal_"+item.PostId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Reject confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to reject this report?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Report count</th>
+                            <th>Created at</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo">
+                    Comment reports
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse show" data-parent="#reportAccordion">
+            <div class="card-body">
+                <table class="table table-striped table-bordered datatable-comment_report" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Report count</th>
+                            <th>Created at</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CommentReports)
+                        {
+                            <tr>
+                                <td>@item.Count</td>
+                                <td>@item.CreatedAt.ToLocalTime()</td>
+                                <td>@item.LastName</td>
+                                <td>@item.FirstName</td>
+                                <td class="py-2 px-0">
+                                    <button type="button" class="btn btn-outline-dark btn-sm ml-3 mr-1" data-toggle="modal" data-target="@("#insightModal_"+item.CommentId)">Insight <i class="fas fa-eye"></i></button>
+                                    <div class="modal fade" id="@("insightModal_"+item.CommentId)" tabindex="-1">
+                                        <div class="modal-dialog modal modal-dialog-centered">
+                                            <div class="card">
+                                                <div class="card-body pb-0">
+                                                    <div class="pb-2">
+                                                        <div class="row flex-nowrap">
+                                                            <div class="col-auto">
+                                                                @if (!String.IsNullOrEmpty(item.AvatarPath))
+                                                                {
+                                                                    <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@String.Concat(dir, item.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                                                }
+                                                            </div>
+                                                            <div class="col-auto px-0 mb-0 flex-shrink-1">
+                                                                <div class="jumbotron px-3 py-2 mb-0">
+                                                                    <b>@item.FirstName @item.LastName:</b>
+                                                                    <span class="text-break">@item.Content</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-auto">
+                                                                <div style="width: 2.5rem"></div>
+                                                            </div>
+                                                            <div class="col-auto px-0" style="padding-top: 0.15rem">
+                                                                <small>@item.CreatedAt.TimeAgo()</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form asp-controller="Reports" asp-action="BlockUser" asp-route-id="@item.UserId" method="post" class="d-inline mr-1">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#blockUserCommentModal_"+item.CommentId)">Block user <i class="fas fa-user-lock"></i></button>
+                                        <div class="modal fade" id="@("blockUserCommentModal_"+item.CommentId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Block user confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to block the author of this comment?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Block</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form asp-controller="Reports" asp-action="DeleteComment" asp-route-id="@item.CommentId" method="post" class="d-inline mr-1">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#deleteCommentModal_"+item.CommentId)">Delete comment <i class="far fa-trash-alt"></i></button>
+                                        <div class="modal fade" id="@("deleteCommentModal_"+item.CommentId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to delete this comment?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <form asp-controller="Reports" asp-action="DeleteCommentReports" asp-route-id="@item.CommentId" method="post" class="d-inline">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="@("#rejectCommentModal_"+item.CommentId)">Reject <i class="fas fa-ban"></i></button>
+                                        <div class="modal fade" id="@("rejectCommentModal_"+item.CommentId)" tabindex="-1">
+                                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Reject confirmation</h5>
+                                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to reject this report?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Report count</th>
+                            <th>Created at</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/datatable.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#collapseTwo').removeClass('show');
+        });
+    </script>
+}

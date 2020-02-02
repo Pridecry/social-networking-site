@@ -11,6 +11,8 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserList
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }
+        public string AvatarPath { get; set; }
         public int? CountryId { get; set; }
+        public bool IsBlocked { get; set; }
     }
 }

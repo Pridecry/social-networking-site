@@ -171,6 +171,8 @@ namespace DieteticSNS.WebUI.Controllers
         {
             await Mediator.Send(new DeleteAccountCommand { Id = id });
 
+            await _signInManager.SignOutAsync();
+
             return RedirectToAction(nameof(Login));
         }
     }

@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Models\CommentLikes\**" />
     <Compile Remove="Models\CommentReports\**" />
+    <Compile Remove="Models\Comments\Queries\**" />
+    <Compile Remove="Models\Likes\Queries\**" />
     <Compile Remove="Models\PostComments\**" />
     <Compile Remove="Models\PostLikes\**" />
     <Compile Remove="Models\PostReports\**" />
@@ -18,6 +20,8 @@
     <Compile Remove="Models\Stars\**" />
     <EmbeddedResource Remove="Models\CommentLikes\**" />
     <EmbeddedResource Remove="Models\CommentReports\**" />
+    <EmbeddedResource Remove="Models\Comments\Queries\**" />
+    <EmbeddedResource Remove="Models\Likes\Queries\**" />
     <EmbeddedResource Remove="Models\PostComments\**" />
     <EmbeddedResource Remove="Models\PostLikes\**" />
     <EmbeddedResource Remove="Models\PostReports\**" />
@@ -29,6 +33,8 @@
     <EmbeddedResource Remove="Models\Stars\**" />
     <None Remove="Models\CommentLikes\**" />
     <None Remove="Models\CommentReports\**" />
+    <None Remove="Models\Comments\Queries\**" />
+    <None Remove="Models\Likes\Queries\**" />
     <None Remove="Models\PostComments\**" />
     <None Remove="Models\PostLikes\**" />
     <None Remove="Models\PostReports\**" />
@@ -57,11 +63,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Comments\Queries\" />
     <Folder Include="Models\Followings\Commands\" />
     <Folder Include="Models\Followings\Queries\" />
-    <Folder Include="Models\Likes\Queries\" />
-    <Folder Include="Models\Reports\Queries\" />
   </ItemGroup>
 
 </Project>
