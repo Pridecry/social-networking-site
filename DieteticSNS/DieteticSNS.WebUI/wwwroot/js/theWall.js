@@ -4,8 +4,9 @@
     $('.modal-backdrop').remove();
 };
 
-function deleteItem(id) {
+function deletePost(id) {
     $(id).remove();
+    decrement("#userPosts");
 };
 
 function deleteComment(commentId, counterId) {
@@ -37,27 +38,57 @@ function decrement(id) {
     $(id).html(counterValue - 1);
 };
 
-function postLikeToggle(value, id) {
+function postLikeToggle(value, id, userId) {
     if (value == false) {
         $("#postLikeButton_" + id).removeClass("d-none");
         $("#postLikedButton_" + id).addClass("d-none");
         decrement("#postLikeCounter_" + id);
+        $("#postLike_" + id + "_" + userId).remove();
+
+        $("#tempPostLike_" + id).removeClass("d-flex");
+        $("#tempPostLike_" + id).hide();
+
+        if ($("#postLikeCounter_" + id).text() == 0) {
+            $("#showPostLikesButton_" + id).prop('disabled', true);
+        }
     } else {
         $("#postLikeButton_" + id).addClass("d-none");
         $("#postLikedButton_" + id).removeClass("d-none");
         increment("#postLikeCounter_" + id);
+
+        $("#tempPostLike_" + id).addClass("d-flex");
+        $("#tempPostLike_" + id).show();
+
+        if ($("#postLikeCounter_" + id).text() > 0) {
+            $("#showPostLikesButton_" + id).prop('disabled', false);
+        }
     }
 };
 
-function commentLikeToggle(value, id) {
+function commentLikeToggle(value, id, userId) {
     if (value == false) {
         $("#commentLikeButton_" + id).removeClass("d-none");
         $("#commentLikedButton_" + id).addClass("d-none");
         decrement("#commentLikeCounter_" + id);
+        $("#commentLike_" + id + "_" + userId).remove();
+
+        $("#tempCommentLike_" + id).removeClass("d-flex");
+        $("#tempCommentLike_" + id).hide();
+
+        if ($("#commentLikeCounter_" + id).text() == 0) {
+            $("#showCommentLikesButton_" + id).prop('disabled', true);
+        }
     } else {
         $("#commentLikeButton_" + id).addClass("d-none");
         $("#commentLikedButton_" + id).removeClass("d-none");
         increment("#commentLikeCounter_" + id);
+
+        $("#tempCommentLike_" + id).addClass("d-flex");
+        $("#tempCommentLike_" + id).show();
+
+        if ($("#commentLikeCounter_" + id).text() > 0) {
+            $("#showCommentLikesButton_" + id).prop('disabled', false);
+        }
     }
 };
 
@@ -99,6 +130,7 @@ connection.on("ReceivePostLike", function (likeId, postId) {
 
 connection.on("ReceivePostComment", function (commentId, postId, content) {
     var FullName = $("#userFullName").text();
+    var UserId = $("#userId").text();
     var AvatarPath = $("#avatarPath_" + postId).attr('src');
 
     var html = `
@@ -150,14 +182,31 @@ connection.on("ReceivePostComment", function (commentId, postId, content) {
                     <div style="width: 2.5rem"></div>
                 </div>
                 <div class="col-auto">
-                    <form id="commentLikedForm_${commentId}" action="/Likes/DeleteLike" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, ${commentId})">
-                        <button id="commentLikedButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
-                    </form>
-                    <form action="/Likes/CreateCommentLike/${commentId}" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, ${commentId})">
-                        <button id="commentLikeButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up"></i> Like</small></button>
-                    </form>
-
-                    <button class="btn btn-link text-decoration-none text-dark p-0"><small>(<span id="commentLikeCounter_${commentId}">0</span>)</small></button>
+                    <div class="col-auto">
+                        <form id="commentLikedForm_${commentId}" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, ${commentId}, ${UserId})" action="/Likes/DeleteLike">
+                            <button id="commentLikedButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
+                        </form>
+                        <form method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, ${commentId})" action="/Likes/CreateCommentLike/${commentId}">
+                            <button id="commentLikeButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up"></i> Like</small></button>
+                        </form>
+                        <button id="showCommentLikesButton_${commentId}" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="#commentLikeModal_${commentId}" disabled=""><small>(<span id="commentLikeCounter_${commentId}">0</span>)</small></button>
+                        <div class="modal fade" id="commentLikeModal_${commentId}" tabindex="-1">
+                            <div class="modal-dialog modal modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Comment likes</h5>
+                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>×</span></button>
+                                    </div>
+                                    <div class="list-group list-group-flush">
+                                        <a href="#" id="tempCommentLike_${commentId}" class="list-group-item list-group-item-action justify-content-between align-items-center py-2" hidden="">
+                                            <h5 class="mt-2">${FullName}</h5>
+                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="${AvatarPath}" alt="Avatar">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-auto px-0" style="padding-top: 0.15rem">
                     <small>just now</small>

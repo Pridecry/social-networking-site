@@ -52,13 +52,13 @@ namespace DieteticSNS.WebUI.Controllers
                 {
                     return LocalRedirect(returnUrl);
                 }
-                //if (result.IsLockedOut)
-                //{
-                //    return RedirectToAction(nameof(Lockout));
-                //}
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "This account has been locked due to unusual activity or behavior.");
+                }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login or password. Please try again.");
                 }
             }
 

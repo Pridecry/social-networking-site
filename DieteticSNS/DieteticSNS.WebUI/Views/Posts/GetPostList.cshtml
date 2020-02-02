@@ -16,7 +16,6 @@
 
     string dir = "~/img/uploads/";
     string noAvatar = "~/img/noavatar.jpg";
-
 }
 
 <partial name="~/Views/Posts/_CreatePost.cshtml" />
@@ -24,6 +23,7 @@
 @foreach (var post in posts.Posts)
 {
     <div class="card my-4" id="@("postCard_"+post.Id)">
+        <!-- #region Post details -->
         <div class="card-body pb-0">
             <div class="row mb-2">
                 <div class="col-auto">
@@ -43,6 +43,7 @@
                 <div class="col-auto">
                     <h6 class="text-muted">@post.CreatedAt.TimeAgo()</h6>
                 </div>
+                <!-- #region Post dropdown -->
                 <div class="col-auto">
                     <div class="dropdown d-inline">
                         <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
@@ -55,7 +56,7 @@
                                     <button id="@("editButton_"+post.Id)" type="button" class="dropdown-item" data-toggle="modal" data-target="@("#editModal_"+post.Id)">Edit post <i class="far fa-edit"></i></button>
                                 </form>
                                 <div class="dropdown-divider"></div>
-                                <form id="@("deleteForm_"+post.Id)" asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal('#deleteModal_'+@post.Id)" data-ajax-success="setTimeout(deleteItem, 400, '#postCard_'+@post.Id)">
+                                <form id="@("deleteForm_"+post.Id)" asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal('#deleteModal_'+@post.Id)" data-ajax-success="setTimeout(deletePost, 400, '#postCard_'+@post.Id)">
                                     <button type="button" class="dropdown-item" data-toggle="modal" data-target="@("#deleteModal_"+post.Id)">Delete post <i class="far fa-trash-alt"></i></button>
                                 </form>
                             </div>
@@ -154,68 +155,87 @@
                         }
                     </div>
                 </div>
+                <!-- #endregion -->
             </div>
-            @if (!String.IsNullOrEmpty(post.Description))
-            {
-                <p id="@("description_"+post.Id)" class="card-text">
+            <p id="@("description_"+post.Id)" class="card-text">
+                @if (!String.IsNullOrEmpty(post.Description))
+                {
                     @post.Description
-                </p>
-            }
+                }
+            </p>
         </div>
+        <!-- #endregion -->
         <div class="text-center">
             <img class="card-img-top p-4" src=@String.Concat(dir, post.PhotoPath) asp-append-version="true" alt="Post image">
         </div>
         <div class="card-body pt-0">
+            <!-- #region Post footer -->
             <div class="row justify-content-between">
                 <div class="col-auto">
                     @if (post.PostLikes.Exists(x => x.UserId == int.Parse(currentUserService.GetUserId())))
                     {
-                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
+                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id, @currentUserService.GetUserId())">
                             <button id="@("postLikedButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><h6><i class="far fa-thumbs-up text-primary"></i> Liked</h6></button>
                         </form>
-                        <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id)">
+                        <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id, @currentUserService.GetUserId())">
                             <button id="@("postLikeButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><h6><i class="far fa-thumbs-up"></i> Like</h6></button>
                         </form>
                     }
                     else
                     {
-                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id)">
+                        <form id="@("postLikedForm_"+post.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@post.PostLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, false, @post.Id, @currentUserService.GetUserId())">
                             <button id="@("postLikedButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><h6><i class="far fa-thumbs-up text-primary"></i> Liked</h6></button>
                         </form>
-                        <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id)">
+                        <form asp-controller="Likes" asp-action="CreatePostLike" asp-route-id="@post.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(postLikeToggle, 300, true, @post.Id, @currentUserService.GetUserId())">
                             <button id="@("postLikeButton_"+post.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><h6><i class="far fa-thumbs-up"></i> Like</h6></button>
                         </form>
                     }
 
                     @if (post.PostLikes.Count > 0)
                     {
-                        <button class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#postLikeModal_"+post.Id)"><h6>(<span id="@("postLikeCounter_"+post.Id)">@post.PostLikes.Count</span>)</h6></button>
-
-                        <div class="modal fade" id="@("postLikeModal_"+post.Id)" tabindex="-1">
-                            <div class="modal-dialog modal modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Post like list</h5>
-                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @*TODO: USER LIST   !!!!!   !!!!!    !!!!!   !!!!!   !!!!!*@
-                                        @foreach (var like in post.PostLikes)
-                                        {
-                                            <p>
-                                                PostId: @like.PostId
-                                            </p>
-                                        }
-                                        @*TODO: USER LIST   !!!!!   !!!!!    !!!!!   !!!!!   !!!!!*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button id="@("showPostLikesButton_"+post.Id)" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#postLikeModal_"+post.Id)"><h6>(<span id="@("postLikeCounter_"+post.Id)">@post.PostLikes.Count</span>)</h6></button>
                     }
                     else
                     {
-                        <button class="btn btn-link text-decoration-none text-dark p-0"><h6>(<span id="@("postLikeCounter_"+post.Id)">@post.PostLikes.Count</span>)</h6></button>
+                        <button id="@("showPostLikesButton_"+post.Id)" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#postLikeModal_"+post.Id)" disabled><h6>(<span id="@("postLikeCounter_"+post.Id)">@post.PostLikes.Count</span>)</h6></button>
                     }
+                    <div class="modal fade" id="@("postLikeModal_"+post.Id)" tabindex="-1">
+                        <div class="modal-dialog modal modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Post likes</h5>
+                                    <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                </div>
+                                <div class="list-group list-group-flush">
+                                    @foreach (var like in post.PostLikes)
+                                    {
+                                        <a href="#" id="@("postLike_"+post.Id+"_"+like.UserId)" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-2">
+                                            <h5 class="mt-2">@like.FirstName @like.LastName</h5>
+                                            @if (!String.IsNullOrEmpty(like.AvatarPath))
+                                            {
+                                                <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@String.Concat(dir, like.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                            }
+                                            else
+                                            {
+                                                <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                            }
+                                        </a>
+                                    }
+                                    <a href="#" id="@("tempPostLike_"+post.Id)" class="list-group-item list-group-item-action justify-content-between align-items-center py-2" hidden>
+                                        <h5 class="mt-2">@currentUserService.GetUserFullName()</h5>
+                                        @if (!String.IsNullOrEmpty(currentUserService.GetUserAvatarPath()))
+                                        {
+                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+                                        }
+                                        else
+                                        {
+                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                        }
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-auto" onclick="toggleDiv('comments_'+@post.Id)">
                     <h6 class="clickable">
@@ -223,6 +243,8 @@
                     </h6>
                 </div>
             </div>
+            <!-- #endregion -->
+            <!-- #region Comments section -->
             <div id="@("comments_"+post.Id)" style="display: none">
                 <hr class="mt-2" />
                 @foreach (var comment in post.PostComments)
@@ -245,6 +267,7 @@
                                     <span class="text-break">@comment.Content</span>
                                 </div>
                             </div>
+                            <!-- #region Comment dropdown -->
                             <div class="col-auto my-auto pl-2">
                                 <div class="dropdown d-inline">
                                     <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
@@ -313,6 +336,7 @@
                                     }
                                 </div>
                             </div>
+                            <!-- #endregion -->
                         </div>
                         <div class="row">
                             <div class="col-auto">
@@ -321,52 +345,68 @@
                             <div class="col-auto">
                                 @if (comment.CommentLikes.Exists(x => x.UserId == int.Parse(currentUserService.GetUserId())))
                                 {
-                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
+                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id, @currentUserService.GetUserId())">
                                         <button id="@("commentLikedButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
                                     </form>
-                                    <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id)">
+                                    <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id, @currentUserService.GetUserId())">
                                         <button id="@("commentLikeButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up"></i> Like</small></button>
                                     </form>
                                 }
                                 else
                                 {
-                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id)">
+                                    <form id="@("commentLikedForm_"+comment.Id)" asp-controller="Likes" asp-action="DeleteLike" asp-route-id="@comment.CommentLikes.FirstOrDefault(x => x.UserId == int.Parse(currentUserService.GetUserId()))?.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, @comment.Id, @currentUserService.GetUserId())">
                                         <button id="@("commentLikedButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
                                     </form>
-                                    <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id)">
+                                    <form asp-controller="Likes" asp-action="CreateCommentLike" asp-route-id="@comment.Id" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, @comment.Id, @currentUserService.GetUserId())">
                                         <button id="@("commentLikeButton_"+comment.Id)" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up"></i> Like</small></button>
                                     </form>
                                 }
 
                                 @if (comment.CommentLikes.Count > 0)
                                 {
-                                    <button class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#commentLikeModal_"+comment.Id)"><small>(<span id="@("commentLikeCounter_"+comment.Id)">@comment.CommentLikes.Count</span>)</small></button>
-
-                                    <div class="modal fade" id="@("commentLikeModal_"+comment.Id)" tabindex="-1">
-                                        <div class="modal-dialog modal modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Comment like list</h5>
-                                                    <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    @*TODO: USER LIST   !!!!!   !!!!!    !!!!!   !!!!!   !!!!!*@
-                                                    @foreach (var like in comment.CommentLikes)
-                                                    {
-                                                        <p>
-                                                            CommentId: @like.CommentId
-                                                        </p>
-                                                    }
-                                                    @*TODO: USER LIST   !!!!!   !!!!!    !!!!!   !!!!!   !!!!!*@
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button id="@("showCommentLikesButton_"+comment.Id)" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#commentLikeModal_"+comment.Id)"><small>(<span id="@("commentLikeCounter_"+comment.Id)">@comment.CommentLikes.Count</span>)</small></button>
                                 }
                                 else
                                 {
-                                    <button class="btn btn-link text-decoration-none text-dark p-0"><small>(<span id="@("commentLikeCounter_"+comment.Id)">@comment.CommentLikes.Count</span>)</small></button>
+                                    <button id="@("showCommentLikesButton_"+comment.Id)" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="@("#commentLikeModal_"+comment.Id)" disabled><small>(<span id="@("commentLikeCounter_"+comment.Id)">@comment.CommentLikes.Count</span>)</small></button>
                                 }
+                                <div class="modal fade" id="@("commentLikeModal_"+comment.Id)" tabindex="-1">
+                                    <div class="modal-dialog modal modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Comment likes</h5>
+                                                <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="list-group list-group-flush">
+                                                @foreach (var like in comment.CommentLikes)
+                                                {
+                                                    <a href="#" id="@("commentLike_"+comment.Id+"_"+like.UserId)" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-2">
+                                                        <h5 class="mt-2">@like.FirstName @like.LastName</h5>
+                                                        @if (!String.IsNullOrEmpty(like.AvatarPath))
+                                                        {
+                                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@String.Concat(dir, like.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                                        }
+                                                    </a>
+                                                }
+                                                <a href="#" id="@("tempCommentLike_"+comment.Id)" class="list-group-item list-group-item-action justify-content-between align-items-center py-2" hidden>
+                                                    <h5 class="mt-2">@currentUserService.GetUserFullName()</h5>
+                                                    @if (!String.IsNullOrEmpty(currentUserService.GetUserAvatarPath()))
+                                                    {
+                                                        <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                                    }
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-auto px-0" style="padding-top: 0.15rem">
                                 <small>@comment.CreatedAt.TimeAgo()</small>
@@ -382,15 +422,13 @@
                         @{
                             createPostCommentCommand.PostId = post.Id;
                         }
-                        <form 
-                              asp-controller="Comments" 
-                              asp-action="CreateComment" 
+                        <form asp-controller="Comments"
+                              asp-action="CreateComment"
                               autocomplete="off"
                               method="post"
                               data-ajax="true"
-                              data-ajax-method="post" 
-                              data-ajax-complete="clearContentInput(@post.Id)" 
-                        >
+                              data-ajax-method="post"
+                              data-ajax-complete="clearContentInput(@post.Id)">
                             <input asp-for="@createPostCommentCommand.PostId" hidden />
                             <input id=@("contentInput_"+post.Id) asp-for="@createPostCommentCommand.Content" type="text" class="form-control" placeholder="Write a comment...">
                             <input type="submit" hidden />
@@ -398,9 +436,12 @@
                     </div>
                 </div>
             </div>
+            <!-- #endregion -->
         </div>
     </div>
 }
+
+<span id="userId" hidden>@currentUserService.GetUserId()</span>
 
 @section LeftPanel
 {
