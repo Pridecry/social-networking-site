@@ -26,42 +26,57 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
                 var posts = await connection.QueryAsync<PostDto>($@"
                     SELECT posts.Id, UserId, Title, Description, PhotoPath, CreatedAt, FirstName, LastName, AvatarPath
                     FROM dbo.Posts posts LEFT OUTER JOIN dbo.AspNetUsers users ON posts.UserId = users.Id
+                    WHERE SYSDATETIME() > IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd)
                     ORDER BY CreatedAt DESC;
                 ");
                 model.Posts = posts.ToList();
 
+                string postIdSet = "(";
+                foreach (var post in model.Posts)
+                {
+                    postIdSet += post.Id + ", ";
+                }
+                postIdSet = postIdSet.Remove(postIdSet.Length - 2) + ")";
+
                 var Comments = await connection.QueryAsync<PostCommentDto>($@"
                     SELECT comments.Id, CreatedAt, UserId, Content, PostId, FirstName, LastName, AvatarPath
                     FROM dbo.Comments comments LEFT OUTER JOIN dbo.AspNetUsers users ON comments.UserId = users.Id
-                    WHERE PostId IS NOT NULL;
+                    WHERE PostId IN { postIdSet };
                 ");
                 var commentList = Comments.ToList();
+
+                string commentIdSet = "(";
+                foreach (var comment in commentList)
+                {
+                    commentIdSet += comment.Id + ", ";
+                }
+                commentIdSet = commentIdSet.Remove(commentIdSet.Length - 2) + ")";
 
                 var postLikes = await connection.QueryAsync<PostLikeDto>($@"
                     SELECT Id, UserId, PostId
                     FROM dbo.Likes
-                    WHERE PostId IS NOT NULL;
+                    WHERE PostId IN { postIdSet };
                 ");
                 var postsLikeList = postLikes.ToList();
 
                 var commentLikes = await connection.QueryAsync<CommentLikeDto>($@"
                     SELECT Id, UserId, CommentId
                     FROM dbo.Likes
-                    WHERE CommentId IS NOT NULL;
+                    WHERE CommentId IN { commentIdSet };
                 ");
                 var commentsLikeList = commentLikes.ToList();
 
                 var postReports = await connection.QueryAsync<PostReportDto>($@"
                     SELECT AccuserId, PostId
                     FROM dbo.Reports
-                    WHERE PostId IS NOT NULL;
+                    WHERE PostId IN { postIdSet };
                 ");
                 var postReportsList = postReports.ToList();
 
                 var commentReports = await connection.QueryAsync<CommentReportDto>($@"
                     SELECT AccuserId, CommentId
                     FROM dbo.Reports
-                    WHERE CommentId IS NOT NULL;
+                    WHERE CommentId IN { commentIdSet };
                 ");
                 var commentReportsList = commentReports.ToList();
 
