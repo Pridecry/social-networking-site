@@ -23,12 +23,12 @@ namespace DieteticSNS.Application.Models.Roles.Queries.GetRoleList
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var Roles = await connection.QueryAsync<RoleDto>($@"
+                var roles = await connection.QueryAsync<RoleDto>($@"
                     SELECT * 
                     FROM AspNetRoles
                 ");
 
-                model.Roles = Roles.ToList();
+                model.Roles = roles.ToList();
             }
 
             return model;

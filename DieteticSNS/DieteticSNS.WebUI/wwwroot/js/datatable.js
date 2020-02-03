@@ -20,8 +20,8 @@ $('.datatable-user').DataTable(
 $('.datatable-post_report').DataTable(
 {
     pagingType: 'full_numbers',
+    "order": [[0, "desc"]],
     "columnDefs": [
-        { "orderData": 1, "targets": 0 },
         { "orderable": false, "targets": -1 },
         { "width": "388px", "targets": -1 },
         { "width": "105px", "targets": 0 },
@@ -32,11 +32,22 @@ $('.datatable-post_report').DataTable(
 $('.datatable-comment_report').DataTable(
 {
     pagingType: 'full_numbers',
+    "order": [[0, "desc"]],
     "columnDefs": [
-        { "orderData": 1, "targets": 0 },
         { "orderable": false, "targets": -1 },
         { "width": "420px", "targets": -1 },
         { "width": "105px", "targets": 0 },
         { "width": "140px", "targets": 1 }
+    ]
+    });
+
+$('.datatable-post_list_minified').DataTable(
+{
+    pagingType: 'full_numbers',
+    "order": [[0, "desc"]],
+    "columnDefs": [
+        { "orderable": false, "targets": -1 },
+        { "width": "205px", "targets": -1 },
+        { "width": "40px", "targets": 0 }
     ]
 });

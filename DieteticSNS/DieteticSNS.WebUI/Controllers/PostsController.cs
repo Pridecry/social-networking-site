@@ -2,6 +2,7 @@
 using DieteticSNS.Application.Models.Posts.Commands.CreatePost;
 using DieteticSNS.Application.Models.Posts.Commands.DeletePost;
 using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
+using DieteticSNS.Application.Models.Posts.Queries.GetMinifiedPostList;
 using DieteticSNS.Application.Models.Posts.Queries.GetPostList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,13 @@ namespace DieteticSNS.WebUI.Controllers
             await Mediator.Send(new DeletePostCommand { Id = id });
 
             return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<MinifiedPostListVm>> GetMinifiedPostList()
+        {
+            return View(await Mediator.Send(new GetMinifiedPostListQuery()));
         }
     }
 }

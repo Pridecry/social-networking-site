@@ -1,0 +1,88 @@
+﻿@model DieteticSNS.Application.Models.Posts.Queries.GetMinifiedPostList.MinifiedPostListVm
+
+@using DieteticSNS.Application.Common.Extensions
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
+}
+
+<div class="row mt-5">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <table class="table table-striped table-bordered datatable-post_list_minified w-100">
+            <thead>
+                <tr>
+                    <th>Likes</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Posts)
+                {
+                    <tr>
+                        <td>@item.LikeCount</td>
+                        <td>@item.Title</td>
+                        <td class="py-2 px-0">
+                            <button type="button" class="btn btn-outline-dark btn-sm ml-3 mr-1" data-toggle="modal" data-target="@("#insightModal_"+item.Id)">Insight <i class="fas fa-eye"></i></button>
+                            <div class="modal fade" id="@("insightModal_"+item.Id)" tabindex="-1">
+                                <div class="modal-dialog modal modal-dialog-centered">
+                                    <div class="card">
+                                        <div class="card-body pb-0">
+                                            <div class="row mb-2">
+                                                <div class="col-auto">
+                                                    @if (!String.IsNullOrEmpty(item.AvatarPath))
+                                                    {
+                                                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, item.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                                    }
+                                                </div>
+                                                <div class="col">
+                                                    <h5 class="mb-3">@item.FirstName @item.LastName</h5>
+                                                    <h6 class="card-title">@item.Title</h6>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
+                                                </div>
+                                            </div>
+                                            @if (!String.IsNullOrEmpty(item.Description))
+                                            {
+                                                <p class="card-text">
+                                                    @item.Description
+                                                </p>
+                                            }
+                                        </div>
+                                        <div class="text-center">
+                                            <img class="card-img-top p-4" src=@String.Concat(dir, item.PhotoPath) asp-append-version="true" alt="Post image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a asp-controller="Users" asp-action="AddUserRoles" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm mr-1">User profile <i class="fas fa-address-card"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Likes</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/datatable.js"></script>
+}

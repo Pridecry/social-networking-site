@@ -23,12 +23,12 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserList
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var Users = await connection.QueryAsync<UserDto>($@"
+                var users = await connection.QueryAsync<UserDto>($@"
                     SELECT *, IIF( SYSDATETIME() <= IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd), 'TRUE', 'FALSE') IsBlocked
                     FROM AspNetUsers
                 ");
 
-                model.Users = Users.ToList();
+                model.Users = users.ToList();
             }
 
             return model;
