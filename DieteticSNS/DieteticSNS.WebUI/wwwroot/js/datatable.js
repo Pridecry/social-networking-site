@@ -48,6 +48,15 @@ $('.datatable-post_list_minified').DataTable(
     "columnDefs": [
         { "orderable": false, "targets": -1 },
         { "width": "205px", "targets": -1 },
-        { "width": "40px", "targets": 0 }
+        { "width": "50px", "targets": 0 }
     ]
-});
+    });
+
+$('.datatable-user_list_minified').DataTable(
+    {
+        pagingType: 'full_numbers',
+        "columnDefs": [
+            { "orderable": false, "targets": -1 },
+            { "width": "236px", "targets": -1 }
+        ]
+    });

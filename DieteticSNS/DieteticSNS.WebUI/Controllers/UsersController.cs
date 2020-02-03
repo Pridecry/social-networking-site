@@ -6,6 +6,7 @@ using DieteticSNS.Application.Models.Users.Commands.BlockUser;
 using DieteticSNS.Application.Models.Users.Commands.DeleteUser;
 using DieteticSNS.Application.Models.Users.Commands.UnblockUser;
 using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
+using DieteticSNS.Application.Models.Users.Queries.GetMinifiedUserList;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Application.Models.Users.Queries.GetUserList;
 using DieteticSNS.Application.Models.Users.Queries.GetUserRolesDetails;
@@ -100,6 +101,13 @@ namespace DieteticSNS.WebUI.Controllers
             await Mediator.Send(new UnblockUserCommand { Id = id });
 
             return RedirectToAction(nameof(GetUserList));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<MinifiedUserListVm>> GetMinifiedUserList()
+        {
+            return View(await Mediator.Send(new GetMinifiedUserListQuery()));
         }
     }
 }
