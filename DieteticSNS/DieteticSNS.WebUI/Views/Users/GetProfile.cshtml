@@ -1,4 +1,6 @@
-﻿@using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
+﻿@model DieteticSNS.Application.Models.Users.Queries.GetUserProfile.UserProfileVm
+
+@using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
 @using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
 @using DieteticSNS.Application.Models.Posts.Queries.GetPostList
 
@@ -12,24 +14,20 @@
     CreatePostCommentCommand createPostCommentCommand = new CreatePostCommentCommand();
     UpdatePostCommand updatePostCommand = new UpdatePostCommand();
 
-    PostListVm posts = (PostListVm)ViewBag.PostList;
-
     string dir = "~/img/uploads/";
     string noAvatar = "~/img/noavatar.jpg";
 }
 
-<partial name="~/Views/Posts/_CreatePost.cshtml" />
-
-@foreach (var post in posts.Posts)
+@foreach (var post in Model.Posts)
 {
     <div class="card my-4" id="@("postCard_"+post.Id)">
         <!-- #region Post details -->
         <div class="card-body pb-0">
             <div class="row mb-2">
                 <div class="col-auto">
-                    @if (!String.IsNullOrEmpty(post.AvatarPath))
+                    @if (!String.IsNullOrEmpty(Model.AvatarPath))
                     {
-                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, post.AvatarPath)" asp-append-version="true" alt="Avatar">
+                        <img class="rounded-circle img-fluid border border-dark" style="height: 4rem; width: 4rem" src="@String.Concat(dir, Model.AvatarPath)" asp-append-version="true" alt="Avatar">
                     }
                     else
                     {
@@ -38,8 +36,8 @@
                 </div>
                 <div class="col">
                     <h5 class="mb-3">
-                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@post.UserId" class="no-link">
-                            @post.FirstName @post.LastName
+                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="no-link">
+                            @Model.FirstName @Model.LastName
                         </a>
                     </h5>
                     <h6 id="@("title_"+post.Id)" class="card-title">@post.Title</h6>
@@ -53,7 +51,7 @@
                         <a href="#" data-toggle="dropdown" class="no-link">
                             <i class="fas fa-ellipsis-h"></i>
                         </a>
-                        @if (post.UserId == int.Parse(currentUserService.GetUserId()))
+                        @if (Model.Id == int.Parse(currentUserService.GetUserId()))
                         {
                             <div class="dropdown-menu dropdown-menu-right">
                                 <form id="@("editForm_"+post.Id)" asp-controller="Posts" asp-action="UpdatePost" asp-route-id="@post.Id" autocomplete="off" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="hideModal('#editModal_'+@post.Id)" data-ajax-success="setTimeout(updateCard, 300, @post.Id)">
@@ -305,7 +303,7 @@
                                             </div>
                                         </div>
                                     }
-                                    else if (post.UserId == int.Parse(currentUserService.GetUserId()))
+                                    else if (Model.Id == int.Parse(currentUserService.GetUserId()))
                                     {
                                         @if (comment.CommentReports.Exists(x => x.AccuserId == int.Parse(currentUserService.GetUserId())))
                                         {
@@ -504,11 +502,35 @@
     </div>
 }
 
-<span id="userId" hidden>@currentUserService.GetUserId()</span>
-
 @section LeftPanel
 {
-    <partial name="Layout/_UserProfile" />
+    <div class="card text-center my-4">
+        <div class="bg-secondary py-4">
+            @if (!String.IsNullOrEmpty(Model.AvatarPath))
+            {
+                <img class="rounded-circle img-fluid border border-dark" style="height:100px; width: 100px" src="@String.Concat(dir, Model.AvatarPath)" asp-append-version="true" alt="Avatar">
+            }
+            else
+            {
+                <img class="rounded-circle img-fluid border border-dark" style="height:100px; width: 100px" src="@noAvatar" asp-append-version="true" alt="Avatar">
+            }
+        </div>
+        <div class="card-body px-0">
+            <h5 class="card-title">
+                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                    @Model.FirstName @Model.LastName
+                </a>
+            </h5>
+            <p class="card-text">@Model.UserName</p>
+            <hr />
+            <h6 class="card-subtitle">FOLLOWERS</h6>
+            <p class="card-text">@Model.FollowersCount</p>
+            <h6 class="card-subtitle">FOLLOWING</h6>
+            <p class="card-text">@Model.FollowingsCount</p>
+            <h6 class="card-subtitle">POSTS</h6>
+            <p class="card-text" id="userPosts">@Model.Posts.Count</p>
+        </div>
+    </div>
 }
 
 @section RightPanel

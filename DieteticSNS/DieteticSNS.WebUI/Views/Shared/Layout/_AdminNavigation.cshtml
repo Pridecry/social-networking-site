@@ -3,12 +3,17 @@
         <h4 class="navbar-text">Admin panel</h4>
         <hr class="w-100 mt-0" style="border: 1px solid white" />
 
-        <a asp-controller="Users" asp-action="GetUserList" class="nav-link"><h5>Users</h5></a>
-        <a asp-controller="Roles" asp-action="GetRoleList" class="nav-link"><h5>Roles</h5></a>
-        <a asp-controller="Countries" asp-action="GetCountryList" class="nav-link"><h5>Countries</h5></a>
-        <a asp-controller="Reports" asp-action="GetReportList" class="nav-link"><h5>Reports</h5></a>
-
-        @*<a asp-controller="Account" asp-action="Login" class="nav-link"><h5>Login</h5></a>
-        <a asp-controller="Account" asp-action="Register" class="nav-link"><h5>Register</h5></a>*@
-    </div>
+        <h5>
+            <a asp-controller="Users" asp-action="GetUserList" class="nav-link">Users</a>
+        </h5>
+        <h5>
+            <a asp-controller="Roles" asp-action="GetRoleList" class="nav-link">Roles</a>
+        </h5>
+        <h5>
+            <a asp-controller="Countries" asp-action="GetCountryList" class="nav-link">Countries</a>
+        </h5>
+        <h5>
+            <a asp-controller="Reports" asp-action="GetReportList" class="nav-link">Reports</a>
+        </h5>
+</div>
 </nav>

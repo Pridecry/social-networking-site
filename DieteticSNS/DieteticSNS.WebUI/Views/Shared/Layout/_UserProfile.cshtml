@@ -6,7 +6,11 @@
         <img class="rounded-circle img-fluid border border-dark" style="height:100px; width: 100px" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
     </div>
     <div class="card-body px-0">
-        <h5 class="card-title">@currentUserService.GetUserFullName()</h5>
+        <h5 class="card-title">
+            <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                @currentUserService.GetUserFullName()
+            </a>
+        </h5>
         <p class="card-text">@User.Identity.Name</p>
         <hr />
         <h6 class="card-subtitle">FOLLOWERS</h6>

@@ -147,7 +147,7 @@ connection.on("ReceivePostComment", function (commentId, postId, content) {
                 </div>
                 <div class="col-auto my-auto pl-2">
                     <div class="dropdown d-inline">
-                        <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
+                        <a href="#" data-toggle="dropdown" class="no-link">
                             <i class="fas fa-ellipsis-h"></i>
                         </a>
 
@@ -182,27 +182,25 @@ connection.on("ReceivePostComment", function (commentId, postId, content) {
                     <div style="width: 2.5rem"></div>
                 </div>
                 <div class="col-auto">
-                    <div class="col-auto">
-                        <form id="commentLikedForm_${commentId}" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, ${commentId}, ${UserId})" action="/Likes/DeleteLike">
-                            <button id="commentLikedButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
-                        </form>
-                        <form method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, ${commentId})" action="/Likes/CreateCommentLike/${commentId}">
-                            <button id="commentLikeButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up"></i> Like</small></button>
-                        </form>
-                        <button id="showCommentLikesButton_${commentId}" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="#commentLikeModal_${commentId}" disabled=""><small>(<span id="commentLikeCounter_${commentId}">0</span>)</small></button>
-                        <div class="modal fade" id="commentLikeModal_${commentId}" tabindex="-1">
-                            <div class="modal-dialog modal modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Comment likes</h5>
-                                        <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>×</span></button>
-                                    </div>
-                                    <div class="list-group list-group-flush">
-                                        <a href="#" id="tempCommentLike_${commentId}" class="list-group-item list-group-item-action justify-content-between align-items-center py-2" hidden="">
-                                            <h5 class="mt-2">${FullName}</h5>
-                                            <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="${AvatarPath}" alt="Avatar">
-                                        </a>
-                                    </div>
+                    <form id="commentLikedForm_${commentId}" method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, false, ${commentId}, ${UserId})" action="/Likes/DeleteLike">
+                        <button id="commentLikedButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0 d-none"><small><i class="far fa-thumbs-up text-primary"></i> Liked</small></button>
+                    </form>
+                    <form method="post" class="d-inline" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(commentLikeToggle, 300, true, ${commentId})" action="/Likes/CreateCommentLike/${commentId}">
+                        <button id="commentLikeButton_${commentId}" type="submit" class="btn btn-link text-decoration-none text-dark p-0"><small><i class="far fa-thumbs-up"></i> Like</small></button>
+                    </form>
+                    <button id="showCommentLikesButton_${commentId}" class="btn btn-link text-decoration-none text-dark p-0" data-toggle="modal" data-target="#commentLikeModal_${commentId}" disabled=""><small>(<span id="commentLikeCounter_${commentId}">0</span>)</small></button>
+                    <div class="modal fade" id="commentLikeModal_${commentId}" tabindex="-1">
+                        <div class="modal-dialog modal modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Comment likes</h5>
+                                    <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>×</span></button>
+                                </div>
+                                <div class="list-group list-group-flush">
+                                    <a href="/Users/GetProfile/${UserId}" id="tempCommentLike_${commentId}" class="list-group-item list-group-item-action justify-content-between align-items-center py-2" hidden="">
+                                        <h5 class="mt-2">${FullName}</h5>
+                                        <img class="rounded-circle img-fluid border border-dark" style="height: 2.5rem; width: 2.5rem" src="${AvatarPath}" alt="Avatar">
+                                    </a>
                                 </div>
                             </div>
                         </div>

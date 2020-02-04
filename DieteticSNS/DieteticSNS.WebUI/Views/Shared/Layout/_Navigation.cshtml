@@ -4,100 +4,120 @@
 <div id="mainRow" class="row align-items-center bg-primary px-5">
     <div class="col-1"></div>
     <div class="col-auto py-3">
-        <a asp-controller="Posts" asp-action="GetPostList" class="text-white" style="text-decoration:none">
-            <h3 id="mainHeading" style="font-weight:bold">Dieteticer</h3>
-        </a>
+        <h3 id="mainHeading">
+            <a asp-controller="Posts" asp-action="GetPostList" class="text-white" style="text-decoration:none">
+                <b>Dieteticer</b>
+            </a>
+        </h3>
     </div>
     <div class="col"></div>
     @if (User.Identity.IsAuthenticated)
     {
         <div class="col-auto">
-            <h5 id="userFullName" class="mt-1">@currentUserService.GetUserFullName()</h5>
+            <h5 class="mt-1">
+                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                    <span id="userFullName">@currentUserService.GetUserFullName()</span>
+                </a>
+            </h5>
         </div>
     }
-<div class="col-auto">
-    @if (User.IsInRole("Administrator"))
-    {
-        <a asp-controller="Home" asp-action="AdminPanel" style="color: inherit; text-decoration:none">
-            <i class="fas fa-shield-alt fa-lg mx-3"></i>
-        </a>
-    }
+    <div class="col-auto">
+        @if (User.IsInRole("Administrator"))
+        {
+            <span class="mx-3">
+                <a asp-controller="Home" asp-action="AdminPanel" class="no-link">
+                    <i class="fas fa-shield-alt fa-lg"></i>
+                </a>
+            </span>
+        }
 
-    <a asp-controller="Posts" asp-action="GetMinifiedPostList" style="color: inherit; text-decoration:none">
-        <i class="fas fa-search fa-lg mx-3"></i>
-    </a>
-
-    <a asp-controller="Users" asp-action="GetMinifiedUserList" style="color: inherit; text-decoration:none">
-        <i class="fas fa-users fa-lg mx-3"></i>
-    </a>
-
-    @if (User.Identity.IsAuthenticated)
-    {
-
-        @*////badge*@
-        <a asp-controller="Home" asp-action="AdminPanel" style="color: inherit; text-decoration:none; position:relative">
-            <i class="fas fa-shield-alt fa-lg mx-3">
-                <span class="badge">1</span>
-            </i>
-        </a>
-
-        <i class="fas fa-bell fa-lg mx-3" style="color: inherit; text-decoration:none; position:relative">
-            <span class="badge">1</span>
-        </i>
-
-        @*<span class="badge badge-pill badge-danger">Danger</span>*@
-        @*////badge*@
-
-
-
-        <div class="dropdown d-inline">
-            <a href="#" data-toggle="dropdown" style="color: inherit; text-decoration:none">
-                <i class="fas fa-cog fa-lg ml-3"></i>
-                <i class="fas fa-caret-down fa-lg"></i>
+        <span class="mx-3">
+            <a asp-controller="Posts" asp-action="GetMinifiedPostList" class="no-link">
+                <i class="fas fa-search fa-lg"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right mt-4">
-                <a asp-controller="Account" asp-action="Register" class="dropdown-item">Register</a>
-                <a asp-controller="Account" asp-action="Login" class="dropdown-item">Login</a>
-                <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item">Settings</a>
-                <form id="deleteAccountForm" asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@currentUserService.GetUserId()" method="post" class="d-inline">
-                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">Delete account</button>
-                </form>
-                <div class="dropdown-divider"></div>
-                <form asp-controller="Account" asp-action="Logout" method="post">
-                    <button type="submit" class="dropdown-item">Logout</button>
-                </form>
-            </div>
+        </span>
 
-            <div class="modal fade" id="deleteAccountModal" tabindex="-1">
-                <div class="modal-dialog modal-sm modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete confirmation</h5>
-                            <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure to delete account?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger" form="deleteAccountForm">Delete</button>
+        <span class="mx-3">
+            <a asp-controller="Users" asp-action="GetMinifiedUserList" class="no-link">
+                <i class="fas fa-users fa-lg"></i>
+            </a>
+        </span>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            @*////badge*@
+            <span class="mx-3">
+                <a asp-controller="Home" asp-action="AdminPanel" style="color: inherit; text-decoration:none; position:relative">
+                    <i class="fas fa-shield-alt fa-lg">
+                        <span class="badge">1</span>
+                    </i>
+                </a>
+            </span>
+
+            <span class="mx-3">
+                <i class="fas fa-bell fa-lg" style="color: inherit; text-decoration:none; position:relative">
+                    <span class="badge">1</span>
+                </i>
+            </span>
+
+            @*<span class="badge badge-pill badge-danger">Danger</span>*@
+            @*////badge*@
+
+
+
+            <div class="dropdown d-inline mx-3">
+                <a href="#" data-toggle="dropdown" class="no-link">
+                    <i class="fas fa-cog fa-lg"></i>
+                    <i class="fas fa-caret-down fa-lg"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right mt-4">
+                    <a asp-controller="Account" asp-action="Register" class="dropdown-item">Register</a>
+                    <a asp-controller="Account" asp-action="Login" class="dropdown-item">Login</a>
+                    <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item">Settings</a>
+                    <form id="deleteAccountForm" asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@currentUserService.GetUserId()" method="post" class="d-inline">
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">Delete account</button>
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
+                </div>
+
+                <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete confirmation</h5>
+                                <button type="button" class="close" style="outline: none" data-dismiss="modal"><span>&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to delete account?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger" form="deleteAccountForm">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <a asp-controller="Account" asp-action="Register" style="color: inherit; text-decoration:none">
-            <i class="fas fa-user-plus fa-lg mx-3"></i>
-        </a>
+        }
+        else
+        {
+            <span class="mx-3">
+                <a asp-controller="Account" asp-action="Register" class="no-link">
+                    <i class="fas fa-user-plus fa-lg"></i>
+                </a>
+            </span>
 
-        <a asp-controller="Account" asp-action="Login" style="color: inherit; text-decoration:none">
-            <i class="fas fa-sign-in-alt fa-lg mx-3"></i>
-        </a>
-    }
+            <span class="ml-3">
+                <a asp-controller="Account" asp-action="Login" class="no-link">
+                    <i class="fas fa-sign-in-alt fa-lg"></i>
+                </a>
+            </span>
+        }
 
-</div>
+    </div>
     <div class="col-1"></div>
 </div>

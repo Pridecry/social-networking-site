@@ -9,6 +9,7 @@ using DieteticSNS.Application.Models.Users.Commands.UpdateUser;
 using DieteticSNS.Application.Models.Users.Queries.GetMinifiedUserList;
 using DieteticSNS.Application.Models.Users.Queries.GetUserDetails;
 using DieteticSNS.Application.Models.Users.Queries.GetUserList;
+using DieteticSNS.Application.Models.Users.Queries.GetUserProfile;
 using DieteticSNS.Application.Models.Users.Queries.GetUserRolesDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -108,6 +109,13 @@ namespace DieteticSNS.WebUI.Controllers
         public async Task<ActionResult<MinifiedUserListVm>> GetMinifiedUserList()
         {
             return View(await Mediator.Send(new GetMinifiedUserListQuery()));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<UserProfileVm>> GetProfile(int id)
+        {
+            return View(await Mediator.Send(new GetUserProfileQuery { Id = id }));
         }
     }
 }
