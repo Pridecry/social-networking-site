@@ -52,19 +52,31 @@
                                                     }
                                                 </div>
                                                 <div class="col">
-                                                    <h5 class="mb-3">@item.FirstName @item.LastName</h5>
-                                                    <h6 class="card-title">@item.Title</h6>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="mb-3">@item.FirstName @item.LastName</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <h6 class="text-muted">@item.CreatedAt.TimeAgo()</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h6 class="card-title">@item.Title</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            @if (!String.IsNullOrEmpty(item.Description))
-                                            {
-                                                <p class="card-text">
-                                                    @item.Description
-                                                </p>
-                                            }
+                                            <div class="row">
+                                                <div class="col">
+                                                    @if (!String.IsNullOrEmpty(item.Description))
+                                                    {
+                                                        <p class="card-text">
+                                                            @item.Description
+                                                        </p>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="text-center">
                                             <img class="card-img-top p-4" src=@String.Concat(dir, item.PhotoPath) asp-append-version="true" alt="Post image">
