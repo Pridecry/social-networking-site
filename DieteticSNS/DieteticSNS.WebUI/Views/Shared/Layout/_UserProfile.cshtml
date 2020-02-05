@@ -12,12 +12,50 @@
             </a>
         </h5>
         <p class="card-text">@User.Identity.Name</p>
+
         <hr />
-        <h6 class="card-subtitle">FOLLOWERS</h6>
-        <p class="card-text">@currentUserService.GetUserFollowersCount()</p>
-        <h6 class="card-subtitle">FOLLOWING</h6>
-        <p class="card-text">@currentUserService.GetUserFollowingsCount()</p>
-        <h6 class="card-subtitle">POSTS</h6>
+
+        @if (currentUserService.GetUserFollowersCount() == 0)
+        {
+            <h6 class="card-subtitle">FOLLOWERS</h6>
+        }
+        else
+        {
+            <h6 class="card-subtitle">
+                <a asp-controller="Followings" asp-action="GetFollowersList" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                    FOLLOWERS
+                </a>
+            </h6>
+        }
+    <p class="card-text" id="followersCounter">@currentUserService.GetUserFollowersCount()</p>
+
+        @if (currentUserService.GetUserFollowingsCount() == 0)
+        {
+            <h6 class="card-subtitle">FOLLOWING</h6>
+        }
+        else
+        {
+            <h6 class="card-subtitle">
+                <a asp-controller="Followings" asp-action="GetFollowingsList" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                    FOLLOWING
+                </a>
+            </h6>
+        }
+    <p class="card-text">@currentUserService.GetUserFollowingsCount()</p>
+
+
+        @if (currentUserService.GetUserPostsCount() == 0)
+        {
+            <h6 class="card-subtitle">POSTS</h6>
+        }
+        else
+        {
+            <h6 class="card-subtitle">
+                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                    POSTS
+                </a>
+            </h6>
+        }
         <p class="card-text" id="userPosts">@currentUserService.GetUserPostsCount()</p>
     </div>
 </div>

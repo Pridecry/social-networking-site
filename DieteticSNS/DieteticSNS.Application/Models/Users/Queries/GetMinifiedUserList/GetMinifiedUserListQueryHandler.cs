@@ -23,13 +23,13 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetMinifiedUserList
 
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
-                var MinifiedUsers = await connection.QueryAsync<MinifiedUserDto>($@"
+                var minifiedUsers = await connection.QueryAsync<MinifiedUserDto>($@"
                     SELECT Id, FirstName, LastName, AvatarPath
                     FROM AspNetUsers
                     WHERE SYSDATETIME() > IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd);
                 ");
 
-                model.Users = MinifiedUsers.ToList();
+                model.Users = minifiedUsers.ToList();
             }
 
             return model;

@@ -1,0 +1,72 @@
+﻿@model DieteticSNS.Application.Models.Followings.Queries.GetFollowersList.FollowersListVm
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string dir = "~/img/uploads/";
+}
+
+<div class="row mt-5">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+                <h3>Followers list</h3>
+            </div>
+            <div class="col-auto">
+                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="btn btn-dark">Back to profile</a>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <table class="table table-striped table-bordered datatable-user_list_minified w-100">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Followers)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td class="py-2 px-0">
+                            @if (String.IsNullOrEmpty(item.AvatarPath))
+                            {
+                                <button type="button" class="btn btn-outline-dark btn-sm ml-3 mr-1" disabled>Show avatar <i class="far fa-image"></i></button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-dark btn-sm ml-3 mr-1" data-toggle="modal" data-target="@("#showImageModal_"+item.Id)">Show avatar <i class="far fa-image"></i></button>
+                                <div class="modal fade" id="@("showImageModal_"+item.Id)" tabindex="-1">
+                                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                                        <img class="img-fluid img-thumbnail" src=@String.Concat(dir, item.AvatarPath) asp-append-version="true" alt="Avatar">
+                                    </div>
+                                </div>
+                            }
+
+                            <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm mr-1">User profile <i class="fas fa-address-card"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/datatable.js"></script>
+}

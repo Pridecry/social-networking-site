@@ -4,6 +4,6 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserList
 {
     public class UserListVm
     {
-        public IList<UserDto> Users { get; set; }
+        public IList<UserDto> Users { get; set; } = new List<UserDto>();
     }
 }

@@ -571,11 +571,47 @@
 
             <hr />
 
-            <h6 class="card-subtitle">FOLLOWERS</h6>
+            @if (Model.FollowerIds.Count == 0)
+            {
+                <h6 class="card-subtitle">FOLLOWERS</h6>
+            }
+            else
+            {
+                <h6 class="card-subtitle">
+                    <a asp-controller="Followings" asp-action="GetFollowersList" asp-route-id="@Model.Id" class="no-link">
+                        FOLLOWERS
+                    </a>
+                </h6>
+            }
             <p class="card-text" id="followersCounter">@Model.FollowerIds.Count</p>
-            <h6 class="card-subtitle">FOLLOWING</h6>
+
+            @if (Model.FollowingsCount == 0)
+            {
+                <h6 class="card-subtitle">FOLLOWING</h6>
+            }
+            else
+            {
+                <h6 class="card-subtitle">
+                    <a asp-controller="Followings" asp-action="GetFollowingsList" asp-route-id="@Model.Id" class="no-link">
+                        FOLLOWING
+                    </a>
+                </h6>
+            }
             <p class="card-text">@Model.FollowingsCount</p>
-            <h6 class="card-subtitle">POSTS</h6>
+
+
+            @if (Model.Posts.Count == 0)
+            {
+                <h6 class="card-subtitle">POSTS</h6>
+            }
+            else
+            {
+                <h6 class="card-subtitle">
+                    <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="no-link">
+                        POSTS
+                    </a>
+                </h6>
+            }
             <p class="card-text" id="userPosts">@Model.Posts.Count</p>
         </div>
     </div>
