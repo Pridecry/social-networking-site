@@ -115,6 +115,9 @@ namespace DieteticSNS.WebUI.Controllers
         [HttpGet]
         public async Task<ActionResult<UserProfileVm>> GetProfile(int id)
         {
+            var countryListVm = await Mediator.Send(new GetCountryListQuery());
+            ViewBag.Countries = countryListVm.Countries.ToList();
+
             return View(await Mediator.Send(new GetUserProfileQuery { Id = id }));
         }
     }

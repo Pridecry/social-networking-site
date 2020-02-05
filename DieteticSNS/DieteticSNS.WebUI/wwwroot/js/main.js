@@ -26,3 +26,14 @@ function toggleDiv(id) {
     var div = document.getElementById(id);
     div.style.display = div.style.display == "none" ? "block" : "none";
 }
+
+//Counters
+function increment(id) {
+    let counterValue = parseInt($(id).text());
+    $(id).html(counterValue + 1);
+};
+
+function decrement(id) {
+    let counterValue = parseInt($(id).text());
+    $(id).html(counterValue - 1);
+};

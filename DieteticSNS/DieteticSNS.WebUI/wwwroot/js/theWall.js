@@ -28,16 +28,6 @@ function clearContentInput(id) {
     $("#contentInput_" + id).val("");
 };
 
-function increment(id) {
-    let counterValue = parseInt($(id).text());
-    $(id).html(counterValue + 1);
-};
-
-function decrement(id) {
-    let counterValue = parseInt($(id).text());
-    $(id).html(counterValue - 1);
-};
-
 function postLikeToggle(value, id, userId) {
     if (value == false) {
         $("#postLikeButton_" + id).removeClass("d-none");

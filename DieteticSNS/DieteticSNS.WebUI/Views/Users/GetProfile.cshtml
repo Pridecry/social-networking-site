@@ -2,7 +2,7 @@
 
 @using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
 @using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
-@using DieteticSNS.Application.Models.Posts.Queries.GetPostList
+@using DieteticSNS.Application.Models.Countries.Queries.GetCountryList
 
 @using DieteticSNS.Application.Common.Extensions
 @using DieteticSNS.Application.Common.Interfaces
@@ -10,6 +10,8 @@
 
 @{
     Layout = "~/Views/Shared/_StandardLayout.cshtml";
+
+    List<CountryDto> countries = ViewBag.Countries;
 
     CreatePostCommentCommand createPostCommentCommand = new CreatePostCommentCommand();
     UpdatePostCommand updatePostCommand = new UpdatePostCommand();
@@ -534,9 +536,43 @@
                 </a>
             </h5>
             <p class="card-text">@Model.UserName</p>
+
             <hr />
+
+            <h6 class="card-subtitle">Birth date</h6>
+            @if (Model.BirthDate != null)
+            {
+                <p class="card-text">@Model.BirthDate.Value.ToString("d MMMM yyyy")</p>
+            }
+            else
+            {
+                <p class="card-text">–</p>
+            }
+
+            <h6 class="card-subtitle">Gender</h6>
+            @if (Model.Gender != null)
+            {
+                <p class="card-text">@Model.Gender</p>
+            }
+            else
+            {
+                <p class="card-text">–</p>
+            }
+
+            <h6 class="card-subtitle">Country</h6>
+            @if (Model.CountryId != null)
+            {
+                <p class="card-text">@countries.FirstOrDefault(x => x.Id == Model.CountryId).Name</p>
+            }
+            else
+            {
+                <p class="card-text">–</p>
+            }
+
+            <hr />
+
             <h6 class="card-subtitle">FOLLOWERS</h6>
-            <p class="card-text">@Model.FollowersCount</p>
+            <p class="card-text" id="followersCounter">@Model.FollowerIds.Count</p>
             <h6 class="card-subtitle">FOLLOWING</h6>
             <p class="card-text">@Model.FollowingsCount</p>
             <h6 class="card-subtitle">POSTS</h6>
@@ -547,15 +583,46 @@
 
 @section RightPanel
 {
-    <div class="card my-4">
-        <h5 class="card-header text-center">Suggested friends</h5>
-        <div class="card-body">
-        </div>
-    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (Model.Id != int.Parse(currentUserService.GetUserId()))
+        {
+            <div class="card my-4">
+                <h5 class="card-header text-center">Actions</h5>
+                <div class="card-body">
+                    @if (Model.FollowerIds.Contains(int.Parse(currentUserService.GetUserId())))
+                    {
+                        <h6 class="card-title" id="followDescription">
+                            Not interested in my activity?
+                        </h6>
+                        <form asp-controller="Followings" asp-action="FollowUser" asp-route-userId="@Model.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(followToggle, 300, false)">
+                            <button id="followButton" type="submit" class="btn btn-outline-dark btn btn-sm d-none">Follow me <i class="fas fa-user-plus"></i></button>
+                        </form>
+                        <form asp-controller="Followings" asp-action="UnfollowUser" asp-route-userId="@Model.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(followToggle, 300, true)">
+                            <button id="unfollowButton" type="submit" class="btn btn-dark btn btn-sm">Unfollow <i class="fas fa-user-minus"></i></button>
+                        </form>
+                    }
+                    else
+                    {
+                        <h6 class="card-title" id="followDescription">
+                            Interested in my activity?
+                        </h6>
+                        <form asp-controller="Followings" asp-action="FollowUser" asp-route-userId="@Model.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(followToggle, 300, false)">
+                            <button id="followButton" type="submit" class="btn btn-outline-dark btn btn-sm">Follow me <i class="fas fa-user-plus"></i></button>
+                        </form>
+                        <form asp-controller="Followings" asp-action="UnfollowUser" asp-route-userId="@Model.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(followToggle, 300, true)">
+                            <button id="unfollowButton" type="submit" class="btn btn-dark btn btn-sm d-none">Unfollow <i class="fas fa-user-minus"></i></button>
+                        </form>
+                    }
+                </div>
+            </div>
+        }
+    }
 }
 
 @section Scripts
 {
     <script src="~/js/changeFileLabelHtml.js"></script>
     <script src="~/js/theWall.js"></script>
+    <script src="~/js/profile.js"></script>
 }

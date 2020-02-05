@@ -14,8 +14,9 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserProfile
         public Gender? Gender { get; set; }
         public string AvatarPath { get; set; }
         public int? CountryId { get; set; }
-        public int FollowersCount { get; set; }
         public int FollowingsCount { get; set; }
+
+        public IList<int> FollowerIds { get; set; } = new List<int>();
 
         public IList<ProfilePostDto> Posts { get; set; } = new List<ProfilePostDto>();
     }

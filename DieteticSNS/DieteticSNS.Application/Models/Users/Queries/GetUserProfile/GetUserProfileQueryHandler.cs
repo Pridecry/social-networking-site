@@ -23,10 +23,6 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserProfile
             {
                 var model = await connection.QueryFirstOrDefaultAsync<UserProfileVm>($@"
                     SELECT Id, UserName, FirstName, LastName, BirthDate, Gender, AvatarPath, CountryId, 
-	                    (SELECT COUNT(UserId)
-	                    FROM Followings
-	                    WHERE UserId = users.Id
-	                    GROUP BY UserId) FollowersCount,
 	                    (SELECT COUNT(FollowerId)
 	                    FROM Followings
 	                    WHERE FollowerId = users.Id
@@ -91,6 +87,13 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserProfile
                     WHERE CommentId IN { commentIdSet };
                 ");
                 var commentReportsList = commentReports.ToList();
+
+                var followers = await connection.QueryAsync<int>($@"
+                    SELECT FollowerId
+                    FROM Followings
+                    WHERE UserId = { request.Id };
+                ");
+                model.FollowerIds = followers.ToList();
 
                 foreach (var post in model.Posts)
                 {
