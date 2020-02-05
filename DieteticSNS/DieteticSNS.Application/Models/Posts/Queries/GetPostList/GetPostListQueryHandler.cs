@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using DieteticSNS.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
@@ -11,10 +12,12 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
     public class GetPostListQueryHandler : IRequestHandler<GetPostListQuery, PostListVm>
     {
         private readonly IConfiguration _configuration;
+        private readonly ICurrentUserService _userService;
 
-        public GetPostListQueryHandler(IConfiguration configuration)
+        public GetPostListQueryHandler(IConfiguration configuration, ICurrentUserService userService)
         {
             _configuration = configuration;
+            _userService = userService;
         }
 
         public async Task<PostListVm> Handle(GetPostListQuery request, CancellationToken cancellationToken)
@@ -24,9 +27,15 @@ namespace DieteticSNS.Application.Models.Posts.Queries.GetPostList
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DieteticSNSDatabase")))
             {
                 var posts = await connection.QueryAsync<PostDto>($@"
+                    SELECT Posts.Id, Posts.UserId, Title, Description, PhotoPath, Posts.CreatedAt, FirstName, LastName, AvatarPath
+                    FROM Posts LEFT OUTER JOIN AspNetUsers ON Posts.UserId = AspNetUsers.Id LEFT OUTER JOIN Followings ON Posts.UserId = Followings.UserId
+                    WHERE FollowerId = { _userService.GetUserId() }
+                    AND SYSDATETIME() > IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd)
+                    UNION
                     SELECT Posts.Id, UserId, Title, Description, PhotoPath, CreatedAt, FirstName, LastName, AvatarPath
                     FROM Posts LEFT OUTER JOIN AspNetUsers ON Posts.UserId = AspNetUsers.Id
-                    WHERE SYSDATETIME() > IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd)
+                    WHERE UserId = { _userService.GetUserId() }
+                    AND SYSDATETIME() > IIF(LockoutEnd IS NULL, DATEADD(minute, -1, SYSDATETIME()), LockoutEnd)
                     ORDER BY CreatedAt DESC;
                 ");
                 model.Posts = posts.ToList();

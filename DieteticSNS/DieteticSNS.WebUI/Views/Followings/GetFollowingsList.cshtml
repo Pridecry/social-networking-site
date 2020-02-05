@@ -4,17 +4,82 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
 }
 
-<div class="row mt-5">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <div class="row justify-content-between align-items-center">
+<div class="row">
+    <div class="col"></div>
+    <div class="col-2">
+        <div class="card text-center my-4">
+            <div class="bg-secondary py-4">
+                @if (!String.IsNullOrEmpty(Model.AvatarPath))
+                {
+                    <img class="rounded-circle img-fluid border border-dark" style="height:100px; width: 100px" src="@String.Concat(dir, Model.AvatarPath)" asp-append-version="true" alt="Avatar">
+                }
+                else
+                {
+                    <img class="rounded-circle img-fluid border border-dark" style="height:100px; width: 100px" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                }
+            </div>
+            <div class="card-body px-0">
+                <h5 class="card-title">
+                    <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="no-link">
+                        @Model.FirstName @Model.LastName
+                    </a>
+                </h5>
+                <p class="card-text">@Model.UserName</p>
+
+                <hr />
+
+                @if (Model.FollowersCount == 0)
+                {
+                    <h6 class="card-subtitle">FOLLOWERS</h6>
+                }
+                else
+                {
+                    <h6 class="card-subtitle">
+                        <a asp-controller="Followings" asp-action="GetFollowersList" asp-route-id="@Model.Id" class="no-link">
+                            FOLLOWERS
+                        </a>
+                    </h6>
+                }
+                <p class="card-text" id="followersCounter">@Model.FollowersCount</p>
+
+                @if (Model.FollowingsCount == 0)
+                {
+                    <h6 class="card-subtitle">FOLLOWING</h6>
+                }
+                else
+                {
+                    <h6 class="card-subtitle">
+                        <a asp-controller="Followings" asp-action="GetFollowingsList" asp-route-id="@Model.Id" class="no-link">
+                            FOLLOWING
+                        </a>
+                    </h6>
+                }
+                <p class="card-text">@Model.FollowingsCount</p>
+
+
+                @if (Model.PostCount == 0)
+                {
+                    <h6 class="card-subtitle">POSTS</h6>
+                }
+                else
+                {
+                    <h6 class="card-subtitle">
+                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="no-link">
+                            POSTS
+                        </a>
+                    </h6>
+                }
+                <p class="card-text" id="userPosts">@Model.PostCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-7 my-4">
+        <div class="row text-center">
             <div class="col-auto">
                 <h3>Followings list</h3>
-            </div>
-            <div class="col-auto">
-                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="btn btn-dark">Back to profile</a>
             </div>
         </div>
 
@@ -63,7 +128,7 @@
             </tfoot>
         </table>
     </div>
-    <div class="col-2"></div>
+    <div class="col"></div>
 </div>
 
 @section Scripts
