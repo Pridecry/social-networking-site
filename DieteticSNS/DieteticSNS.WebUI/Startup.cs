@@ -84,6 +84,10 @@ namespace DieteticSNS.WebUI
                     pattern: "/Error",
                     defaults: new { controller = "Home", action = "Error" });
                 endpoints.MapControllerRoute(
+                    name: "home",
+                    pattern: "/GetStarted",
+                    defaults: new { controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Posts", action = "GetPostList" });
