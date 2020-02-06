@@ -100,6 +100,16 @@ function isRequestValid() {
     return !document.querySelector('.field-validation-error');
 }
 
+function deleteSuggestion(id) {
+    $("#suggestionListItem_" + id).remove();
+
+    var listLength = $("#suggestionList > div").length;
+
+    if (listLength == 0) {
+        $("#suggestionCard").remove();
+    }
+};
+
 ////SignalR
 
 "use strict";

@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DieteticSNS.Application.Common.Interfaces;
-using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
+using DieteticSNS.Application.Models.Account.Commands.DeleteAccount;
 using DieteticSNS.Application.Models.Account.Commands.DeleteAvatar;
 using DieteticSNS.Application.Models.Account.Commands.UpdateAccount;
 using DieteticSNS.Application.Models.Account.Queries.GetUserDetails;
+using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.WebUI.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using DieteticSNS.Application.Models.Account.Commands.DeleteAccount;
 
 namespace DieteticSNS.WebUI.Controllers
 {

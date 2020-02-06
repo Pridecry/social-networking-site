@@ -1,6 +1,7 @@
 ﻿@using DieteticSNS.Application.Models.Comments.Commands.CreatePostComment;
 @using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
 @using DieteticSNS.Application.Models.Posts.Queries.GetPostList
+@using DieteticSNS.Application.Models.Users.Queries.GetSuggestedUserList
 
 @using DieteticSNS.Application.Common.Extensions
 @using DieteticSNS.Application.Common.Interfaces
@@ -13,6 +14,7 @@
     UpdatePostCommand updatePostCommand = new UpdatePostCommand();
 
     PostListVm posts = (PostListVm)ViewBag.PostList;
+    SuggestedUserListVm suggestedUsers = (SuggestedUserListVm)ViewBag.SuggestedUserList;
 
     string dir = "~/img/uploads/";
     string noAvatar = "~/img/noavatar.jpg";
@@ -525,11 +527,40 @@
 
 @section RightPanel
 {
-    <div class="card my-4">
-        <h5 class="card-header text-center">Suggested friends</h5>
-        <div class="card-body">
+    @if (suggestedUsers.Users.Count != 0)
+    {
+        <div id="suggestionCard" class="card my-4">
+            <h5 class="card-header text-center">Suggested accounts</h5>
+            <div id="suggestionList" class="list-group list-group-flush">
+                @foreach (var user in suggestedUsers.Users)
+                {
+                    <div id="@("suggestionListItem_"+user.Id)" class="list-group-item py-3 pl-3 pr-2">
+                        <div class="d-flex w-100 justify-content-start">
+                            @if (!String.IsNullOrEmpty(user.AvatarPath))
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@String.Concat(dir, user.AvatarPath)" asp-append-version="true" alt="Avatar">
+                            }
+                            else
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                            }
+                            <div class="ml-3">
+                                <h6 class="mb-2">
+                                    <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@user.Id" class="no-link">
+                                        @user.FirstName @user.LastName
+                                    </a>
+                                </h6>
+
+                                <form asp-controller="Followings" asp-action="FollowUser" asp-route-userId="@user.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(deleteSuggestion, 300, @user.Id)">
+                                    <button type="submit" class="btn btn-outline-dark btn btn-sm">Follow <i class="fas fa-user-plus"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
+    }
 }
 
 @section Scripts

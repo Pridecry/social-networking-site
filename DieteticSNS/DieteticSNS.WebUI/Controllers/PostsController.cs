@@ -4,6 +4,7 @@ using DieteticSNS.Application.Models.Posts.Commands.DeletePost;
 using DieteticSNS.Application.Models.Posts.Commands.UpdatePost;
 using DieteticSNS.Application.Models.Posts.Queries.GetMinifiedPostList;
 using DieteticSNS.Application.Models.Posts.Queries.GetPostList;
+using DieteticSNS.Application.Models.Users.Queries.GetSuggestedUserList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace DieteticSNS.WebUI.Controllers
         public async Task<ActionResult<PostListVm>> GetPostList()
         {
             ViewBag.PostList = await Mediator.Send(new GetPostListQuery());
+            ViewBag.SuggestedUserList = await Mediator.Send(new GetSuggestedUserListQuery());
 
             return View();
         }

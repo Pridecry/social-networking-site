@@ -107,7 +107,7 @@ input.input-validation-error {
     cursor: pointer;
 }
 
-.badge {
+.badge-custom {
     background-color: #fa3e3e;
     border-radius: 2px;
     color: white;
