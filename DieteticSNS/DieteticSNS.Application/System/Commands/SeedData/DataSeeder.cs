@@ -10,11 +10,13 @@ namespace DieteticSNS.Application.System.Commands.SeedData
     public class DataSeeder
     {
         private readonly IDieteticSNSDbContext _context;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-        public DataSeeder(IDieteticSNSDbContext context, RoleManager<IdentityRole<int>> roleManager)
+        public DataSeeder(IDieteticSNSDbContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             _context = context;
+            _userManager = userManager;
             _roleManager = roleManager;
         }
 
@@ -25,12 +27,22 @@ namespace DieteticSNS.Application.System.Commands.SeedData
                 return;
             }
 
-            await SeedRolesAsync();
+            await SeedAdministratorAsync();
             await SeedCustomersAsync(cancellationToken);
         }
 
-        private async Task SeedRolesAsync()
+        private async Task SeedAdministratorAsync()
         {
+            var user = new User
+            {
+                FirstName = "Admin",
+                LastName = "Admin",
+                UserName = "admin@gmail.com",
+                Email = "admin@gmail.com",
+            };
+
+            await _userManager.CreateAsync(user, "asd123QWE@");
+
             var roles = new[]
             {
                 new IdentityRole<int> { Name = "Administrator" }
@@ -39,6 +51,7 @@ namespace DieteticSNS.Application.System.Commands.SeedData
             foreach (var role in roles)
             {
                 await _roleManager.CreateAsync(role);
+                await _userManager.AddToRoleAsync(user, role.Name);
             }
         }
 
