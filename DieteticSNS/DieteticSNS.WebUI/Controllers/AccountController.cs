@@ -155,14 +155,13 @@ namespace DieteticSNS.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateAccount(int id)
+        public async Task<IActionResult> UpdateAccount()
         {
-            var details = await Mediator.Send(new GetAccountDetailsQuery { Id = id });
+            var details = await Mediator.Send(new GetAccountDetailsQuery());
 
             ViewBag.HasAvatar = details.AvatarPath != null ? true : false; 
 
             var command = Mapper.Map<UpdateAccountCommand>(details);
-            command.Id = id;
 
             var countryListVm = await Mediator.Send(new GetCountryListQuery());
 
@@ -195,21 +194,21 @@ namespace DieteticSNS.WebUI.Controllers
 
             await Mediator.Send(command);
 
-            return RedirectToAction(nameof(UpdateAccount), command.Id);
+            return RedirectToAction(nameof(UpdateAccount));
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAvatar(int id)
+        public async Task<IActionResult> DeleteAvatar()
         {
-            await Mediator.Send(new DeleteAvatarCommand { Id = id });
+            await Mediator.Send(new DeleteAvatarCommand());
 
-            return RedirectToAction(nameof(UpdateAccount), new { id });
+            return RedirectToAction(nameof(UpdateAccount));
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount()
         {
-            await Mediator.Send(new DeleteAccountCommand { Id = id });
+            await Mediator.Send(new DeleteAccountCommand());
 
             await _signInManager.SignOutAsync();
 

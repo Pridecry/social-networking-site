@@ -81,9 +81,9 @@
                     <i class="fas fa-caret-down fa-lg"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right mt-4">
-                    <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item">Settings</a>
+                    <a asp-controller="Account" asp-action="UpdateAccount" class="dropdown-item">Settings</a>
                     <a asp-controller="Account" asp-action="ChangePassword" class="dropdown-item">Change password</a>
-                    <form id="deleteAccountForm" asp-controller="Account" asp-action="DeleteAccount" asp-route-id="@currentUserService.GetUserId()" method="post" class="d-inline">
+                    <form id="deleteAccountForm" asp-controller="Account" asp-action="DeleteAccount" method="post" class="d-inline">
                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">Delete account</button>
                     </form>
                     <div class="dropdown-divider"></div>

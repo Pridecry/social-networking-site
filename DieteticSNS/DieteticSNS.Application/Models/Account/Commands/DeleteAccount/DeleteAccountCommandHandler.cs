@@ -14,16 +14,20 @@ namespace DieteticSNS.Application.Models.Account.Commands.DeleteAccount
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
         private readonly IImageService _imageService;
+        private readonly ICurrentUserService _userService;
 
-        public DeleteAccountCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService)
+        public DeleteAccountCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService, ICurrentUserService userService)
         {
             _context = context;
             _mapper = mapper;
             _imageService = imageService;
+            _userService = userService;
         }
 
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
+            var id = int.Parse(_userService.GetUserId());
+
             var entity = await _context.Users
                 .Include(x => x.Comments)
                 .Include(x => x.Posts)
@@ -32,11 +36,12 @@ namespace DieteticSNS.Application.Models.Account.Commands.DeleteAccount
                     .ThenInclude(x => x.PostReports)
                 .Include(x => x.Posts)
                     .ThenInclude(x => x.PostLikes)
-                .FirstOrDefaultAsync(x => x.Id == request.Id);
+                .Include(x => x.Followings)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(User), request.Id);
+                throw new NotFoundException(nameof(User), id);
             }
 
             if (entity.AvatarPath != null)
@@ -54,6 +59,7 @@ namespace DieteticSNS.Application.Models.Account.Commands.DeleteAccount
             }
 
             _context.Comments.RemoveRange(entity.Comments);
+            _context.Followings.RemoveRange(entity.Followings);
 
             _context.Users.Remove(entity);
 

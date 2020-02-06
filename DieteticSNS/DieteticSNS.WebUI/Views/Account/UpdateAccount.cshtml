@@ -8,9 +8,8 @@
     <h4 class="card-header text-center">Basic settings</h4>
 
     <div class="card-body">
-        <form id="deleteAvatar" asp-controller="Account" asp-action="DeleteAvatar" asp-route-id="@Model.Id" method="post"></form>
+        <form id="deleteAvatar" asp-controller="Account" asp-action="DeleteAvatar" method="post"></form>
         <form method="post" autocomplete="off" enctype="multipart/form-data">
-            <input asp-for="Id" hidden />
             <div class="form-group row">
                 <div class="col-2 text-right">
                     <label asp-for="FirstName" for="firstName" class="col-form-label"><b>First name</b></label>

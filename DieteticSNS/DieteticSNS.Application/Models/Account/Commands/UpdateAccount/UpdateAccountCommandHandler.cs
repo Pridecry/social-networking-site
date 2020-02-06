@@ -13,21 +13,25 @@ namespace DieteticSNS.Application.Models.Account.Commands.UpdateAccount
         private readonly IDieteticSNSDbContext _context;
         private readonly IMapper _mapper;
         private readonly IImageService _imageService;
+        private readonly ICurrentUserService _userService;
 
-        public UpdateAccountCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService)
+        public UpdateAccountCommandHandler(IDieteticSNSDbContext context, IMapper mapper, IImageService imageService, ICurrentUserService userService)
         {
             _context = context;
             _mapper = mapper;
             _imageService = imageService;
+            _userService = userService;
         }
 
         public async Task<Unit> Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Users.FindAsync(request.Id);
+            var id = int.Parse(_userService.GetUserId());
+
+            var entity = await _context.Users.FindAsync(id);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(User), request.Id);
+                throw new NotFoundException(nameof(User), id);
             }
 
             if (request.Avatar != null)

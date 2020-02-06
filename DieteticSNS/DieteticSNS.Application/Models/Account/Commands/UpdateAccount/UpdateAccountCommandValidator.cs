@@ -7,7 +7,6 @@ namespace DieteticSNS.Application.Models.Account.Commands.UpdateAccount
     {
         public UpdateAccountCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Avatar).IsImage().When(x => x.Avatar != null);
