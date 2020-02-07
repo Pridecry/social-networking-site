@@ -37,6 +37,7 @@ namespace DieteticSNS.Application.Models.Account.Commands.DeleteAccount
                 .Include(x => x.Posts)
                     .ThenInclude(x => x.PostLikes)
                 .Include(x => x.Followings)
+                .Include(x => x.NotificationsTo)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
@@ -60,6 +61,7 @@ namespace DieteticSNS.Application.Models.Account.Commands.DeleteAccount
 
             _context.Comments.RemoveRange(entity.Comments);
             _context.Followings.RemoveRange(entity.Followings);
+            _context.Notifications.RemoveRange(entity.NotificationsTo);
 
             _context.Users.Remove(entity);
 

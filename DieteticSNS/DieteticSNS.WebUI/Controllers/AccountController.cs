@@ -4,7 +4,9 @@ using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Account.Commands.DeleteAccount;
 using DieteticSNS.Application.Models.Account.Commands.DeleteAvatar;
 using DieteticSNS.Application.Models.Account.Commands.UpdateAccount;
+using DieteticSNS.Application.Models.Account.Commands.UpdateNotifications;
 using DieteticSNS.Application.Models.Account.Queries.GetUserDetails;
+using DieteticSNS.Application.Models.Account.Queries.GetUserNotificationSettings;
 using DieteticSNS.Application.Models.Countries.Queries.GetCountryList;
 using DieteticSNS.Domain.Entities;
 using DieteticSNS.WebUI.Models.Account;
@@ -88,12 +90,15 @@ namespace DieteticSNS.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new User 
-                { 
+                var userNotificationSettings = new UserNotificationSettings();
+
+                var user = new User
+                {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    UserName = model.Email, 
-                    Email = model.Email 
+                    UserName = model.Email,
+                    Email = model.Email,
+                    NotificationSettings = userNotificationSettings
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -213,6 +218,29 @@ namespace DieteticSNS.WebUI.Controllers
             await _signInManager.SignOutAsync();
 
             return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateNotifications()
+        {
+            var details = await Mediator.Send(new GetUserNotificationSettingsQuery());
+
+            var command = Mapper.Map<UpdateNotificationsCommand>(details);
+
+            return View(command);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateNotifications(UpdateNotificationsCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await Mediator.Send(command);
+
+            return RedirectToAction(nameof(UpdateNotifications));
         }
     }
 }

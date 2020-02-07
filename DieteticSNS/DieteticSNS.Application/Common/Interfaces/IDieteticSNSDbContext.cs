@@ -13,12 +13,14 @@ namespace DieteticSNS.Application.Common.Interfaces
         DbSet<Country> Countries { get; set; }
         DbSet<Following> Followings { get; set; }
         DbSet<Like> Likes { get; set; }
+        DbSet<Notification> Notifications { get; set; }
         DbSet<Post> Posts { get; set; }
         DbSet<PostComment> PostComments { get; set; }
         DbSet<PostLike> PostLikes { get; set; }
         DbSet<PostReport> PostReports { get; set; }
         DbSet<Report> Reports { get; set; }
         DbSet<User> Users { get; set; }
+        DbSet<UserNotificationSettings> UserNotificationSettings { get; set; }
 
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

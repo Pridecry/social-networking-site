@@ -12,14 +12,6 @@ namespace DieteticSNS.Persistence.Configurations
                 .WithMany(x => x.Users)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasMany(x => x.Followings)
-                .WithOne(x => x.Follower)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany(x => x.Followers)
-                .WithOne(x => x.User)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasMany(x => x.Posts)
                 .WithOne(x => x.User)
                 .OnDelete(DeleteBehavior.Cascade);

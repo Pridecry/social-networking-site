@@ -1,6 +1,11 @@
 ﻿@using DieteticSNS.Application.Common.Interfaces
 @inject ICurrentUserService currentUserService
 
+@{
+    string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
+}
+
 <div id="mainRow" class="row align-items-center bg-primary px-5">
     <div class="col-1"></div>
     <div class="col-auto py-3">
@@ -57,18 +62,18 @@
 
             @*////badge*@
             @*<span class="mx-3">
-                <a asp-controller="Home" asp-action="AdminPanel" class="no-link hoverable" style="position:relative">
-                    <i class="fas fa-shield-alt fa-lg">
+                    <a asp-controller="Home" asp-action="AdminPanel" class="no-link hoverable" style="position:relative">
+                        <i class="fas fa-shield-alt fa-lg">
+                            <span class="badge-custom">1</span>
+                        </i>
+                    </a>
+                </span>
+
+                <span class="mx-3">
+                    <i class="fas fa-bell fa-lg" style="color: inherit; text-decoration:none; position:relative">
                         <span class="badge-custom">1</span>
                     </i>
-                </a>
-            </span>
-
-            <span class="mx-3">
-                <i class="fas fa-bell fa-lg" style="color: inherit; text-decoration:none; position:relative">
-                    <span class="badge-custom">1</span>
-                </i>
-            </span>*@
+                </span>*@
 
             @*<span class="badge badge-pill badge-danger">Danger</span>*@
             @*////badge*@
@@ -125,6 +130,108 @@
                 </a>
             </span>
         }
+
+
+
+
+        <div class="dropdown d-inline mx-3">
+            <a href="#" data-toggle="dropdown" class="no-link hoverable">
+                <i class="fas fa-bell fa-lg"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right mt-4" style="width: 400px">
+                <h6 class="text-center">You have 0 notifications</h6>
+
+                <div class="list-group list-group-flush list-group-scrollable">
+                    <div class="list-group-item py-2 px-2">
+                        <div class="d-flex w-100 justify-content-start">
+                            @if (!String.IsNullOrEmpty(currentUserService.GetUserAvatarPath()))
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+                                @*<img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@String.Concat(dir, currentUserService.GetUserAvatarPath())" asp-append-version="true" alt="Avatar">*@
+                            }
+                            else
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                            }
+                            <div class="d-flex flex-column justify-content-between ml-2">
+                                <div>
+                                    <h6 class="mb-2 d-inline">
+                                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                                            Kamil Dołęgiewicz
+                                        </a>
+                                    </h6>
+                                    <span class="d-inline">is now following you.</span>
+                                </div>
+                                <small>February 2 at 7:54 PM</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item py-2 px-2">
+                        <div class="d-flex w-100 justify-content-start">
+                            @if (!String.IsNullOrEmpty(currentUserService.GetUserAvatarPath()))
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@currentUserService.GetUserAvatarPath()" asp-append-version="true" alt="Avatar">
+                                @*<img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@String.Concat(dir, currentUserService.GetUserAvatarPath())" asp-append-version="true" alt="Avatar">*@
+                            }
+                            else
+                            {
+                                <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                            }
+                            <div class="d-flex flex-column justify-content-between ml-2">
+                                <div>
+                                    <h6 class="mb-2 d-inline">
+                                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                                            Kamil Dołęgiewicz
+                                        </a>
+                                    </h6>
+                                    <span class="d-inline">is now following you.</span>
+                                </div>
+                                <small>February 2 at 7:54 PM</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="text-center mt-2 mb-0">
+                    <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                        View all
+                    </a>
+                </h6>
+            </div>
+        </div>
+
+
+        @*<div id="suggestionCard" class="card my-4">
+                <h5 class="card-header text-center">Suggested accounts</h5>
+                <div id="suggestionList" class="list-group list-group-flush">
+                    @foreach (var user in suggestedUsers.Users)
+                    {
+                        <div id="@("suggestionListItem_"+user.Id)" class="list-group-item py-3 pl-3 pr-2">
+                            <div class="d-flex w-100 justify-content-start">
+                                @if (!String.IsNullOrEmpty(user.AvatarPath))
+                                {
+                                    <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@String.Concat(dir, user.AvatarPath)" asp-append-version="true" alt="Avatar">
+                                }
+                                else
+                                {
+                                    <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                                }
+                                <div class="ml-3">
+                                    <h6 class="mb-2">
+                                        <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@user.Id" class="no-link">
+                                            @user.FirstName @user.LastName
+                                        </a>
+                                    </h6>
+
+                                    <form asp-controller="Followings" asp-action="FollowUser" asp-route-userId="@user.Id" asp-route-followerId="@currentUserService.GetUserId()" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="setTimeout(deleteSuggestion, 300, @user.Id)">
+                                        <button type="submit" class="btn btn-outline-dark btn btn-sm">Follow <i class="fas fa-user-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>*@
 
     </div>
     <div class="col-1"></div>

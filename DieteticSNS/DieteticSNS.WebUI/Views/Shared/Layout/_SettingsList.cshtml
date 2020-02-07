@@ -7,8 +7,10 @@
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item p-0">
-            <a asp-controller="Account" asp-action="UpdateAccount" asp-route-id="@currentUserService.GetUserId()" class="dropdown-item p-2">Basic</a>
+            <a asp-controller="Account" asp-action="UpdateAccount" class="dropdown-item p-2">Basic</a>
         </li>
-        <li class="list-group-item">Notifications</li>
+        <li class="list-group-item p-0">
+            <a asp-controller="Account" asp-action="UpdateNotifications" class="dropdown-item p-2">Notifications</a>
+        </li>
     </ul>
 </div>

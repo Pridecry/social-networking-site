@@ -4,14 +4,16 @@ using DieteticSNS.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DieteticSNS.Persistence.Migrations
 {
     [DbContext(typeof(DieteticSNSDbContext))]
-    partial class DieteticSNSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200206231543_notifications")]
+    partial class notifications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,6 +128,9 @@ namespace DieteticSNS.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -547,13 +552,13 @@ namespace DieteticSNS.Persistence.Migrations
             modelBuilder.Entity("DieteticSNS.Domain.Entities.Notification", b =>
                 {
                     b.HasOne("DieteticSNS.Domain.Entities.User", "Recipient")
-                        .WithMany("NotificationsTo")
+                        .WithMany("NotificationTo")
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DieteticSNS.Domain.Entities.User", "User")
-                        .WithMany("NotificationsFrom")
+                        .WithMany("NotificationFrom")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

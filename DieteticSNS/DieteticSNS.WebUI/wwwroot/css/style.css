@@ -126,3 +126,8 @@ input.input-validation-error {
 .hoverable:hover {
     opacity: 0.9;
 }
+
+.list-group-scrollable {
+    max-height: 200px;
+    overflow-y: scroll;
+}

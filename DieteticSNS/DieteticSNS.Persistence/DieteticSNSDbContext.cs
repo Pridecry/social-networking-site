@@ -23,11 +23,13 @@ namespace DieteticSNS.Persistence
         public DbSet<Country> Countries { get; set; }
         public DbSet<Following> Followings { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
         public DbSet<PostReport> PostReports { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<UserNotificationSettings> UserNotificationSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

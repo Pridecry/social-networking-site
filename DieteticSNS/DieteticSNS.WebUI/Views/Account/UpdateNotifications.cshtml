@@ -1,0 +1,61 @@
+﻿@model DieteticSNS.Application.Models.Account.Commands.UpdateNotifications.UpdateNotificationsCommand
+
+@{
+    Layout = "~/Views/Shared/_StandardLayout.cshtml";
+}
+
+<div class="card my-4">
+    <h4 class="card-header text-center">Notification settings</h4>
+
+    <div class="card-body">
+        <form method="post" autocomplete="off" class="ml-2">
+
+            <h5 class="mb-2">Posts</h5>
+            <div class="custom-control custom-switch mb-1">
+                <input asp-for="PostComments" type="checkbox" class="custom-control-input" id="postComments">
+                <label asp-for="PostComments" class="custom-control-label" for="postComments">When a user comments on your post</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input asp-for="PostLikes" type="checkbox" class="custom-control-input" id="postLikes">
+                <label asp-for="PostLikes" class="custom-control-label" for="postLikes">When a user likes your post</label>
+            </div>
+
+            <h5 class="mb-2 mt-3">Comments</h5>
+            <div class="custom-control custom-switch mb-1">
+                <input asp-for="CommentLikes" type="checkbox" class="custom-control-input" id="commentLikes">
+                <label asp-for="CommentLikes" class="custom-control-label" for="commentLikes">When a user likes your comment</label>
+            </div>
+
+            <h5 class="mb-2 mt-3">Followings</h5>
+            <div class="custom-control custom-switch mb-1">
+                <input asp-for="UserFollowings" type="checkbox" class="custom-control-input" id="userFollowings">
+                <label asp-for="UserFollowings" class="custom-control-label" for="userFollowings">When a user follows you</label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input asp-for="UserUnfollowings" type="checkbox" class="custom-control-input" id="userUnfollowings">
+                <label asp-for="UserUnfollowings" class="custom-control-label" for="userUnfollowings">When a user unfollows you</label>
+            </div>
+
+            <div class="row">
+                <div class="col-auto mt-4">
+                    <button type="submit" class="btn  btn-dark">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section LeftPanel
+{
+    <partial name="Layout/_UserProfile" />
+}
+
+@section RightPanel
+{
+    <partial name="Layout/_SettingsList" />
+}
+
+@section Scripts
+{
+    <script src="~/js/changeFileLabelHtml.js"></script>
+}

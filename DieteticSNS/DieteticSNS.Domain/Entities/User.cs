@@ -16,6 +16,10 @@ namespace DieteticSNS.Domain.Entities
         public int? CountryId { get; set; }
         public virtual Country Country { get; set; }
 
+        public virtual UserNotificationSettings NotificationSettings { get; set; }
+
+        public virtual ICollection<Notification> NotificationsTo { get; private set; } = new HashSet<Notification>();
+        public virtual ICollection<Notification> NotificationsFrom { get; private set; } = new HashSet<Notification>();
         public virtual ICollection<Following> Followings { get; private set; } = new HashSet<Following>();
         public virtual ICollection<Following> Followers { get; private set; } = new HashSet<Following>();
         public virtual ICollection<Post> Posts { get; private set; } = new HashSet<Post>();
