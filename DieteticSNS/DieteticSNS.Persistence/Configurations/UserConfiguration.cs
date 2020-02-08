@@ -27,6 +27,14 @@ namespace DieteticSNS.Persistence.Configurations
             builder.HasMany(x => x.Likes)
                 .WithOne(x => x.User)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(x => x.NotificationsFrom)
+                .WithOne(x => x.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(x => x.NotificationsTo)
+                .WithOne(x => x.Recipient)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

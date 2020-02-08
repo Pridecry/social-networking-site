@@ -62,9 +62,4 @@
     <ProjectReference Include="..\DieteticSNS.Domain\DieteticSNS.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Notifications\Command\" />
-    <Folder Include="Models\Notifications\Query\" />
-  </ItemGroup>
-
 </Project>

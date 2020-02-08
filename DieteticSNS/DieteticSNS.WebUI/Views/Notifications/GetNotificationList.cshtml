@@ -1,0 +1,86 @@
+﻿@model DieteticSNS.Application.Models.Notifications.Queries.GetNotificationList.NotificationListVm
+
+@using DieteticSNS.Application.Common.Extensions
+@using DieteticSNS.Application.Common.Interfaces
+@inject ICurrentUserService currentUserService
+
+@{
+    Layout = "~/Views/Shared/_StandardLayout.cshtml";
+
+    string dir = "~/img/uploads/";
+    string noAvatar = "~/img/noavatar.jpg";
+}
+
+<div class="card my-4">
+    <div class="d-flex align-items-center card-header">
+        <div>
+            <h5 class="mb-0">All notifications</h5>
+        </div>
+        <div class="ml-auto">
+            <form asp-controller="Notifications" asp-action="DeleteAllNotifications" method="post" class="d-inline position-relative" style="top: -3px">
+                <button type="submit" class="btn btn-link p-0 text-dark no-link">
+                    <h6 class="mb-0">Remove all</h6>
+                </button>
+            </form>
+            <h6 class="mb-0 d-inline px-2">-</h6>
+            <h6 class="mb-0 d-inline">
+                <a asp-controller="Account" asp-action="UpdateNotifications" class="no-link">
+                    Settings <i class="fas fa-cog"></i>
+                </a>
+            </h6>
+        </div>
+    </div>
+
+    @if (Model.Notifications.Count == 0)
+    {
+        <div class="card-body py-4">
+            <h5 class="text-center">No notifications at the moment</h5>
+        </div>
+    }
+    else
+    {
+        <div class="list-group list-group-flush">
+            @foreach (var notification in Model.Notifications)
+            {
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-start">
+                        @if (!String.IsNullOrEmpty(notification.AvatarPath))
+                        {
+                            <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@String.Concat(dir, notification.AvatarPath)" asp-append-version="true" alt="Avatar">
+                        }
+                        else
+                        {
+                            <img class="rounded-circle img-fluid border border-dark" style="height: 3.5rem; width: 3.5rem" src="@noAvatar" asp-append-version="true" alt="Avatar">
+                        }
+                        <div class="d-flex flex-column justify-content-between ml-3">
+                            <div>
+                                <h6 class="mb-2 d-inline">
+                                    <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@notification.UserId" class="no-link">
+                                        @notification.FirstName @notification.LastName
+                                    </a>
+                                </h6>
+                                <span class="d-inline">is now following you.</span>
+                            </div>
+                            <small>@notification.CreatedAt.TimeAgo()</small>
+                        </div>
+                        <div class="ml-auto align-self-center">
+                            <form asp-controller="Notifications" asp-action="DeleteNotification" asp-route-id="@notification.Id" method="post" class="ml-3">
+                                <button type="submit" class="btn btn-link p-0 text-dark"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section LeftPanel
+{
+    <partial name="Layout/_UserProfile" />
+}
+
+@section Scripts
+{
+    <script src="~/js/changeFileLabelHtml.js"></script>
+}

@@ -2,7 +2,7 @@
 
 namespace DieteticSNS.Domain.Entities
 {
-    public class Notification : TimeStampEntity
+    public class Notification : BaseTimeStampEntity
     {
         public int UserId { get; set; }
         public virtual User User { get; set; }

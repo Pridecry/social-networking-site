@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DieteticSNS.Application.Common.Interfaces;
+using DieteticSNS.Application.Models.Notifications.Commands.CreateNotification;
 using DieteticSNS.Domain.Entities;
 using MediatR;
 
@@ -14,14 +15,15 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreatePostLike
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _userService;
         private readonly IWallService _wallService;
+        private readonly IMediator _mediator;
 
-
-        public CreatePostLikeCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService, IWallService wallService)
+        public CreatePostLikeCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService, IWallService wallService, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _wallService = wallService;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(CreatePostLikeCommand request, CancellationToken cancellationToken)
@@ -38,6 +40,30 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreatePostLike
                     .FirstOrDefault();
 
                 await _wallService.SendPostLike(entity.UserId, item.Id, item.PostId);
+
+                var recipientId = _context.Posts.Find(entity.PostId)?.UserId;
+
+                if (recipientId != null)
+                {
+                    var setting = _context.UserNotificationSettings
+                        .Where(x => x.UserId == recipientId)
+                        .FirstOrDefault()
+                        .PostLikes;
+
+                    if (setting)
+                    {
+                        if (entity.UserId != recipientId)
+                        {
+                            var command = new CreateNotificationCommand
+                            {
+                                UserId = entity.UserId,
+                                RecipientId = recipientId.Value
+                            };
+
+                            await _mediator.Send(command);
+                        }
+                    }
+                }
             }
 
             return Unit.Value;
