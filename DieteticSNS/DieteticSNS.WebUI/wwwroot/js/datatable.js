@@ -37,7 +37,7 @@ $('.datatable-comment_report').DataTable(
         { "orderable": false, "targets": -1 },
         { "width": "420px", "targets": -1 },
         { "width": "105px", "targets": 0 },
-        { "width": "140px", "targets": 1 }
+        { "width": "155px", "targets": 1 }
     ]
     });
 

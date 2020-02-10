@@ -1,9 +1,9 @@
-﻿namespace DieteticSNS.Domain.Entities
-{
-    public class UserNotificationSettings
-    {
-        public int Id { get; set; }
+﻿using DieteticSNS.Domain.Entities.Base;
 
+namespace DieteticSNS.Domain.Entities
+{
+    public class UserNotificationSettings : BaseEntity<int>
+    {
         public int UserId { get; set; }
         public virtual User User { get; set; }
 
