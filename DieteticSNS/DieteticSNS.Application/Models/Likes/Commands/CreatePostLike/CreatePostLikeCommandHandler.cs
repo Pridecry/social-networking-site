@@ -5,6 +5,7 @@ using AutoMapper;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Notifications.Commands.CreateNotification;
 using DieteticSNS.Domain.Entities;
+using DieteticSNS.Domain.Enumerations;
 using MediatR;
 
 namespace DieteticSNS.Application.Models.Likes.Commands.CreatePostLike
@@ -36,7 +37,7 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreatePostLike
             if (await _context.SaveChangesAsync(cancellationToken) > 0)
             {
                 var item = _context.PostLikes
-                    .Where(x => x.PostId == entity.PostId && x.UserId == entity.UserId)
+                    .Where(x => x.PostId == entity.PostId && x.UserId == entity.UserId && x.CreatedAt == entity.CreatedAt)
                     .FirstOrDefault();
 
                 await _wallService.SendPostLike(entity.UserId, item.Id, item.PostId);
@@ -57,7 +58,8 @@ namespace DieteticSNS.Application.Models.Likes.Commands.CreatePostLike
                             var command = new CreateNotificationCommand
                             {
                                 UserId = entity.UserId,
-                                RecipientId = recipientId.Value
+                                RecipientId = recipientId.Value,
+                                NotificationType = NotificationType.PostLike
                             };
 
                             await _mediator.Send(command);

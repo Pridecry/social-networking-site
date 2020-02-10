@@ -2,6 +2,7 @@
 using DieteticSNS.Application.Common.Extensions;
 using DieteticSNS.Application.Common.Interfaces;
 using DieteticSNS.Application.Models.Notifications.Queries.GetUnreadNotificationList;
+using DieteticSNS.Domain.Enumerations;
 using DieteticSNS.Infrastructure.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
@@ -31,9 +32,31 @@ namespace DieteticSNS.Infrastructure.Services
 
             var createdAt = notification.CreatedAt.TimeAgo();
 
+            string notificationText = "";
+
+            switch (notification.NotificationType)
+            {
+                case NotificationType.PostComment:
+                    notificationText = "commented on your post."; 
+                    break;
+                case NotificationType.PostLike:
+                    notificationText = "liked your post.";
+                    break;
+                case NotificationType.CommentLike:
+                    notificationText = "liked your comment.";
+                    break;
+                case NotificationType.UserFollowing:
+                    notificationText = "is now following you.";
+                    break;
+                case NotificationType.UserUnfollowing:
+                    notificationText = "stopped following you.";
+                    break;
+            }
+
             await _hubContext.Clients.User(notification.RecipientId.ToString()).SendAsync("ReceiveNotification", 
                 notification.UserId, 
-                createdAt, 
+                createdAt,
+                notificationText,
                 notification.FirstName, 
                 notification.LastName,
                 avatarPath);

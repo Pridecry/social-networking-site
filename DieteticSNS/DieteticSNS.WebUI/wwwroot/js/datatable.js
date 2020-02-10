@@ -25,7 +25,7 @@ $('.datatable-post_report').DataTable(
         { "orderable": false, "targets": -1 },
         { "width": "388px", "targets": -1 },
         { "width": "105px", "targets": 0 },
-        { "width": "140px", "targets": 1 }
+        { "width": "155px", "targets": 1 }
     ]
 });
 

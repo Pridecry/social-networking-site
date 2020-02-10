@@ -1,4 +1,5 @@
 ﻿using DieteticSNS.Domain.Entities.Base;
+using DieteticSNS.Domain.Enumerations;
 
 namespace DieteticSNS.Domain.Entities
 {
@@ -11,5 +12,6 @@ namespace DieteticSNS.Domain.Entities
         public virtual User Recipient { get; set; }
 
         public bool IsRead { get; set; }
+        public NotificationType NotificationType { get; set; }
     }
 }

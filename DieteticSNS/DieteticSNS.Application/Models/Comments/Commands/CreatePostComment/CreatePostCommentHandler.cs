@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DieteticSNS.Application.Common.Interfaces;
+using DieteticSNS.Application.Models.Notifications.Commands.CreateNotification;
 using DieteticSNS.Domain.Entities;
+using DieteticSNS.Domain.Enumerations;
 using MediatR;
 
 namespace DieteticSNS.Application.Models.Comments.Commands.CreatePostComment
@@ -14,14 +16,15 @@ namespace DieteticSNS.Application.Models.Comments.Commands.CreatePostComment
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _userService;
         private readonly IWallService _wallService;
+        private readonly IMediator _mediator;
 
-
-        public CreatePostCommentCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService, IWallService wallService)
+        public CreatePostCommentCommandHandler(IDieteticSNSDbContext context, IMapper mapper, ICurrentUserService userService, IWallService wallService, IMediator mediator)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _wallService = wallService;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(CreatePostCommentCommand request, CancellationToken cancellationToken)
@@ -38,6 +41,31 @@ namespace DieteticSNS.Application.Models.Comments.Commands.CreatePostComment
                     .FirstOrDefault();
 
                 await _wallService.SendPostComment(entity.UserId, item.Id, item.PostId, item.Content);
+
+                var recipientId = _context.Posts.Find(entity.PostId)?.UserId;
+
+                if (recipientId != null)
+                {
+                    var setting = _context.UserNotificationSettings
+                        .Where(x => x.UserId == recipientId)
+                        .FirstOrDefault()
+                        .PostComments;
+
+                    if (setting)
+                    {
+                        if (entity.UserId != recipientId)
+                        {
+                            var command = new CreateNotificationCommand
+                            {
+                                UserId = entity.UserId,
+                                RecipientId = recipientId.Value,
+                                NotificationType = NotificationType.PostComment
+                            };
+
+                            await _mediator.Send(command);
+                        }
+                    }
+                }
             }
 
             return Unit.Value;

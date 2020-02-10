@@ -39,6 +39,13 @@ namespace DieteticSNS.Application.Models.Users.Queries.GetUserProfile
                 ");
                 model.Posts = posts.ToList();
 
+                var followers = await connection.QueryAsync<int>($@"
+                    SELECT FollowerId
+                    FROM Followings
+                    WHERE UserId = { request.Id };
+                ");
+                model.FollowerIds = followers.ToList();
+
                 if (posts.Count() != 0)
                 {
                     string postIdSet = "(";

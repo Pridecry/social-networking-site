@@ -531,7 +531,7 @@
         </div>
         <div class="card-body px-0">
             <h5 class="card-title">
-                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@currentUserService.GetUserId()" class="no-link">
+                <a asp-controller="Users" asp-action="GetProfile" asp-route-id="@Model.Id" class="no-link">
                     @Model.FirstName @Model.LastName
                 </a>
             </h5>

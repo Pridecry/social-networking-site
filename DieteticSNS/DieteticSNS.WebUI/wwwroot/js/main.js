@@ -44,7 +44,7 @@ function decrement(id) {
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
 
-connection.on("ReceiveNotification", function (userId, createdAt, firstName, lastName, avatarPath) {
+connection.on("ReceiveNotification", function (userId, createdAt, notificationText, firstName, lastName, avatarPath) {
     var notificationCounter = parseInt($("#notificationCounter").text());
     increment("#notificationCounter");
     increment("#notificationBadge");
@@ -69,7 +69,7 @@ connection.on("ReceiveNotification", function (userId, createdAt, firstName, las
                                 ${firstName} ${lastName}
                             </a>
                         </h6>
-                        <span class="d-inline">is now following you.</span>
+                        <span class="d-inline">${notificationText}</span>
                     </div>
                     <small>${createdAt}</small>
                 </div>

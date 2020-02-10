@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DieteticSNS.Domain.Enumerations;
+using MediatR;
 
 namespace DieteticSNS.Application.Models.Notifications.Commands.CreateNotification
 {
@@ -6,5 +7,7 @@ namespace DieteticSNS.Application.Models.Notifications.Commands.CreateNotificati
     {
         public int UserId { get; set; }
         public int RecipientId { get; set; }
+        public NotificationType NotificationType { get; set; }
+
     }
 }
