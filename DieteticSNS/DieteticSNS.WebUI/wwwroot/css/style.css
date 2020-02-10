@@ -80,7 +80,7 @@ input.input-validation-error {
     outline-color: black;
 }
 
- .bootstrap-select .dropdown-toggle:focus {
+.bootstrap-select .dropdown-toggle:focus {
     outline: none !important;
 }
 
@@ -102,20 +102,28 @@ input.input-validation-error {
     box-shadow: var(--main-color-gray-shadow);
 }
 
+/***Flash of unstyled content fix ***/
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+body {
+    opacity: 0;
+}
+
+body.loaded {
+    animation: fadeIn .3s ease-in-out forwards;
+}
+
 /*** Custom ***/
 .clickable {
     cursor: pointer;
-}
-
-.badge-custom {
-    background-color: #fa3e3e;
-    border-radius: 2px;
-    color: white;
-    padding: 1px 3px;
-    font-size: 10px;
-    position: absolute;
-    top: -5px;
-    right: 15px;
 }
 
 .no-link {
@@ -128,6 +136,6 @@ input.input-validation-error {
 }
 
 .list-group-scrollable {
-    max-height: 200px;
+    max-height: 293px;
     overflow-y: scroll;
 }

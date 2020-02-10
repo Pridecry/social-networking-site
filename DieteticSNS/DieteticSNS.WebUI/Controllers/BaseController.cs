@@ -1,9 +1,12 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using AutoMapper;
+using DieteticSNS.Application.Models.Notifications.Queries.GetUnreadNotificationList;
 using DieteticSNS.WebUI.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DieteticSNS.WebUI.Controllers
@@ -28,6 +31,20 @@ namespace DieteticSNS.WebUI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            // Do something before the action executes.
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UnreadNotificationList = await Mediator.Send(new GetUnreadNotificationListQuery());
+            }
+
+            // next() calls the action method.
+            var resultContext = await next();
+            // resultContext.Result is set.
+            // Do something after the action executes.
         }
     }
 }

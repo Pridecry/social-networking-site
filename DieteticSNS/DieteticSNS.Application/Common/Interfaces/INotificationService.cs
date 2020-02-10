@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using DieteticSNS.Application.Models.Notifications.Queries.GetUnreadNotificationList;
 
 namespace DieteticSNS.Application.Common.Interfaces
 {
     public interface INotificationService
     {
-        Task SendMessage(int userId, string message);
+        Task SendNotification(UnreadNotificationDto notification);
     }
 }
