@@ -206,6 +206,36 @@ namespace DieteticSNS.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    RecipientId = table.Column<int>(nullable: false),
+                    IsRead = table.Column<bool>(nullable: false),
+                    NotificationType = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_AspNetUsers_RecipientId",
+                        column: x => x.RecipientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Notifications_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -223,6 +253,30 @@ namespace DieteticSNS.Persistence.Migrations
                     table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Posts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserNotificationSettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    PostComments = table.Column<bool>(nullable: false),
+                    PostLikes = table.Column<bool>(nullable: false),
+                    CommentLikes = table.Column<bool>(nullable: false),
+                    UserFollowings = table.Column<bool>(nullable: false),
+                    UserUnfollowings = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserNotificationSettings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserNotificationSettings_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -406,6 +460,16 @@ namespace DieteticSNS.Persistence.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notifications_RecipientId",
+                table: "Notifications",
+                column: "RecipientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
@@ -424,6 +488,12 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "IX_Reports_AccuserId",
                 table: "Reports",
                 column: "AccuserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserNotificationSettings_UserId",
+                table: "UserNotificationSettings",
+                column: "UserId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -450,7 +520,13 @@ namespace DieteticSNS.Persistence.Migrations
                 name: "Likes");
 
             migrationBuilder.DropTable(
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
                 name: "Reports");
+
+            migrationBuilder.DropTable(
+                name: "UserNotificationSettings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
