@@ -24,8 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\img\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
